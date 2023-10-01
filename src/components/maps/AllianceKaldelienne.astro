@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<div id="map"></div>
+
+<script lang="ts">
+const map = L.map('map', {
+    crs: L.CRS.Simple,
+    zoom: -.75,
+    minZoom: -.75,
+    maxZoom: 4,
+    zoomSnap: 0,
+    bounceAtZoomLimits: false,
+    maxBoundsViscosity: .8
+});
+
+const bounds = [
+    [0, 0],
+    [1551, 1605]
+];
+L.imageOverlay('/maps/alliance-kaldelienne.svg', bounds).addTo(map);
+
+const marker = L.marker([75, 50]).addTo(map);
+marker.bindPopup("<b>Hello world!</b><br>I am a popup. SVG coordinates: x: 378; y:303.5").openPopup();
+
+map.fitBounds(bounds);
+map.setMaxBounds(map.getBounds());
+</script>
+    
+<style>
+html,
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+.leaflet-container {
+    margin: auto;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 1551/1605;
+    background: #98bcd0;
+}
+</style>
