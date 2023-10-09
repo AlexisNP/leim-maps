@@ -1,0 +1,36 @@
+@use './utils/text';
+
+.leaflet-container {
+    margin: auto;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    background: #98bcd0 !important;
+
+    .leaflet-map-pane {
+        .leaflet-tooltip-pane {
+            .leaflet-tooltip {
+                &.capital-name {
+                    padding: .2rem .4rem;
+                    color: #EEE;
+                    font-weight: bold;
+                    background: none;
+                    border: none;
+                    box-shadow: none;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+
+                    &::before {
+                        display: none;
+                    }
+
+                    @include text.stroke(2, #18181b);
+                }
+            }
+        }
+    }
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: .25rem;
+}

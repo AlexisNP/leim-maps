@@ -1,6 +1,16 @@
+---
+import type { MapMarker } from '@/types/Leaflet';
+
+interface Props {
+    markers: MapMarker;
+}
+
+const { markers } = Astro.props
+---
+
 <div id="map"></div>
 
-<script lang="ts">
+<script lang="ts" define:vars={{ markers }}>
     const mapHeight = 15168;
     const mapWidth = 14658;
 
@@ -28,197 +38,7 @@
     /**
      * Build all markers and their related info
      */
-    const markers = [
-        {
-            group: "capitals",
-            title: "Ambrose",
-            description: "Chef-lieu de Nacride et Capitale économique de l'Alliance Kaldélienne.",
-            link: "https://alexcreates.fr/leim/index.php?title=Ambrose",
-            markerCoords: {
-                x: 83.6,
-                y: -185.2,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Cordouac",
-            description: "Chef-lieu d'Héraldie et Capitale administrative de l'Alliance Kaldélienne.",
-            link: "https://alexcreates.fr/leim/index.php?title=Cordouac",
-            markerCoords: {
-                x: 133.46875,
-                y: -146.0625 ,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Bordelac",
-            description: "Chef-lieu des Hautes-Berges",
-            link: "https://alexcreates.fr/leim/index.php?title=Bordelac",
-            markerCoords: {
-                x: 151.22656,
-                y: -173.63281,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Tourgrise",
-            description: "Chef-lieu de Ternâcre. C'est une cité de mages archivistes, mais c'est aussi ici qu'on trouve la plus grande population carcérale de l'Alliance.",
-            link: "https://alexcreates.fr/leim/index.php?title=Tourgrise",
-            markerCoords: {
-                x: 132.26953,
-                y: -98.19141,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Valsoie",
-            description: "Chef-lieu de Mireloin.",
-            link: "https://alexcreates.fr/leim/index.php?title=Valsoie",
-            markerCoords: {
-                x: 103.4375,
-                y: -79.5,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Prismalline",
-            description: "Chef-lieu de Corambre.",
-            link: "https://alexcreates.fr/leim/index.php?title=Prismalline",
-            markerCoords: {
-                x: 103.00329,
-                y: -138.02162,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Port-brisé",
-            description: "Chef-lieu d'Émerose.",
-            link: "https://alexcreates.fr/leim/index.php?title=Port-brisé",
-            markerCoords: {
-                x: 168.39491,
-                y: -109.13376,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Berce",
-            description: "Chef-lieu des Basses-berges.",
-            link: "https://alexcreates.fr/leim/index.php?title=Berce",
-            markerCoords: {
-                x: 173.39874,
-                y: -164.39011,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Lamière",
-            description: "Chef-lieu de Quillon.",
-            link: "https://alexcreates.fr/leim/index.php?title=Lamière",
-            markerCoords: {
-                x: 140.20731,
-                y: -195.77923,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Halport",
-            description: "Chef-lieu de Lagarde.",
-            link: "https://alexcreates.fr/leim/index.php?title=Halport",
-            markerCoords: {
-                x: 76.6803,
-                y: -198.76159,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Soubreciel",
-            description: "Chef-lieu de Rougefer.",
-            link: "https://alexcreates.fr/leim/index.php?title=Soubreciel",
-            markerCoords: {
-                x: 204.42515,
-                y: -226.85883,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Dramast",
-            description: "Chef-lieu d'Asharos.",
-            link: "https://alexcreates.fr/leim/index.php?title=Dramast",
-            markerCoords: {
-                x: 119.35456,
-                y: -27.53623,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Briseroc",
-            description: "Chef-lieu de Pergaré.",
-            link: "https://alexcreates.fr/leim/index.php?title=Briseroc",
-            markerCoords: {
-                x: 41.96763,
-                y: -48.83056,
-            }
-        },
-        {
-            group: "capitals",
-            title: "Demilieu",
-            description: "Ancienne cité militaire laissée à l'abandon depuis plusieurs centaines d'années.",
-            link: "https://alexcreates.fr/leim/index.php?title=Demilieu",
-            markerCoords: {
-                x: 204.75462,
-                y: -116.80687,
-            }
-        },
-        {
-            group: "cities",
-            title: "Borélis",
-            description: "Cité côtière vivant principalement de la pêche.",
-            link: "https://alexcreates.fr/leim/index.php?title=Borélis",
-            markerCoords: {
-                x: 138.44531,
-                y: -51.54687,
-            }
-        },
-        {
-            group: "cities",
-            title: "Alcombe",
-            description: "",
-            link: "https://alexcreates.fr/leim/index.php?title=Alcombe",
-            markerCoords: {
-                x: 165.42471,
-                y: -164.00393,
-            }
-        },
-        {
-            group: "cities",
-            title: "Cristaline",
-            description: "",
-            link: "https://alexcreates.fr/leim/index.php?title=Cristaline",
-            markerCoords: {
-                x: 167.06242,
-                y: -176.47233,
-            }
-        },
-        {
-            group: 'landmarks',
-            title: "L'Ange d'Aldys",
-            description: "Monument dédié à la mémoire des morts du sang noir pendant la Rupture.",
-            markerCoords: {
-                x: 90.125,
-                y: -166.4375,
-            }
-        },
-        {
-            group: 'landmarks',
-            title: "Les Cages Handaniennes",
-            description: "Complexe pénitencier réservé aux criminels maîtrisant la magie.",
-            link: "https://alexcreates.fr/leim/index.php?title=Cages_Handaniennes",
-            markerCoords: {
-                x: 168.31641,
-                y: -60.54297,
-            }
-        }
-    ]
+
 
     for (let i = 0; i < markers.length; i++) {
         const m = markers[i];
@@ -278,7 +98,7 @@
         const displayTooltip = m.group === 'capitals';
 
         if (displayTooltip) {
-            L.tooltip({ permanent: true, direction: 'top', offset: [0, -10], content: m.title, className: "capital-name", opacity: 1 }).setLatLng(coords).addTo(map);
+            L.tooltip({ permanent: true, direction: 'top', offset: [0, 2], content: m.title, className: "capital-name", opacity: 1 }).setLatLng(coords).addTo(map);
         }
 
         marker.addTo(layerGroups[m.group])
@@ -341,7 +161,7 @@
     })
 </script>
     
-<style lang="scss" is:global>
+<style lang="scss">
 html,
 body {
     height: 100vh;
@@ -349,23 +169,6 @@ body {
 }
 
 .leaflet-container {
-    margin: auto;
-    width: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    aspect-ratio: 1551/1605;
-    background: #98bcd0 !important;
-
-    .leaflet-map-pane {
-        .leaflet-tooltip-pane {
-            .leaflet-tooltip {
-                &.capital-name {
-                    padding: .2rem .4rem;
-                    color: #222;
-                    font-weight: bold;
-                }
-            }
-        }
-    }
+    aspect-ratio: 1551 / 1605;
 }
 </style>

@@ -1,8 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AllianceKaldelienne from '../components/maps/AllianceKaldelienne.astro'
+
+const res = await fetch('http://localhost:4321/api/markers.json');
+const data = await res.json();
 ---
 
-<Layout title="Welcome to Astro.">
-    <AllianceKaldelienne />
+<Layout title="Leim Wiki - Cartographie">
+    <AllianceKaldelienne markers={data} />
 </Layout>
