@@ -8,6 +8,6 @@ const landData = await fetchLandMarkers.json();
 const playerCoords = await fetchPlayersPosition.json();
 ---
 
-<Layout title="Leim Wiki - Cartographie">
+<Layout title="Cartographie">
     <AllianceKaldelienne markers={landData} players={playerCoords} />
 </Layout>
