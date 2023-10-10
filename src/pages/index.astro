@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AllianceKaldelienne from '../components/maps/AllianceKaldelienne.astro'
+
+const fetchLandMarkers = await fetch('http://localhost:4321/api/markers.json');
+const fetchPlayersPosition = await fetch('http://localhost:4321/api/players.json');
+const landData = await fetchLandMarkers.json();
+const playerCoords = await fetchPlayersPosition.json();
+---
+
+<Layout title="Cartographie">
+    <AllianceKaldelienne markers={landData} players={playerCoords} />
+</Layout>

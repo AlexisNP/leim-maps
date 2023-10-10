@@ -1,0 +1,195 @@
+---
+import type { MapMarker } from '@/types/Leaflet';
+
+interface Props {
+    markers: MapMarker[];
+    players?: MapMarker;
+}
+
+const { markers, players } = Astro.props
+---
+
+<div id="map"></div>
+
+<script lang="ts" define:vars={{ markers, players }}>
+    const mapHeight = 15168;
+    const mapWidth = 14658;
+
+    const map = L.map('map', {
+        crs: L.CRS.Simple,
+        maxZoom: 12,
+        minZoom: 2.5,
+        zoom: 2.5,
+        zoomSnap: 0,
+    });
+
+    // Layers
+    const layer = L.tileLayer.zoomify('/zoomify/alliance-kaldelienne/{g}/{z}-{x}-{y}.jpg', {
+        width: mapWidth,
+        height: mapHeight,
+    }).addTo(map);
+
+    const layerGroups = {
+        players: L.layerGroup(),
+        capitals: L.layerGroup(),
+        cities: L.layerGroup(),
+        towns: L.layerGroup(),
+        landmarks: L.layerGroup(),
+    };
+
+    /**
+     * Build all markers and their related info
+     */
+    for (let i = 0; i < markers.length; i++) {
+        const m = markers[i];
+
+        const coords = [m.markerCoords.y, m.markerCoords.x];
+
+        let markerIcon
+
+        switch (m.group) {
+            case "capitals":
+                markerIcon = L.icon({
+                    iconUrl: `icons/castle.png`,
+                    shadowUrl: `icons/castle-shadow.png`,
+                    iconSize: [25, 25],
+                    shadowSize: [35, 30],
+                    iconAnchor: [12.5, 8],
+                    shadowAnchor: [11, 12]
+                });
+                break;
+            
+            case "cities":
+                markerIcon = L.icon({
+                    iconUrl: `icons/circle.png`,
+                    iconSize: [12, 12],
+                });
+                break;
+
+            case "landmarks":
+                markerIcon = L.icon({
+                    iconUrl: `icons/monument.png`,
+                    shadowUrl: `icons/monument-shadow.png`,
+                    iconSize: [18, 18],
+                    shadowSize: [32, 14],
+                    iconAnchor: [12.5, 8],
+                    shadowAnchor: [15, 6]
+                });
+                break;
+
+            case "towns":
+            default:
+                iconKey = "house"
+                break;
+        }
+
+        const marker = L.marker(coords, { icon: markerIcon }).addTo(map);
+        const popupContent = `
+            <b>
+                <a href="${m.link}" target="_blank">
+                    ${m.title}
+                </a>
+            </b>
+            <br>
+            ${m.description}
+        `;
+        marker.bindPopup(popupContent).openPopup();
+
+        const displayTooltip = m.group === 'capitals';
+
+        if (displayTooltip) {
+            L.tooltip({ permanent: true, direction: 'top', offset: [0, 2], content: m.title, className: "capital-name", opacity: 1 }).setLatLng(coords).addTo(map);
+        }
+
+        marker.addTo(layerGroups[m.group])
+    }
+
+    /**
+     * Add player's position marker
+     */
+    if ( players ) {
+        const playersPosition = [players.markerCoords.y, players.markerCoords.x];
+
+        const playerIcon = L.icon({
+            iconUrl: `icons/location-pin.png`,
+            shadowUrl: `icons/location-pin-shadow.png`,
+            iconSize: [18, 24],
+            shadowSize: [20, 16],
+            iconAnchor: [11, 8],
+            shadowAnchor: [3, 0],
+        });
+
+        const playerMarker = L.marker(playersPosition, { icon: playerIcon }).addTo(map)
+        playerMarker.addTo(layerGroups['players'])
+
+        console.log(map)
+    }
+
+    map.fitBounds(layer.getBounds());
+
+    // L.control.layers({ "base": layer }, layerGroups).addTo(map);
+
+    /**
+     * RULER
+     */
+    /**
+     * Workaround specific to leaflet version
+     * See https://github.com/ljagis/leaflet-measure/issues/171 for details
+     */
+    L.Control.Measure.include({
+        // set icon on the capture marker
+        _setCaptureMarkerIcon: function () {
+            // disable autopan
+            this._captureMarker.options.autoPanOnFocus = false;
+
+            // default function
+            this._captureMarker.setIcon(
+                L.divIcon({
+                    iconSize: this._map.getSize().multiplyBy(2)
+                })
+            );
+        },
+    });
+
+    const rulerOptions = {
+        position: 'topleft',
+        primaryLengthUnit: 'kilometers',
+        secondaryLengthUnit: 'days',
+        primaryAreaUnit: 'hectares',
+        units: {
+            kilometers: {
+                factor: 0.00013,
+                display: 'Kilomètres',
+            },
+            days: {
+                factor: 0.000002,
+                display: 'Jours de marche',
+                decimals: 1
+            }
+        }
+    };
+
+    const measureControl = L.control.measure(rulerOptions);
+    measureControl.addTo(map);
+
+    /**
+     * DEBUGS
+     */
+    map.addEventListener('click', (event) => {
+        let lat = Math.round(event.latlng.lat * 100000) / 100000;
+        let lng = Math.round(event.latlng.lng * 100000) / 100000;
+        console.log(lat, lng);
+    })
+</script>
+    
+<style lang="scss">
+html,
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+.leaflet-container {
+    aspect-ratio: 1551 / 1605;
+}
+</style>
