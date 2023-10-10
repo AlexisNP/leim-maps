@@ -483,9 +483,9 @@ export const allianceMarkers: MapMarker[] = [
     },
     {
         group: "cities",
-        title: "Félisse",
+        title: "Zélira",
         description: "",
-        link: "https://alexcreates.fr/leim/index.php?title=Félisse",
+        link: "https://alexcreates.fr/leim/index.php?title=Zélira",
         markerCoords: {
             x: 151.79771,
             y: -89.78763,
