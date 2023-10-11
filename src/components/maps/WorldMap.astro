@@ -9,13 +9,15 @@ interface Props {
 const { markers, players } = Astro.props
 ---
 
-<div id="map"></div>
+<div class="world-wrapper">
+    <div id="world"></div>
+</div>
 
 <script lang="ts" define:vars={{ markers, players }}>
     const mapHeight = 15168;
     const mapWidth = 14658;
 
-    const map = L.map('map', {
+    const map = L.map('world', {
         crs: L.CRS.Simple,
         maxZoom: 12,
         minZoom: 2.5,
@@ -121,8 +123,6 @@ const { markers, players } = Astro.props
 
         const playerMarker = L.marker(playersPosition, { icon: playerIcon }).addTo(map)
         playerMarker.addTo(layerGroups['players'])
-
-        console.log(map)
     }
 
     map.fitBounds(layer.getBounds());

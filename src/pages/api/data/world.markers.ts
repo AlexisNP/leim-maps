@@ -1,6 +1,6 @@
 import type { MapMarker } from "@/types/Leaflet";
 
-export const allianceMarkers: MapMarker[] = [
+export const worldMarkers: MapMarker[] = [
     {
         group: "capitals",
         title: "Ambrose",
