@@ -1,13 +1,12 @@
 ---
+import { allTasks } from 'nanostores';
+import { $world } from './worldStore';
+
 import SearchMarkers from "./overlay/SearchMarkers.vue";
-import type { MapMarker } from '@/types/Leaflet';
 
-interface Props {
-    markers: MapMarker[];
-    players?: MapMarker;
-}
-
-const { markers, players } = Astro.props
+$world.listen(() => {})
+await allTasks()
+const { markers, players } = $world.get()
 ---
 
 <div class="world-overlay">

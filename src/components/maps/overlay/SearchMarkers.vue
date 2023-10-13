@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import type { MapMarker } from '@/types/Leaflet';
+import { allTasks } from 'nanostores';
+import { useStore } from '@nanostores/vue'
+import { $world, flyTo } from '../worldStore';
+
 import { useFocus, useMagicKeys, whenever } from '@vueuse/core';
 import { computed, onMounted, ref } from 'vue';
 
-const props = defineProps<{
-    markers?: MapMarker[],
-    players?: MapMarker,
-}>()
+$world.listen(() => {})
+await allTasks()
+
+const { markers, players, lastCoords } = useStore($world).value
 
 // Search functions
 const qInput = ref()
@@ -25,7 +28,7 @@ const shouldBeActive = computed(() => {
 const q = ref<string>("")
 
 const filteredMarkers = computed(() => {
-    return props.markers?.filter(m => {
+    return markers?.filter(m => {
         const unifier = new RegExp(/[^a-zA-Z0-9\-\'']/g)
 
         const queryString = new String(q.value).replace(unifier, "").toLocaleLowerCase()
@@ -46,13 +49,13 @@ whenever(shortcutKeyCombo, () => {
 })
 
 // Player geolocation
-const searchBar = ref()
 function handlePlayerTarget () {
-    // Emit event to store ? to dom ?
+    flyTo(players.markerCoords)
 }
 </script>
 
 <template>
+    {{ lastCoords }}
     <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
         <div class="input-w">
             <i class="search-icon ph-fill ph-magnifying-glass"></i>
