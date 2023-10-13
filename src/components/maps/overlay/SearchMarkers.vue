@@ -39,12 +39,15 @@ const filteredMarkers = computed(() => {
     })
 })
 
-// Handle shortcut to focus the main search fields
+// Key Combos
 const keys = useMagicKeys()
 const shortcutKeyCombo = keys['Shift+Period']
+const eraseKeyCombo = keys['Escape']
 
 whenever(shortcutKeyCombo, () => {
     isFocused.value = true
+})
+whenever(eraseKeyCombo, () => {
     q.value = ""
 })
 
@@ -89,14 +92,14 @@ onUpdated(() => {
             <i class="search-icon ph-fill ph-magnifying-glass"></i>
             <input ref="qInput" type="text" v-model="q">
 
-            <button data-to-players class="player-btn">
+            <button data-to-players class="player-btn" tabindex="1">
                 <i class="pin-icon ph-fill ph-map-pin"></i>
             </button>
         </div>
 
         <ul class="search-results" v-if="shouldBeActive">
             <li v-for="m in filteredMarkers?.slice(0, 10)" :key="m.title">
-                <button class="search-item" :data-to-marker="`${m.markerCoords.x},${m.markerCoords.y}`">
+                <button class="search-item" :data-to-marker="`${m.markerCoords.x},${m.markerCoords.y}`" tabindex="0">
                     <span class="title">{{ m.title }}</span>
                     <span class="desc">{{ m.description }}</span>
                 </button>
@@ -178,9 +181,23 @@ onUpdated(() => {
             cursor: pointer;
             padding: .4rem .25em;
             width: 100%;
+            outline-offset: -1px;
 
             &:hover {
                 background-color: var(--slate-100);
+
+                .title {
+                    text-decoration: underline;
+                }
+            }
+
+            &:focus-visible {
+                outline: 1px dotted var(--slate-500);
+                outline: 4px auto var(--slate-900);
+
+                .title {
+                    text-decoration: underline;
+                }
             }
 
             .title,
@@ -191,6 +208,7 @@ onUpdated(() => {
 
             .title {
                 font-weight: 500;
+                text-underline-offset: 2px;
             }
             .desc {
                 color: var(--slate-500);
