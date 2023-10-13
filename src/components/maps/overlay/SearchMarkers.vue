@@ -90,16 +90,16 @@ onUpdated(() => {
     <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
         <div class="input-w">
             <i class="search-icon ph-fill ph-magnifying-glass"></i>
-            <input ref="qInput" type="text" v-model="q">
+            <input ref="qInput" name="q" type="text" v-model="q" title="Rechercher le monde">
 
-            <button data-to-players class="player-btn" tabindex="1">
+            <button data-to-players class="player-btn" tabindex="1" title="Aller à la position actuelle des joueurs">
                 <i class="pin-icon ph-fill ph-map-pin"></i>
             </button>
         </div>
 
         <ul class="search-results" v-if="shouldBeActive">
             <li v-for="m in filteredMarkers?.slice(0, 10)" :key="m.title">
-                <button class="search-item" :data-to-marker="`${m.markerCoords.x},${m.markerCoords.y}`" tabindex="0">
+                <button class="search-item" :data-to-marker="`${m.markerCoords.x},${m.markerCoords.y}`" tabindex="0" :title="`Aller à ${m.title}`">
                     <span class="title">{{ m.title }}</span>
                     <span class="desc">{{ m.description }}</span>
                 </button>
@@ -153,6 +153,15 @@ onUpdated(() => {
             color: #dc2626;
             border-radius: 50%;
             cursor: pointer;
+
+            &:hover {
+                background-color: var(--slate-200);
+            }
+
+            &:focus-visible {
+                outline: 1px dotted var(--slate-500);
+                outline: 4px auto var(--slate-900);
+            }
         }
     }
 
