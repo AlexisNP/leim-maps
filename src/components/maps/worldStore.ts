@@ -4,15 +4,6 @@ import type { MapCoords, MapMarker } from '../../types/Leaflet';
 export const $world = deepMap({
     markers: [] as MapMarker[],
     players: {} as MapMarker,
-    lastCoords: {
-        y: 0,
-        x: 0,
-    }
-})
-
-export const flyTo = action($world, 'fly-to', (store, coords: MapCoords) => {
-    store.setKey('lastCoords', coords)
-    return store.get()
 })
 
 // Fetch initial data

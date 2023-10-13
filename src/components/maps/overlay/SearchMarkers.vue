@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { allTasks } from 'nanostores';
 import { useStore } from '@nanostores/vue'
-import { $world, flyTo } from '../worldStore';
+import { $world } from '../worldStore';
 
 import { useFocus, useMagicKeys, whenever } from '@vueuse/core';
 import { computed, onMounted, ref } from 'vue';
@@ -9,7 +9,7 @@ import { computed, onMounted, ref } from 'vue';
 $world.listen(() => {})
 await allTasks()
 
-const { markers, players, lastCoords } = useStore($world).value
+const { markers, players } = useStore($world).value
 
 // Search functions
 const qInput = ref()
@@ -48,20 +48,24 @@ whenever(shortcutKeyCombo, () => {
     q.value = ""
 })
 
-// Player geolocation
-function handlePlayerTarget () {
-    flyTo(players.markerCoords)
-}
+// Player geolocation (uses native JS to avoid changing leaflet library)
+onMounted(() => {
+    const playerBtnRef = document.querySelector('[data-to-players]')
+    const flyToPlayers = new CustomEvent('fly-to', { bubbles: true, detail: players.markerCoords })
+
+    playerBtnRef?.addEventListener('click', () => {
+        playerBtnRef.dispatchEvent(flyToPlayers)
+    })
+})
 </script>
 
 <template>
-    {{ lastCoords }}
     <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
         <div class="input-w">
             <i class="search-icon ph-fill ph-magnifying-glass"></i>
             <input ref="qInput" type="text" v-model="q">
 
-            <button class="player-btn" @click.native="handlePlayerTarget">
+            <button data-to-players class="player-btn">
                 <i class="pin-icon ph-fill ph-map-pin"></i>
             </button>
         </div>
