@@ -1,0 +1,31 @@
+---
+import { allTasks } from 'nanostores';
+import { $world } from './worldStore';
+
+import SearchMarkers from "./overlay/SearchMarkers.vue";
+
+$world.listen(() => {})
+await allTasks()
+const { markers, players } = $world.get()
+---
+
+<div class="world-overlay">
+    <SearchMarkers markers={markers} players={players} client:visible />
+</div>
+
+<script>
+
+</script>
+
+<style lang="scss">
+.world-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10;
+    padding: 10px;
+    pointer-events: none;
+}
+</style>

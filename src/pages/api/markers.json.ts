@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
-import { allianceMarkers } from "./data/alliance.markers";
+import { worldMarkers } from "./data/world.markers";
 
 export const GET: APIRoute = ({ params, request }) => {
     return new Response(
-        JSON.stringify(allianceMarkers)
+        JSON.stringify(worldMarkers)
     )
 }
