@@ -23,7 +23,12 @@ const { markers, players } = Astro.props
         minZoom: 2.5,
         zoom: 2.5,
         zoomSnap: 0,
+        zoomControl: false
     });
+
+    L.control.zoom({
+        position: 'bottomright',
+    }).addTo(map);
 
     // Layers
     const layer = L.tileLayer.zoomify('/zoomify/alliance-kaldelienne/{g}/{z}-{x}-{y}.jpg', {
@@ -152,7 +157,7 @@ const { markers, players } = Astro.props
     });
 
     const rulerOptions = {
-        position: 'topleft',
+        position: 'topright',
         primaryLengthUnit: 'kilometers',
         secondaryLengthUnit: 'days',
         primaryAreaUnit: 'hectares',
@@ -187,6 +192,12 @@ html,
 body {
     height: 100vh;
     margin: 0;
+    position: relative;
+}
+
+.world-wrapper {
+    position: fixed;
+    inset: 0;
 }
 
 .leaflet-container {
