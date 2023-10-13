@@ -19,11 +19,7 @@ onMounted(() => {
     isFocused.value = true
 })
 
-const shouldBeActive = computed(() => {
-    if (q.value.length > 0) {
-        return isFocused
-    }
-})
+const shouldBeActive = computed(() => q.value.length > 0)
 
 const q = ref<string>("")
 
@@ -49,6 +45,7 @@ whenever(shortcutKeyCombo, () => {
 })
 whenever(eraseKeyCombo, () => {
     q.value = ""
+    isFocused.value = true
 })
 
 /**
@@ -90,9 +87,9 @@ onUpdated(() => {
     <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
         <div class="input-w">
             <i class="search-icon ph-fill ph-magnifying-glass"></i>
-            <input ref="qInput" name="q" type="text" v-model="q" title="Rechercher le monde">
+            <input ref="qInput" name="recherche" type="text" v-model="q" title="Rechercher le monde">
 
-            <button data-to-players class="player-btn" tabindex="1" title="Aller à la position actuelle des joueurs">
+            <button data-to-players class="player-btn" :tabindex="shouldBeActive ? 1 : 0" title="Aller à la position actuelle des joueurs">
                 <i class="pin-icon ph-fill ph-map-pin"></i>
             </button>
         </div>
@@ -112,11 +109,11 @@ onUpdated(() => {
 .search-w {
     margin-bottom: 1em;
     padding: .5rem 1.2rem;
-    width: 25%;
-    min-width: 20rem;
+    width: calc(100% - 3rem);
     background: #fff;
     border: 1px solid var(--slate-400);
     border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     pointer-events: all;
 
     .input-w {
@@ -147,6 +144,8 @@ onUpdated(() => {
         }
 
         .player-btn {
+            position: relative;
+            isolation: isolate;
             aspect-ratio: 1 / 1;
             line-height: 1;
             font-size: 1.5em;
@@ -154,13 +153,32 @@ onUpdated(() => {
             border-radius: 50%;
             cursor: pointer;
 
+            &::before {
+                display: block;
+                content: '';
+                position: absolute;
+                inset: -.4rem;
+                background-color: transparent;
+                border-radius: 50%;
+                z-index: -1;
+                outline-offset: -.2rem;
+                transition-property: background-color;
+                transition-duration: .2s;
+                transition-timing-function: ease-in-out;
+            }
+
             &:hover {
-                background-color: var(--slate-200);
+                &::before {
+                    background-color: var(--slate-300);
+                }
             }
 
             &:focus-visible {
-                outline: 1px dotted var(--slate-500);
-                outline: 4px auto var(--slate-900);
+                &::before {
+                    background-color: var(--slate-200);
+                    outline: 1px dotted var(--slate-500);
+                    outline: 4px auto var(--slate-900);
+                }
             }
         }
     }
@@ -235,6 +253,12 @@ onUpdated(() => {
                 padding-block-start: .2rem;
             }
         }
+    }
+}
+
+@media screen and (width >= 900px) {
+    .search-w {
+        width: 29%;
     }
 }
 </style>
