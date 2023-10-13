@@ -4,7 +4,7 @@ import { useStore } from '@nanostores/vue'
 import { $world } from '../worldStore';
 
 import { useFocus, useMagicKeys, whenever } from '@vueuse/core';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, onUpdated } from 'vue';
 
 $world.listen(() => {})
 await allTasks()
@@ -48,13 +48,37 @@ whenever(shortcutKeyCombo, () => {
     q.value = ""
 })
 
-// Player geolocation (uses native JS to avoid changing leaflet library)
+/**
+ * Player geolocation
+ * Uses native JS to avoid changing leaflet library
+ */
 onMounted(() => {
     const playerBtnRef = document.querySelector('[data-to-players]')
     const flyToPlayers = new CustomEvent('fly-to', { bubbles: true, detail: players.markerCoords })
 
     playerBtnRef?.addEventListener('click', () => {
         playerBtnRef.dispatchEvent(flyToPlayers)
+    })
+})
+
+/**
+ * Marker geolocation
+ * We need to use onUpdated hook because the list is not always rendered, and it often rebuilt.
+*/
+onUpdated(() => {
+    const markerBtnRefs = document.querySelectorAll('[data-to-marker]')
+
+    markerBtnRefs.forEach((btn) => {
+        const { toMarker } = (btn as HTMLButtonElement).dataset
+        if (!toMarker) return
+        const rawCoords = toMarker?.split(',')
+        const detail = {
+            x: rawCoords[0],
+            y: rawCoords[1]
+        }
+        const flyToMarker = new CustomEvent('fly-to', { bubbles: true, detail })
+
+        btn.addEventListener('click', () => btn.dispatchEvent(flyToMarker))
     })
 })
 </script>
@@ -72,7 +96,7 @@ onMounted(() => {
 
         <ul class="search-results" v-if="shouldBeActive">
             <li v-for="m in filteredMarkers?.slice(0, 10)" :key="m.title">
-                <button class="search-item">
+                <button class="search-item" :data-to-marker="`${m.markerCoords.x},${m.markerCoords.y}`">
                     <span class="title">{{ m.title }}</span>
                     <span class="desc">{{ m.description }}</span>
                 </button>
