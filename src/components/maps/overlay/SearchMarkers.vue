@@ -87,7 +87,7 @@ onUpdated(() => {
     <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
         <div class="input-w">
             <i class="search-icon ph-fill ph-magnifying-glass"></i>
-            <input ref="qInput" name="recherche" type="text" v-model="q" title="Rechercher le monde">
+            <input ref="qInput" name="recherche" type="text" v-model="q" title="Rechercher le monde" placeholder="Ville, point d'intérêt…">
 
             <button data-to-players class="player-btn" :tabindex="shouldBeActive ? 1 : 0" title="Aller à la position actuelle des joueurs">
                 <i class="pin-icon ph-fill ph-map-pin"></i>
@@ -131,6 +131,10 @@ onUpdated(() => {
             min-width: 10rem;
             padding-inline-start: calc($search-icon-size + $search-items-gap);
             flex-grow: 1;
+
+            &::placeholder {
+                color: var(--slate-400);
+            }
         }
 
         .search-icon {
