@@ -90,11 +90,11 @@ for (let i = 0; i < markers.length; i++) {
 
     const marker = L.marker(coords, { icon: markerIcon }).addTo(map);
     const popupContent = `
-        <b>
+        <strong>
             <a href="${m.link}" target="_blank">
                 ${m.title}
             </a>
-        </b>
+        </strong>
         <br>
         ${m.description}
     `;

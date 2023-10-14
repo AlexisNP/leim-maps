@@ -8,6 +8,22 @@
     background: #f1f5f9;
 
     .leaflet-map-pane {
+        .leaflet-popup-pane {
+            .leaflet-popup-content-wrapper {
+                border-radius: .25rem;
+
+                .leaflet-popup-content {
+                    strong {
+                        margin-bottom: .25em;
+
+                        a {
+                            text-underline-offset: 2px;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
         .leaflet-tooltip-pane {
             .leaflet-tooltip {
                 &.capital-name {
@@ -29,8 +45,4 @@
             }
         }
     }
-}
-
-.leaflet-popup-content-wrapper {
-    border-radius: .25rem;
 }
