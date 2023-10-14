@@ -13,13 +13,29 @@
                 border-radius: .25rem;
 
                 .leaflet-popup-content {
-                    strong {
-                        margin-bottom: .25em;
+                    .title {
+                        display: block;
+                        font-weight: 600;
+                        text-underline-offset: 2px;
+                        text-decoration: underline;
+                    }
 
-                        a {
-                            text-underline-offset: 2px;
-                            text-decoration: underline;
-                        }
+                    strong.title {
+                        color: #16a34a;
+                    }
+
+                    a.title:hover {
+                        text-decoration: none;
+                        color: #16a34a;
+                    }
+
+                    p {
+
+                    }
+
+                    > * + * {
+                        margin: 0;
+                        margin-top: .4em;
                     }
                 }
             }

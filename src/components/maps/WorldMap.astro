@@ -89,15 +89,22 @@ for (let i = 0; i < markers.length; i++) {
     }
 
     const marker = L.marker(coords, { icon: markerIcon }).addTo(map);
-    const popupContent = `
-        <strong>
-            <a href="${m.link}" target="_blank">
+    let popupContent = "";
+    if (m.link) {
+        popupContent = `
+            <a href="${m.link}" target="_blank" class="title">
                 ${m.title}
             </a>
-        </strong>
-        <br>
-        ${m.description}
-    `;
+            <p>${m.description}</p>
+        `;
+    } else {
+        popupContent = `
+            <strong class="title">
+                ${m.title}
+            </strong>
+            <p>${m.description}</p>
+        `;
+    }
     marker.bindPopup(popupContent).openPopup();
 
     const displayTooltip = m.group === 'capitals';
