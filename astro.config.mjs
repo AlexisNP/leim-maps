@@ -10,4 +10,5 @@ export default defineConfig({
     adapter: nodeJs({
         mode: 'standalone'
     }),
+    site: 'https://maps.alexcreates.fr'
 });
