@@ -133,6 +133,14 @@ if ( players ) {
 
     const playerMarker = L.marker(playersPosition, { icon: playerIcon }).addTo(map)
     playerMarker.addTo(layerGroups['players'])
+
+    const popupContent = `
+        <strong class="title">
+            ${players.title}
+        </strong>
+        <p>${players.description}</p>
+    `;
+    playerMarker.bindPopup(popupContent).openPopup();
 }
 
 map.fitBounds(layer.getBounds());

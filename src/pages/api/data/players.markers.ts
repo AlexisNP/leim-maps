@@ -6,4 +6,5 @@ export const playerPosition: PlayerMarker = {
         x: 162.05197
     },
     title: "L'Éclipse",
+    description: "Tara Belyus, Vascylly et Adol Sulvan livrent 3 condamnés à Handany."
 }

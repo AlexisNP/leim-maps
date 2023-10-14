@@ -16,21 +16,20 @@
                     .title {
                         display: block;
                         font-weight: 600;
-                        text-underline-offset: 2px;
-                        text-decoration: underline;
                     }
 
                     strong.title {
                         color: #16a34a;
                     }
 
-                    a.title:hover {
-                        text-decoration: none;
-                        color: #16a34a;
-                    }
+                    a.title {
+                        text-underline-offset: 2px;
+                        text-decoration: underline;
 
-                    p {
-
+                        &:hover {
+                            text-decoration: none;
+                            color: #16a34a;
+                        }
                     }
 
                     > * + * {

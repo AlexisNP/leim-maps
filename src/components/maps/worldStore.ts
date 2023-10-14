@@ -1,9 +1,9 @@
 import { deepMap, onMount, task } from 'nanostores'
-import type { MapMarker } from '../../types/Leaflet';
+import type { MapMarker, PlayerMarker } from '../../types/Leaflet';
 
 export const $world = deepMap({
     markers: [] as MapMarker[],
-    players: {} as MapMarker,
+    players: {} as PlayerMarker,
 })
 
 // Fetch initial data
