@@ -2,14 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import WorldMap from '../components/maps/WorldMap.astro'
 import WorldMapOverlay from '../components/maps/WorldMapOverlay.astro'
-
-const fetchLandMarkers = await fetch('http://localhost:4321/api/markers.json');
-const fetchPlayersPosition = await fetch('http://localhost:4321/api/players.json');
-const landData = await fetchLandMarkers.json();
-const playerCoords = await fetchPlayersPosition.json();
 ---
 
 <Layout title="Cartographie">
-    <WorldMapOverlay markers={landData} players={playerCoords} />
-    <WorldMap markers={landData} players={playerCoords} />
+    <WorldMapOverlay />
+    <WorldMap />
 </Layout>

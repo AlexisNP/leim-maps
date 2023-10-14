@@ -19,11 +19,7 @@ onMounted(() => {
     isFocused.value = true
 })
 
-const shouldBeActive = computed(() => {
-    if (q.value.length > 0) {
-        return isFocused
-    }
-})
+const shouldBeActive = computed(() => q.value.length > 0)
 
 const q = ref<string>("")
 
@@ -49,6 +45,7 @@ whenever(shortcutKeyCombo, () => {
 })
 whenever(eraseKeyCombo, () => {
     q.value = ""
+    isFocused.value = true
 })
 
 /**
@@ -90,16 +87,16 @@ onUpdated(() => {
     <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
         <div class="input-w">
             <i class="search-icon ph-fill ph-magnifying-glass"></i>
-            <input ref="qInput" type="text" v-model="q">
+            <input ref="qInput" name="recherche" type="text" v-model="q" title="Rechercher le monde" placeholder="Ville, point d'intérêt…">
 
-            <button data-to-players class="player-btn" tabindex="1">
+            <button data-to-players class="player-btn" :tabindex="shouldBeActive ? 1 : 0" title="Aller à la position actuelle des joueurs">
                 <i class="pin-icon ph-fill ph-map-pin"></i>
             </button>
         </div>
 
         <ul class="search-results" v-if="shouldBeActive">
             <li v-for="m in filteredMarkers?.slice(0, 10)" :key="m.title">
-                <button class="search-item" :data-to-marker="`${m.markerCoords.x},${m.markerCoords.y}`" tabindex="0">
+                <button class="search-item" :data-to-marker="`${m.markerCoords.x},${m.markerCoords.y}`" tabindex="0" :title="`Aller à ${m.title}`">
                     <span class="title">{{ m.title }}</span>
                     <span class="desc">{{ m.description }}</span>
                 </button>
@@ -112,11 +109,11 @@ onUpdated(() => {
 .search-w {
     margin-bottom: 1em;
     padding: .5rem 1.2rem;
-    width: 25%;
-    min-width: 20rem;
+    width: calc(100% - 3rem);
     background: #fff;
     border: 1px solid var(--slate-400);
     border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     pointer-events: all;
 
     .input-w {
@@ -134,6 +131,10 @@ onUpdated(() => {
             min-width: 10rem;
             padding-inline-start: calc($search-icon-size + $search-items-gap);
             flex-grow: 1;
+
+            &::placeholder {
+                color: var(--slate-400);
+            }
         }
 
         .search-icon {
@@ -147,12 +148,42 @@ onUpdated(() => {
         }
 
         .player-btn {
+            position: relative;
+            isolation: isolate;
             aspect-ratio: 1 / 1;
             line-height: 1;
             font-size: 1.5em;
             color: #dc2626;
             border-radius: 50%;
             cursor: pointer;
+
+            &::before {
+                display: block;
+                content: '';
+                position: absolute;
+                inset: -.4rem;
+                background-color: transparent;
+                border-radius: 50%;
+                z-index: -1;
+                outline-offset: -.2rem;
+                transition-property: background-color;
+                transition-duration: .2s;
+                transition-timing-function: ease-in-out;
+            }
+
+            &:hover {
+                &::before {
+                    background-color: var(--slate-300);
+                }
+            }
+
+            &:focus-visible {
+                &::before {
+                    background-color: var(--slate-200);
+                    outline: 1px dotted var(--slate-500);
+                    outline: 4px auto var(--slate-900);
+                }
+            }
         }
     }
 
@@ -226,6 +257,12 @@ onUpdated(() => {
                 padding-block-start: .2rem;
             }
         }
+    }
+}
+
+@media screen and (width >= 900px) {
+    .search-w {
+        width: 29%;
     }
 }
 </style>

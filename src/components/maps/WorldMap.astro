@@ -89,15 +89,22 @@ for (let i = 0; i < markers.length; i++) {
     }
 
     const marker = L.marker(coords, { icon: markerIcon }).addTo(map);
-    const popupContent = `
-        <b>
-            <a href="${m.link}" target="_blank">
+    let popupContent = "";
+    if (m.link) {
+        popupContent = `
+            <a href="${m.link}" target="_blank" class="title">
                 ${m.title}
             </a>
-        </b>
-        <br>
-        ${m.description}
-    `;
+            <p>${m.description}</p>
+        `;
+    } else {
+        popupContent = `
+            <strong class="title">
+                ${m.title}
+            </strong>
+            <p>${m.description}</p>
+        `;
+    }
     marker.bindPopup(popupContent).openPopup();
 
     const displayTooltip = m.group === 'capitals';
@@ -126,6 +133,14 @@ if ( players ) {
 
     const playerMarker = L.marker(playersPosition, { icon: playerIcon }).addTo(map)
     playerMarker.addTo(layerGroups['players'])
+
+    const popupContent = `
+        <strong class="title">
+            ${players.title}
+        </strong>
+        <p>${players.description}</p>
+    `;
+    playerMarker.bindPopup(popupContent).openPopup();
 }
 
 map.fitBounds(layer.getBounds());
@@ -204,6 +219,10 @@ body {
 .world-wrapper {
     position: fixed;
     inset: 0;
+
+    #world {
+        height: 100%;
+    }
 }
 
 .leaflet-container {

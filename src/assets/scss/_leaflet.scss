@@ -8,6 +8,37 @@
     background: #f1f5f9;
 
     .leaflet-map-pane {
+        .leaflet-popup-pane {
+            .leaflet-popup-content-wrapper {
+                border-radius: .25rem;
+
+                .leaflet-popup-content {
+                    .title {
+                        display: block;
+                        font-weight: 600;
+                    }
+
+                    strong.title {
+                        color: #16a34a;
+                    }
+
+                    a.title {
+                        text-underline-offset: 2px;
+                        text-decoration: underline;
+
+                        &:hover {
+                            text-decoration: none;
+                            color: #16a34a;
+                        }
+                    }
+
+                    > * + * {
+                        margin: 0;
+                        margin-top: .4em;
+                    }
+                }
+            }
+        }
         .leaflet-tooltip-pane {
             .leaflet-tooltip {
                 &.capital-name {
@@ -29,8 +60,4 @@
             }
         }
     }
-}
-
-.leaflet-popup-content-wrapper {
-    border-radius: .25rem;
 }
