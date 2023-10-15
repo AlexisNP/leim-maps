@@ -5,11 +5,7 @@ let baseUrl: string
 
 const isDev = import.meta.env.DEV;
 
-if (isDev) {
-    baseUrl = "http://localhost:4321/"
-} else {
-    baseUrl = import.meta.env.SITE
-}
+baseUrl = "http://localhost:4321/"
 
 export const $world = deepMap({
     markers: [] as MapMarker[],
