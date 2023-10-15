@@ -11,7 +11,7 @@ const { markers, players } = $world.get()
     <div id="world"></div>
 </div>
 
-<script lang="ts" define:vars={{ markers, players }}>
+<script lang="ts" define:vars={{ markers, players }} defer>
 const mapHeight = 15168;
 const mapWidth = 14658;
 
@@ -41,6 +41,8 @@ const layerGroups = {
     towns: L.layerGroup(),
     landmarks: L.layerGroup(),
 };
+
+const flyToDuration = 1.2; // In seconds
 
 /**
  * Build all markers and their related info
@@ -114,6 +116,16 @@ for (let i = 0; i < markers.length; i++) {
     }
 
     marker.addTo(layerGroups[m.group])
+
+    /**
+     * Display popup of marker
+     */
+    document.addEventListener(`fly-to-${m.title}`, () => {
+        map.flyTo(coords, 5, { duration: flyToDuration })
+        setTimeout(() => {
+            marker.openPopup()
+        }, flyToDuration * 1000)
+    })
 }
 
 /**
@@ -141,6 +153,16 @@ if ( players ) {
         <p>${players.description}</p>
     `;
     playerMarker.bindPopup(popupContent).openPopup();
+
+    /**
+     * Flying to players
+     */
+    document.addEventListener('fly-to-players', () => {
+        map.flyTo(playersPosition, 5, { duration: flyToDuration })
+        setTimeout(() => {
+            playerMarker.openPopup()
+        }, flyToDuration * 1000)
+    })
 }
 
 map.fitBounds(layer.getBounds());
@@ -191,14 +213,6 @@ const measureControl = L.control.measure(rulerOptions);
 measureControl.addTo(map);
 
 /**
- * Flying to points of interests
- */
- document.addEventListener('fly-to', (e) => {
-    const targetCoords = e.detail
-    map.flyTo([targetCoords.y, targetCoords.x], 5)
-})
-
-/**
  * DEBUGS
  */
 map.addEventListener('click', (event) => {
@@ -222,6 +236,7 @@ body {
 
     #world {
         height: 100%;
+        width: 100%;
     }
 }
 

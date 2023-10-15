@@ -10,7 +10,8 @@ const { title } = Astro.props;
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+        <meta name="author" content="Alexis Pelé" />
+		<meta name="description" content="Carte du monde connu de Léim, centrée sur l'Alliance Kaldélienne" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} — Leim Wiki</title>
@@ -38,6 +39,6 @@ const { title } = Astro.props;
 	</body>
 </html>
 
-<style lang="scss">
-    @use '../assets/scss/theme.scss';
+<style lang="scss" is:global>
+    @import '../assets/scss/theme.scss';
 </style>

@@ -9,7 +9,7 @@ import { computed, onMounted, ref, onUpdated } from 'vue';
 $world.listen(() => {})
 await allTasks()
 
-const { markers, players } = useStore($world).value
+const { markers } = useStore($world).value
 
 // Search functions
 const qInput = ref()
@@ -23,10 +23,10 @@ const shouldBeActive = computed(() => q.value.length > 0)
 
 const q = ref<string>("")
 
+const unifier = new RegExp(/[^a-zA-Z0-9\-\'']/g)
+
 const filteredMarkers = computed(() => {
     return markers?.filter(m => {
-        const unifier = new RegExp(/[^a-zA-Z0-9\-\'']/g)
-
         const queryString = new String(q.value).replace(unifier, "").toLocaleLowerCase()
         const hitTitle = m.title.replace(unifier, "").toLocaleLowerCase().includes(queryString)
         const hitDesc = m.description?.replace(unifier, "").toLocaleLowerCase().includes(queryString)
@@ -54,7 +54,7 @@ whenever(eraseKeyCombo, () => {
  */
 onMounted(() => {
     const playerBtnRef = document.querySelector('[data-to-players]')
-    const flyToPlayers = new CustomEvent('fly-to', { bubbles: true, detail: players.markerCoords })
+    const flyToPlayers = new CustomEvent(`fly-to-players`, { bubbles: true })
 
     playerBtnRef?.addEventListener('click', () => {
         playerBtnRef.dispatchEvent(flyToPlayers)
@@ -71,12 +71,7 @@ onUpdated(() => {
     markerBtnRefs.forEach((btn) => {
         const { toMarker } = (btn as HTMLButtonElement).dataset
         if (!toMarker) return
-        const rawCoords = toMarker?.split(',')
-        const detail = {
-            x: rawCoords[0],
-            y: rawCoords[1]
-        }
-        const flyToMarker = new CustomEvent('fly-to', { bubbles: true, detail })
+        const flyToMarker = new CustomEvent(`fly-to-${toMarker}`, { bubbles: true })
 
         btn.addEventListener('click', () => btn.dispatchEvent(flyToMarker))
     })
@@ -96,7 +91,7 @@ onUpdated(() => {
 
         <ul class="search-results" v-if="shouldBeActive">
             <li v-for="m in filteredMarkers?.slice(0, 10)" :key="m.title">
-                <button class="search-item" :data-to-marker="`${m.markerCoords.x},${m.markerCoords.y}`" tabindex="0" :title="`Aller à ${m.title}`">
+                <button class="search-item" :data-to-marker="m.title" tabindex="0" :title="`Aller à ${m.title}`">
                     <span class="title">{{ m.title }}</span>
                     <span class="desc">{{ m.description }}</span>
                 </button>
