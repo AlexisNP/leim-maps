@@ -73,8 +73,6 @@ onUpdated(() => {
         if (!toMarker) return
         const flyToMarker = new CustomEvent(`fly-to-${toMarker}`, { bubbles: true })
 
-        console.log(flyToMarker)
-
         btn.addEventListener('click', () => btn.dispatchEvent(flyToMarker))
     })
 })
