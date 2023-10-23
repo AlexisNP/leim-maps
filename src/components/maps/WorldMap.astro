@@ -13,8 +13,16 @@ const players = playersData as PlayerMarker
 </div>
 
 <script lang="ts" define:vars={{ markers, players }} defer>
-const mapHeight = 15168;
-const mapWidth = 14658;
+const mapHeight = 21896;
+const mapWidth = 30000;
+
+const xRatio = .68447
+const yRatio = .68447
+const zoomRatio = .75
+const xOffset = 0
+const yOffset = -27.63442
+
+const distanceRatio = 2
 
 const map = L.map('world', {
     crs: L.CRS.Simple,
@@ -30,7 +38,7 @@ L.control.zoom({
 }).addTo(map);
 
 // Layers
-const layer = L.tileLayer.zoomify('/zoomify/alliance-kaldelienne/{g}/{z}-{x}-{y}.jpg', {
+const layer = L.tileLayer.zoomify('/zoomify/aldys-nord/{g}/{z}-{x}-{y}.jpg', {
     width: mapWidth,
     height: mapHeight,
 }).addTo(map);
@@ -51,7 +59,7 @@ const flyToDuration = 1.2; // In seconds
 for (let i = 0; i < markers.length; i++) {
     const m = markers[i];
 
-    const coords = [m.markerCoords.y, m.markerCoords.x];
+    const coords = [(m.markerCoords.y * yRatio * zoomRatio) + yOffset, (m.markerCoords.x * xRatio * zoomRatio) + xOffset];
 
     let markerIcon
 
@@ -133,7 +141,7 @@ for (let i = 0; i < markers.length; i++) {
  * Add player's position marker
  */
 if ( players ) {
-    const playersPosition = [players.markerCoords.y, players.markerCoords.x];
+    const playersPosition =[(players.markerCoords.y * yRatio * zoomRatio) + yOffset, (players.markerCoords.x * xRatio * zoomRatio) + xOffset];
 
     const playerIcon = L.icon({
         iconUrl: `icon/location-pin.png`,
@@ -199,11 +207,11 @@ const rulerOptions = {
     primaryAreaUnit: 'hectares',
     units: {
         kilometers: {
-            factor: 0.00013,
+            factor: 0.00013 * distanceRatio,
             display: 'Kilomètres',
         },
         days: {
-            factor: 0.000002,
+            factor: 0.000002 * distanceRatio,
             display: 'Jours de marche',
             decimals: 1
         }
@@ -218,8 +226,10 @@ measureControl.addTo(map);
  */
 map.addEventListener('click', (event) => {
     let lat = Math.round(event.latlng.lat * 100000) / 100000;
-    let lng = Math.round(event.latlng.lng * 100000) / 100000;
-    console.log(lat, lng);
+    let lon = Math.round(event.latlng.lng * 100000) / 100000;
+    lat = (lat * xRatio * zoomRatio) + xOffset
+    lon = (lon * yRatio * zoomRatio) + yOffset
+    console.log(lat, lon);
 })
 </script>
     
