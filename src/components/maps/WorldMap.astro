@@ -22,16 +22,36 @@ const zoomRatio = .75
 const xOffset = 0
 const yOffset = -27.63442
 
+const flyToDuration = 1.2; // In seconds
+const flyToZoomLevel = 6.5
+
+/**
+ * Convert x coords to scale with ratio, zoom and offset
+ * @param {number} x
+ */
+function convertXToScale(x) {
+    return (x * xRatio * zoomRatio) + xOffset
+}
+/**
+ * Convert y coords to scale with ratio, zoom and offset
+ * @param {number} y
+ */
+function convertYToScale(y) {
+    return (y * yRatio * zoomRatio) + yOffset
+}
+
 const distanceRatio = 2
 
 const map = L.map('world', {
     crs: L.CRS.Simple,
-    maxZoom: 12,
-    minZoom: 2.5,
-    zoom: 2.5,
+    maxZoom: 8.5,
+    minZoom: 4,
+    zoom: 4,
     zoomSnap: 0,
     zoomControl: false
 });
+
+// Immediately set center of map
 
 L.control.zoom({
     position: 'bottomright',
@@ -51,15 +71,13 @@ const layerGroups = {
     landmarks: L.layerGroup(),
 };
 
-const flyToDuration = 1.2; // In seconds
-
 /**
  * Build all markers and their related info
  */
 for (let i = 0; i < markers.length; i++) {
     const m = markers[i];
 
-    const coords = [(m.markerCoords.y * yRatio * zoomRatio) + yOffset, (m.markerCoords.x * xRatio * zoomRatio) + xOffset];
+    const coords = [convertYToScale(m.markerCoords.y), convertXToScale(m.markerCoords.x)];
 
     let markerIcon
 
@@ -130,7 +148,7 @@ for (let i = 0; i < markers.length; i++) {
      * Display popup of marker
      */
     document.addEventListener(`fly-to-${m.title}`, () => {
-        map.flyTo(coords, 5, { duration: flyToDuration })
+        map.flyTo(coords, flyToZoomLevel, { duration: flyToDuration })
         setTimeout(() => {
             marker.openPopup()
         }, flyToDuration * 1000)
@@ -141,7 +159,13 @@ for (let i = 0; i < markers.length; i++) {
  * Add player's position marker
  */
 if ( players ) {
-    const playersPosition =[(players.markerCoords.y * yRatio * zoomRatio) + yOffset, (players.markerCoords.x * xRatio * zoomRatio) + xOffset];
+    const playersPosition =[
+        convertYToScale(players.markerCoords.y),
+        convertXToScale(players.markerCoords.x)
+    ];
+
+    console.log(players)
+    console.log(playersPosition)
 
     const playerIcon = L.icon({
         iconUrl: `icon/location-pin.png`,
@@ -163,11 +187,8 @@ if ( players ) {
     `;
     playerMarker.bindPopup(popupContent).openPopup();
 
-    /**
-     * Flying to players
-     */
     document.addEventListener('fly-to-players', () => {
-        map.flyTo(playersPosition, 5, { duration: flyToDuration })
+        map.flyTo(playersPosition, flyToZoomLevel, { duration: flyToDuration })
         setTimeout(() => {
             playerMarker.openPopup()
         }, flyToDuration * 1000)
@@ -225,10 +246,8 @@ measureControl.addTo(map);
  * DEBUGS
  */
 map.addEventListener('click', (event) => {
-    let lat = Math.round(event.latlng.lat * 100000) / 100000;
-    let lon = Math.round(event.latlng.lng * 100000) / 100000;
-    lat = (lat * xRatio * zoomRatio) + xOffset
-    lon = (lon * yRatio * zoomRatio) + yOffset
+    const lat = convertXToScale(event.latlng.lat)
+    const lon = convertYToScale(event.latlng.lng)
     console.log(lat, lon);
 })
 </script>
