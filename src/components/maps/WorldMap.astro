@@ -158,7 +158,8 @@ for (let i = 0; i < markers.length; i++) {
 /**
  * Add player's position marker
  */
-if ( players ) {
+if ( players && Object.keys(players).length > 0 ) {
+    console.log(players)
     const playersPosition =[
         convertYToScale(players.markerCoords.y),
         convertXToScale(players.markerCoords.x)

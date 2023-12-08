@@ -60,6 +60,8 @@ onMounted(() => {
     })
 })
 
+const hasPlayers = computed(() => Object.keys(props.players).length > 0)
+
 /**
  * Marker geolocation
  * We need to use onUpdated hook because the list is not always rendered, and it often rebuilt.
@@ -83,7 +85,7 @@ onUpdated(() => {
             <i class="search-icon ph-fill ph-magnifying-glass"></i>
             <input ref="qInput" name="recherche" type="text" v-model="q" title="Rechercher le monde" placeholder="Ville, point d'intérêt…">
 
-            <button data-to-players class="player-btn" :tabindex="shouldBeActive ? 1 : 0" title="Aller à la position actuelle des joueurs">
+            <button v-if="hasPlayers" data-to-players class="player-btn" :tabindex="shouldBeActive ? 1 : 0" title="Aller à la position actuelle des joueurs">
                 <i class="pin-icon ph-fill ph-map-pin"></i>
             </button>
         </div>
