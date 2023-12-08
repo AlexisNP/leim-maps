@@ -598,6 +598,15 @@
                 "x": 58.89295,
                 "y": -189.69308
             }
+        },
+        {
+            "group": "landmarks",
+            "title": "Épave de l'Éclipse",
+            "description": "Carcasse d'un bateau de garde de la cité de Borélis, échouée sur le rivage rocheux par <a href=\"https://alexcreates.fr/leim/index.php?title=Sulvan Trois-Barbes\" target=\"_blank\">Sulvan Trois-Barbes</a>, un anarchiste de Bamast.",
+            "markerCoords": {
+                "y": -57.93673,
+                "x": 165.08197
+            }
         }
     ]
 }
