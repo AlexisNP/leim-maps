@@ -1,10 +1,11 @@
 ---
-import { allTasks } from 'nanostores';
-import { $world } from './worldStore';
+import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
 
-$world.listen(() => {})
-await allTasks()
-const { markers, players } = $world.get()
+import markersData from '@/components/maps/data/markers.json'
+import playersData from '@/components/maps/data/players.json'
+
+const markers = markersData.data as MapMarker[]
+const players = playersData as PlayerMarker
 ---
 
 <div class="world-wrapper">
@@ -57,8 +58,8 @@ for (let i = 0; i < markers.length; i++) {
     switch (m.group) {
         case "capitals":
             markerIcon = L.icon({
-                iconUrl: `icons/castle.png`,
-                shadowUrl: `icons/castle-shadow.png`,
+                iconUrl: `icon/castle.png`,
+                shadowUrl: `icon/castle-shadow.png`,
                 iconSize: [25, 25],
                 shadowSize: [35, 30],
                 iconAnchor: [12.5, 8],
@@ -68,15 +69,15 @@ for (let i = 0; i < markers.length; i++) {
         
         case "cities":
             markerIcon = L.icon({
-                iconUrl: `icons/circle.png`,
+                iconUrl: `icon/circle.png`,
                 iconSize: [12, 12],
             });
             break;
 
         case "landmarks":
             markerIcon = L.icon({
-                iconUrl: `icons/monument.png`,
-                shadowUrl: `icons/monument-shadow.png`,
+                iconUrl: `icon/monument.png`,
+                shadowUrl: `icon/monument-shadow.png`,
                 iconSize: [18, 18],
                 shadowSize: [32, 14],
                 iconAnchor: [12.5, 8],
@@ -135,8 +136,8 @@ if ( players ) {
     const playersPosition = [players.markerCoords.y, players.markerCoords.x];
 
     const playerIcon = L.icon({
-        iconUrl: `icons/location-pin.png`,
-        shadowUrl: `icons/location-pin-shadow.png`,
+        iconUrl: `icon/location-pin.png`,
+        shadowUrl: `icon/location-pin-shadow.png`,
         iconSize: [18, 24],
         shadowSize: [20, 16],
         iconAnchor: [11, 8],

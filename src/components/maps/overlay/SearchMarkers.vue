@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { allTasks } from 'nanostores';
-import { useStore } from '@nanostores/vue'
-import { $world } from '../worldStore';
-
+import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
 import { useFocus, useMagicKeys, whenever } from '@vueuse/core';
 import { computed, onMounted, ref, onUpdated } from 'vue';
 
-$world.listen(() => {})
-await allTasks()
+const props = defineProps<{
+    markers: MapMarker[],
+    players: PlayerMarker,
+}>()
 
-const { markers } = useStore($world).value
+const markers = props.markers
 
 // Search functions
 const qInput = ref()

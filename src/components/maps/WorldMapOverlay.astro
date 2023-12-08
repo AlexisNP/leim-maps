@@ -1,9 +1,17 @@
 ---
+import type { MapMarker, PlayerMarker } from "@/types/Leaflet";
+
 import SearchMarkers from "./overlay/SearchMarkers.vue";
+
+import markersData from '@/components/maps/data/markers.json'
+import playersData from '@/components/maps/data/players.json'
+
+const markers = markersData.data as MapMarker[]
+const players = playersData as PlayerMarker
 ---
 
 <div class="world-overlay">
-    <SearchMarkers client:load />
+    <SearchMarkers client:load markers={markers} players={players}/>
 </div>
 
 <script>
