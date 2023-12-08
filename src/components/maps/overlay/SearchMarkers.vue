@@ -10,8 +10,6 @@ const props = defineProps<{
 
 const markers = props.markers
 
-$world.off()
-
 // Search functions
 const qInput = ref()
 const { focused: isFocused } = useFocus(qInput)
