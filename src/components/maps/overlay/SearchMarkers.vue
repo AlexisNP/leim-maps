@@ -50,6 +50,7 @@ whenever(shortcutKeyCombo, () => {
 })
 whenever(eraseKeyCombo, () => {
     resetQueryValue()
+    setSearchMode('query')
     isFocused.value = true
 })
 
@@ -92,9 +93,15 @@ type SearchMode = "query" | MapMarkerGroup;
 
 const currentSearchMode = ref<SearchMode>('query');
 
+// This should be refactored with better type checking
+// It does the job for now but will be a pain if I had another feature that uses group sorting
+const hasGroupFilter = computed(() => {
+    return currentSearchMode.value !== 'query'
+})
+
 const currentLimit = computed(() => {
     if (currentSearchMode.value === "query") return 10
-    return 20;
+    return 100;
 })
 
 function setSearchMode(m: SearchMode) {
@@ -121,6 +128,10 @@ function resetQueryValue() {
                 <button v-if="hasPlayers" data-to-players class="player-btn" :tabindex="shouldBeActive ? 1 : 0" title="Aller à la position actuelle des joueurs">
                     <i class="pin-icon ph-fill ph-map-pin"></i>
                 </button>
+
+                <button v-if="hasGroupFilter" @click="setSearchMode('query')" class="close-btn" title="Enlever le filtre">
+                    <i class="ph-light ph-x"></i>
+                </button>
             </div>
 
             <ul class="search-results" v-if="shouldBeActive">
@@ -137,7 +148,11 @@ function resetQueryValue() {
                         <div class="desc" v-html="m.description"></div>
 
                         <div class="icon" v-if="m.group === 'quests'">
-                            <i class="ph-fill ph-flag"></i>
+                            <i class="ph-fill ph-flag-banner"></i>
+                        </div>
+
+                        <div class="icon" v-else-if="m.group === 'landmarks'">
+                            <i class="ph-fill ph-castle-turret"></i>
                         </div>
                     </button>
                 </li>
@@ -146,12 +161,55 @@ function resetQueryValue() {
 
         <menu class="tag-list">
             <li>
-                <button @click="setActiveCategory('quests')">
+                <button
+                    @click="setActiveCategory('quests')"
+                    class="red"
+                    :class="{
+                        'active': currentSearchMode === 'quests'
+                    }"
+                >
                     <span class="icon">
-                        <i class="ph-fill ph-flag-banner"></i>
+                        <i v-if="currentSearchMode === 'quests'" class="ph-bold ph-check"></i>
+                        <i v-else class="ph-fill ph-flag-banner"></i>
                     </span>
                     <span class="label">
                         Quêtes
+                    </span>
+                </button>
+            </li>
+
+            <li>
+                <button
+                    @click="setActiveCategory('capitals')"
+                    class="blue"
+                    :class="{
+                        'active': currentSearchMode === 'capitals'
+                    }"
+                >
+                    <span class="icon">
+                        <i v-if="currentSearchMode === 'capitals'" class="ph-bold ph-check"></i>
+                        <i v-else class="ph-fill ph-castle-turret"></i>
+                    </span>
+                    <span class="label">
+                        Capitales
+                    </span>
+                </button>
+            </li>
+
+            <li>
+                <button
+                    @click="setActiveCategory('landmarks')"
+                    class="orange"
+                    :class="{
+                        'active': currentSearchMode === 'landmarks'
+                    }"
+                >
+                    <span class="icon">
+                        <i v-if="currentSearchMode === 'landmarks'" class="ph-bold ph-check"></i>
+                        <i v-else class="ph-fill ph-lighthouse"></i>
+                    </span>
+                    <span class="label">
+                        Points d'intérêt
                     </span>
                 </button>
             </li>
@@ -205,13 +263,11 @@ function resetQueryValue() {
                 pointer-events: none;
             }
 
-            .player-btn {
+            .player-btn, .close-btn {
                 position: relative;
                 isolation: isolate;
                 aspect-ratio: 1 / 1;
                 line-height: 1;
-                font-size: 1.5em;
-                color: var(--red-500);
                 border-radius: 50%;
                 cursor: pointer;
 
@@ -243,6 +299,30 @@ function resetQueryValue() {
                     }
                 }
             }
+
+            .player-btn {
+                font-size: 1.5em;
+                color: var(--red-500);
+
+                &:hover {
+                    &::before {
+                        background-color: var(--slate-300);
+                    }
+                }
+
+                &:focus-visible {
+                    &::before {
+                        background-color: var(--slate-200);
+                        outline: 1px dotted var(--slate-500);
+                        outline: 4px auto var(--slate-900);
+                    }
+                }
+            }
+
+            .close-btn {
+                font-size: 1.1em;
+                color: var(--slate-500);
+            }
         }
 
         .search-results {
@@ -270,7 +350,7 @@ function resetQueryValue() {
                 position: relative;
                 cursor: pointer;
                 padding: .4rem .25em;
-                padding-right: 2.4rem;
+                padding-right: 2.75rem;
                 width: 100%;
                 outline-offset: -1px;
 
@@ -301,7 +381,7 @@ function resetQueryValue() {
                     position: absolute;
                     top: 50%;
                     transform: translateY(-50%);
-                    right: .4rem;
+                    right: .75rem;
                     color: var(--slate-400);
                 }
 
@@ -365,6 +445,8 @@ function resetQueryValue() {
     * TAG LIST
     */
     .tag-list {
+        display: flex;
+        gap: .5rem;
         margin-top: .5rem;
 
         button {
@@ -381,7 +463,8 @@ function resetQueryValue() {
             box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
             pointer-events: all;
             cursor: pointer;
-            transition-property: color, background-color, border-color;
+            outline: .2rem solid transparent;
+            transition-property: color, background-color, border-color, outline-color;
             transition-duration: .15s;
             transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
@@ -389,10 +472,37 @@ function resetQueryValue() {
                 font-size: 1.1em;
             }
 
-            &:hover {
-                color: var(--white);
-                background-color: var(--red-500);
-                border-color: var(--red-700);
+            .label {
+                text-underline-offset: .15rem;
+            }
+
+            $colors: 'red', 'blue', 'orange';
+
+            @each $c in $colors {
+                &.#{$c} {
+                    &.active {
+                        color: var(--white);
+                        background-color: var(--#{$c}-500);
+                        border-color: var(--#{$c}-700);
+                    }
+
+                    &:not(.active) {
+                        &:hover,
+                        &:focus-visible {
+                            color: var(--#{$c}-500);
+                        }
+                    }
+
+                    &:hover,
+                    &:focus-visible {
+                        outline-color: color-mix(in srgb, var(--#{$c}-500) 20%, transparent);
+                        border-color: var(--#{$c}-500);
+                        
+                        .label {
+                            text-decoration: underline;
+                        }
+                    }
+                }
             }
         }
     }
