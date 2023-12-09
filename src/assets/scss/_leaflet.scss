@@ -19,7 +19,7 @@
                     }
 
                     strong.title {
-                        color: #16a34a;
+                        color: var(--green-500);
                     }
 
                     a.title {
@@ -28,7 +28,7 @@
 
                         &:hover {
                             text-decoration: none;
-                            color: #16a34a;
+                            color: var(--green-500);
                         }
                     }
 
