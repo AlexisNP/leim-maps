@@ -40,13 +40,33 @@ function convertYToScale(y) {
     return (y * yRatio * zoomRatio) + yOffset
 }
 
+/**
+ * Convert leaflet scale to x with ratio, zoom and offset
+ * 
+ * It is basically the mathematically inverse function of convertXToScale()
+ * @param {number} y 
+ */
+function convertScaleToX(x) {
+    return (x - xOffset) / (xRatio * zoomRatio)
+}
+
+/**
+ * Convert leaflet scale to y with ratio, zoom and offset
+ * 
+ * It is basically the mathematically inverse function of convertYToScale()
+ * @param {number} y
+ */
+function convertScaleToY(y) {
+    return (y - yOffset) / (yRatio * zoomRatio)
+}
+
 const distanceRatio = 2
 
 const map = L.map('world', {
     crs: L.CRS.Simple,
     maxZoom: 8.5,
-    minZoom: 4,
-    zoom: 4,
+    minZoom: 3.5,
+    zoom: 3.5,
     zoomSnap: 0,
     zoomControl: false
 });
@@ -69,6 +89,7 @@ const layerGroups = {
     cities: L.layerGroup(),
     towns: L.layerGroup(),
     landmarks: L.layerGroup(),
+    quests: L.layerGroup(),
 };
 
 /**
@@ -108,6 +129,17 @@ for (let i = 0; i < markers.length; i++) {
                 shadowSize: [32, 14],
                 iconAnchor: [12.5, 8],
                 shadowAnchor: [15, 6]
+            });
+            break;
+
+        case "quests":
+            markerIcon = L.icon({
+                iconUrl: `icon/flag.png`,
+                shadowUrl: `icon/flag-shadow.png`,
+                iconSize: [20, 23],
+                shadowSize: [35, 30],
+                iconAnchor: [12.5, 8],
+                shadowAnchor: [11, 12]
             });
             break;
 
@@ -233,7 +265,7 @@ const rulerOptions = {
             display: 'Kilomètres',
         },
         days: {
-            factor: 0.000002 * distanceRatio,
+            factor: 0.00000325 * distanceRatio,
             display: 'Jours de marche',
             decimals: 1
         }
@@ -247,8 +279,8 @@ measureControl.addTo(map);
  * DEBUGS
  */
 map.addEventListener('click', (event) => {
-    const lat = convertXToScale(event.latlng.lat)
-    const lon = convertYToScale(event.latlng.lng)
+    const lat = convertScaleToY(event.latlng.lat)
+    const lon = convertScaleToX(event.latlng.lng)
     console.log(lat, lon);
 })
 </script>

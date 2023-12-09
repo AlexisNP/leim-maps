@@ -92,9 +92,20 @@ onUpdated(() => {
 
         <ul class="search-results" v-if="shouldBeActive">
             <li v-for="m in filteredMarkers?.slice(0, 10)" :key="m.title">
-                <button class="search-item" :data-to-marker="m.title" tabindex="0" :title="`Aller à ${m.title}`">
+                <button
+                    class="search-item"
+                    :class="`group-${m.group}`"
+                    :data-to-marker="m.title"
+                    tabindex="0"
+                    :title="m.group === 'quests' ? 'Voir la quête' : 'Visiter ce lieu'"
+                >
                     <span class="title">{{ m.title }}</span>
-                    <span class="desc">{{ m.description }}</span>
+
+                    <div class="desc" v-html="m.description"></div>
+
+                    <div class="icon" v-if="m.group === 'quests'">
+                        <i class="ph-fill ph-flag"></i>
+                    </div>
                 </button>
             </li>
         </ul>
@@ -205,12 +216,45 @@ onUpdated(() => {
         }
 
         .search-item {
+            position: relative;
             cursor: pointer;
             padding: .4rem .25em;
+            padding-right: 2.4rem;
             width: 100%;
             outline-offset: -1px;
 
-            &:hover {
+            .title,
+            .desc {
+                display: block;
+                font-size: .85em;
+            }
+
+            .title {
+                font-weight: 500;
+                text-underline-offset: 2px;
+            }
+            .desc {
+                color: var(--slate-500);
+
+                :deep(a) {
+                    text-underline-offset: 2px;
+                    text-decoration: underline;
+
+                    &:hover {
+                        color: #16a34a;
+                    }
+                }
+            }
+
+            .icon {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: .4rem;
+                color: var(--slate-400);
+            }
+
+            &:hover:not(:has(a:hover)) {
                 background-color: var(--slate-100);
 
                 .title {
@@ -227,18 +271,21 @@ onUpdated(() => {
                 }
             }
 
-            .title,
-            .desc {
-                display: block;
-                font-size: .85em;
+            /**
+            * Rules for specific groups (capitals, cities, etc...)
+            */
+            &.group-capitals {
+                .title {
+                    font-weight: 600;
+                }
             }
 
-            .title {
-                font-weight: 500;
-                text-underline-offset: 2px;
-            }
-            .desc {
-                color: var(--slate-500);
+            &.group-quests {
+                &:hover:not(:has(a:hover)) {
+                    .icon {
+                        color: var(--red-500);
+                    }
+                }
             }
         }
     }

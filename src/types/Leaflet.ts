@@ -1,4 +1,4 @@
-export type MapMarkerGroup = "capitals" | "cities" | "towns" | "landmarks";
+export type MapMarkerGroup = "capitals" | "cities" | "towns" | "landmarks" | "quests";
 export type MapCoords = {
     x: number,
     y: number,
