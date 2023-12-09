@@ -751,16 +751,16 @@
         {
             "group": "quests",
             "title": "Pour la République",
-            "description": "???",
+            "description": "La cité de Fasàch reçoit quelques généraux de Gàrran lors d'un comité des armées, mais cette visite intéresse également les révolutionnaires d'Ormünd.",
             "markerCoords": {
-                "x": 330.5404289908736,
-                "y": -233.9598590433425
+                "x": 327.15022290440396,
+                "y": -206.1154623032882
             }
         },
         {
             "group": "quests",
             "title": "Les Cloches de Cantane",
-            "description": "D'étranges disparitions secouent la cité minière de Cantane, rythmées par le tintement des cloches de l'église",
+            "description": "D'étranges disparitions secouent la cité minière de Cantane, rythmées par le tintement des cloches de l'église.",
             "markerCoords": {
                 "x": 195.6256582183996,
                 "y": -210.28328748968713
