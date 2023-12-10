@@ -13,23 +13,242 @@ const players = playersData as PlayerMarker
 </div>
 
 <script lang="ts" define:vars={{ markers, players }} defer>
-const mapHeight = 21896;
-const mapWidth = 30000;
+const mapHeight = 21896; //
+const mapWidth = 30000; // Find these in the zoomify / original image data
 
+// Units used for convertions to avoid changing original marker coords
 const xRatio = .68447
 const yRatio = .68447
 const zoomRatio = .75
 const xOffset = 0
 const yOffset = -27.63442
 
-const flyToDuration = 1.2; // In seconds
+/**
+ * LEAFLET MAP PARAMERTERS
+ */
+const minZoom = 3.5
+const maxZoom = 6.7 // Looks best with zoomify image
+const flyToDuration = 1.2 // In seconds
 const flyToZoomLevel = 6.5
 
+// Initializes the map
+const map = L.map('world', {
+    crs: L.CRS.Simple,
+    maxZoom,
+    minZoom,
+    zoom: minZoom,
+    zoomSnap: 0,
+    zoomControl: false
+})
+
+// Immediately set center of map
+L.control.zoom({
+    position: 'bottomright',
+}).addTo(map)
+
+// Layers
+const layer = L.tileLayer.zoomify('/zoomify/aldys-nord/{g}/{z}-{x}-{y}.jpg', {
+    width: mapWidth,
+    height: mapHeight,
+}).addTo(map)
+
+const layerGroups = {
+    players: L.layerGroup(),
+    capitals: L.layerGroup(),
+    cities: L.layerGroup(),
+    towns: L.layerGroup(),
+    landmarks: L.layerGroup(),
+    quests: L.layerGroup(),
+}
+
+/**
+ * Build all markers and their related info
+ */
+for (let i = 0; i < markers.length; i++) {
+    const m = markers[i]
+
+    const coords = [convertYToScale(m.markerCoords.y), convertXToScale(m.markerCoords.x)]
+
+    let markerIcon
+
+    switch (m.group) {
+        case "capitals":
+            markerIcon = L.icon({
+                iconUrl: `icon/castle.png`,
+                shadowUrl: `icon/castle-shadow.png`,
+                iconSize: [25, 25],
+                shadowSize: [35, 30],
+                iconAnchor: [12.5, 8],
+                shadowAnchor: [11, 12]
+            })
+            break
+        
+        case "cities":
+            markerIcon = L.icon({
+                iconUrl: `icon/circle.png`,
+                iconSize: [12, 12],
+            })
+            break
+
+        case "landmarks":
+            markerIcon = L.icon({
+                iconUrl: `icon/monument.png`,
+                shadowUrl: `icon/monument-shadow.png`,
+                iconSize: [18, 18],
+                shadowSize: [32, 14],
+                iconAnchor: [12.5, 8],
+                shadowAnchor: [15, 6]
+            })
+            break
+
+        case "quests":
+            markerIcon = L.icon({
+                iconUrl: `icon/flag.png`,
+                shadowUrl: `icon/flag-shadow.png`,
+                iconSize: [20, 23],
+                shadowSize: [35, 30],
+                iconAnchor: [12.5, 8],
+                shadowAnchor: [11, 12]
+            })
+            break
+
+        case "towns":
+        default:
+            iconKey = "house"
+            break
+    }
+
+    const marker = L.marker(coords, { icon: markerIcon }).addTo(map)
+    let popupContent = ""
+    if (m.link) {
+        popupContent = `
+            <a href="${m.link}" target="_blank" class="title">
+                ${m.title}
+            </a>
+            <p>${m.description}</p>
+        `
+    } else {
+        popupContent = `
+            <strong class="title">
+                ${m.title}
+            </strong>
+            <p>${m.description}</p>
+        `
+    }
+    marker.bindPopup(popupContent).openPopup()
+
+    const displayTooltip = m.group === 'capitals'
+
+    if (displayTooltip) {
+        L.tooltip({ permanent: true, direction: 'top', offset: [0, 2], content: m.title, className: "capital-name", opacity: 1 }).setLatLng(coords).addTo(map)
+    }
+
+    marker.addTo(layerGroups[m.group])
+
+    /**
+     * Display popup of marker
+     */
+    document.addEventListener(`fly-to-${m.title}`, () => {
+        map.flyTo(coords, flyToZoomLevel, { duration: flyToDuration })
+        setTimeout(() => {
+            marker.openPopup()
+        }, flyToDuration * 1000)
+    })
+}
+
+/**
+ * Add player's position marker
+ */
+if ( players && Object.keys(players).length > 0 ) {
+    console.log(players)
+    const playersPosition =[
+        convertYToScale(players.markerCoords.y),
+        convertXToScale(players.markerCoords.x)
+    ]
+
+    const playerIcon = L.icon({
+        iconUrl: `icon/location-pin.png`,
+        shadowUrl: `icon/location-pin-shadow.png`,
+        iconSize: [18, 24],
+        shadowSize: [20, 16],
+        iconAnchor: [11, 8],
+        shadowAnchor: [3, 0],
+    })
+
+    const playerMarker = L.marker(playersPosition, { icon: playerIcon }).addTo(map)
+    playerMarker.addTo(layerGroups['players'])
+
+    const popupContent = `
+        <strong class="title">
+            ${players.title}
+        </strong>
+        <p>${players.description}</p>
+    `
+    playerMarker.bindPopup(popupContent).openPopup()
+
+    document.addEventListener('fly-to-players', () => {
+        map.flyTo(playersPosition, flyToZoomLevel, { duration: flyToDuration })
+        setTimeout(() => {
+            playerMarker.openPopup()
+        }, flyToDuration * 1000)
+    })
+}
+
+map.fitBounds(layer.getBounds())
+
+/**
+ * RULER
+ */
+/**
+ * Workaround specific to leaflet version 1.8.0
+ * See https://github.com/ljagis/leaflet-measure/issues/171 for details
+ */
+L.Control.Measure.include({
+    // set icon on the capture marker
+    _setCaptureMarkerIcon: function () {
+        // disable autopan
+        this._captureMarker.options.autoPanOnFocus = false
+
+        // default function
+        this._captureMarker.setIcon(
+            L.divIcon({
+                iconSize: this._map.getSize().multiplyBy(2)
+            })
+        )
+    },
+})
+
+const rulerDistanceRatio = 2
+
+const rulerOptions = {
+    position: 'topright',
+    primaryLengthUnit: 'kilometers',
+    secondaryLengthUnit: 'days',
+    primaryAreaUnit: 'hectares',
+    units: {
+        kilometers: {
+            factor: 0.00013 * rulerDistanceRatio,
+            display: 'Kilomètres',
+        },
+        days: {
+            factor: 0.00000325 * rulerDistanceRatio,
+            display: 'Jours de marche',
+            decimals: 1
+        }
+    }
+}
+
+const measureControl = L.control.measure(rulerOptions)
+measureControl.addTo(map)
+
+/**
+ * UTILITIES
+ */
 /**
  * Convert x coords to scale with ratio, zoom and offset
  * @param {number} x
  */
-function convertXToScale(x) {
+ function convertXToScale(x) {
     return (x * xRatio * zoomRatio) + xOffset
 }
 /**
@@ -60,228 +279,17 @@ function convertScaleToY(y) {
     return (y - yOffset) / (yRatio * zoomRatio)
 }
 
-const distanceRatio = 2
-
-const map = L.map('world', {
-    crs: L.CRS.Simple,
-    maxZoom: 8.5,
-    minZoom: 3.5,
-    zoom: 3.5,
-    zoomSnap: 0,
-    zoomControl: false
-});
-
-// Immediately set center of map
-
-L.control.zoom({
-    position: 'bottomright',
-}).addTo(map);
-
-// Layers
-const layer = L.tileLayer.zoomify('/zoomify/aldys-nord/{g}/{z}-{x}-{y}.jpg', {
-    width: mapWidth,
-    height: mapHeight,
-}).addTo(map);
-
-const layerGroups = {
-    players: L.layerGroup(),
-    capitals: L.layerGroup(),
-    cities: L.layerGroup(),
-    towns: L.layerGroup(),
-    landmarks: L.layerGroup(),
-    quests: L.layerGroup(),
-};
-
-/**
- * Build all markers and their related info
- */
-for (let i = 0; i < markers.length; i++) {
-    const m = markers[i];
-
-    const coords = [convertYToScale(m.markerCoords.y), convertXToScale(m.markerCoords.x)];
-
-    let markerIcon
-
-    switch (m.group) {
-        case "capitals":
-            markerIcon = L.icon({
-                iconUrl: `icon/castle.png`,
-                shadowUrl: `icon/castle-shadow.png`,
-                iconSize: [25, 25],
-                shadowSize: [35, 30],
-                iconAnchor: [12.5, 8],
-                shadowAnchor: [11, 12]
-            });
-            break;
-        
-        case "cities":
-            markerIcon = L.icon({
-                iconUrl: `icon/circle.png`,
-                iconSize: [12, 12],
-            });
-            break;
-
-        case "landmarks":
-            markerIcon = L.icon({
-                iconUrl: `icon/monument.png`,
-                shadowUrl: `icon/monument-shadow.png`,
-                iconSize: [18, 18],
-                shadowSize: [32, 14],
-                iconAnchor: [12.5, 8],
-                shadowAnchor: [15, 6]
-            });
-            break;
-
-        case "quests":
-            markerIcon = L.icon({
-                iconUrl: `icon/flag.png`,
-                shadowUrl: `icon/flag-shadow.png`,
-                iconSize: [20, 23],
-                shadowSize: [35, 30],
-                iconAnchor: [12.5, 8],
-                shadowAnchor: [11, 12]
-            });
-            break;
-
-        case "towns":
-        default:
-            iconKey = "house"
-            break;
-    }
-
-    const marker = L.marker(coords, { icon: markerIcon }).addTo(map);
-    let popupContent = "";
-    if (m.link) {
-        popupContent = `
-            <a href="${m.link}" target="_blank" class="title">
-                ${m.title}
-            </a>
-            <p>${m.description}</p>
-        `;
-    } else {
-        popupContent = `
-            <strong class="title">
-                ${m.title}
-            </strong>
-            <p>${m.description}</p>
-        `;
-    }
-    marker.bindPopup(popupContent).openPopup();
-
-    const displayTooltip = m.group === 'capitals';
-
-    if (displayTooltip) {
-        L.tooltip({ permanent: true, direction: 'top', offset: [0, 2], content: m.title, className: "capital-name", opacity: 1 }).setLatLng(coords).addTo(map);
-    }
-
-    marker.addTo(layerGroups[m.group])
-
-    /**
-     * Display popup of marker
-     */
-    document.addEventListener(`fly-to-${m.title}`, () => {
-        map.flyTo(coords, flyToZoomLevel, { duration: flyToDuration })
-        setTimeout(() => {
-            marker.openPopup()
-        }, flyToDuration * 1000)
-    })
-}
-
-/**
- * Add player's position marker
- */
-if ( players && Object.keys(players).length > 0 ) {
-    console.log(players)
-    const playersPosition =[
-        convertYToScale(players.markerCoords.y),
-        convertXToScale(players.markerCoords.x)
-    ];
-
-    console.log(players)
-    console.log(playersPosition)
-
-    const playerIcon = L.icon({
-        iconUrl: `icon/location-pin.png`,
-        shadowUrl: `icon/location-pin-shadow.png`,
-        iconSize: [18, 24],
-        shadowSize: [20, 16],
-        iconAnchor: [11, 8],
-        shadowAnchor: [3, 0],
-    });
-
-    const playerMarker = L.marker(playersPosition, { icon: playerIcon }).addTo(map)
-    playerMarker.addTo(layerGroups['players'])
-
-    const popupContent = `
-        <strong class="title">
-            ${players.title}
-        </strong>
-        <p>${players.description}</p>
-    `;
-    playerMarker.bindPopup(popupContent).openPopup();
-
-    document.addEventListener('fly-to-players', () => {
-        map.flyTo(playersPosition, flyToZoomLevel, { duration: flyToDuration })
-        setTimeout(() => {
-            playerMarker.openPopup()
-        }, flyToDuration * 1000)
-    })
-}
-
-map.fitBounds(layer.getBounds());
-
-// L.control.layers({ "base": layer }, layerGroups).addTo(map);
-
-/**
- * RULER
- */
-/**
- * Workaround specific to leaflet version
- * See https://github.com/ljagis/leaflet-measure/issues/171 for details
- */
-L.Control.Measure.include({
-    // set icon on the capture marker
-    _setCaptureMarkerIcon: function () {
-        // disable autopan
-        this._captureMarker.options.autoPanOnFocus = false;
-
-        // default function
-        this._captureMarker.setIcon(
-            L.divIcon({
-                iconSize: this._map.getSize().multiplyBy(2)
-            })
-        );
-    },
-});
-
-const rulerOptions = {
-    position: 'topright',
-    primaryLengthUnit: 'kilometers',
-    secondaryLengthUnit: 'days',
-    primaryAreaUnit: 'hectares',
-    units: {
-        kilometers: {
-            factor: 0.00013 * distanceRatio,
-            display: 'Kilomètres',
-        },
-        days: {
-            factor: 0.00000325 * distanceRatio,
-            display: 'Jours de marche',
-            decimals: 1
-        }
-    }
-};
-
-const measureControl = L.control.measure(rulerOptions);
-measureControl.addTo(map);
-
 /**
  * DEBUGS
+ */
+/**
+ * Get relevant map info
  */
 map.addEventListener('click', (event) => {
     const lat = convertScaleToY(event.latlng.lat)
     const lon = convertScaleToX(event.latlng.lng)
-    console.log(lat, lon);
+    console.log(lat, lon)
+    console.log(map.getZoom())
 })
 </script>
     
