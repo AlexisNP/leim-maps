@@ -4,6 +4,8 @@
 @use 'leaflet';
 
 :root {
+    --white: #fff;
+    --black: #111;
     --slate-50: #f8fafc;
     --slate-100: #f1f5f9;
     --slate-200: #e2e8f0;
@@ -15,6 +17,14 @@
     --slate-800: #1e293b;
     --slate-900: #0f172a;
     --slate-950: #020617;
+    --red-500: #dc2626;
+    --red-700: #b60909;
+    --green-500: #16a34a;
+    --green-700: #15803d;
+    --blue-500: #0ea5e9;
+    --blue-700: #0284c7;
+    --orange-500: #f97316;
+    --orange-700: #c2410c;
 }
 
 html {
