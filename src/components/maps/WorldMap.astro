@@ -39,6 +39,10 @@ const mobileZoomLevels = {
     maxZoom: 6.7
 }
 
+const inertiaDeceleration = 1500
+const maxBoundsPadding = 10
+const maxBoundsViscosity = .75
+
 // Initializes the map
 const map = L.map('world', {
     crs: L.CRS.Simple,
@@ -47,6 +51,8 @@ const map = L.map('world', {
     zoom: minZoom,
     zoomSnap: 0,
     zoomControl: false,
+    inertiaDeceleration,
+    maxBoundsViscosity
 })
 
 /**
@@ -267,6 +273,19 @@ const rulerOptions = {
 
 const measureControl = L.control.measure(rulerOptions)
 measureControl.addTo(map)
+
+map.setMaxBounds(
+    [
+        [
+            baseTileLayer.getBounds().getSouth() - maxBoundsPadding,
+            baseTileLayer.getBounds().getWest() - maxBoundsPadding
+        ],
+        [
+            baseTileLayer.getBounds().getNorth() + maxBoundsPadding,
+            baseTileLayer.getBounds().getEast() + maxBoundsPadding
+        ]
+    ]
+)
 
 /**
  * SVG LAYERS
