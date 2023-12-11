@@ -34,6 +34,11 @@ const maxZoom = 6.7 // Looks best with zoomify image
 const flyToDuration = 1.2 // In seconds
 const flyToZoomLevel = 6.5
 
+const mobileZoomLevels = {
+    minZoom: 2.5,
+    maxZoom: 6.7
+}
+
 // Initializes the map
 const map = L.map('world', {
     crs: L.CRS.Simple,
@@ -41,8 +46,27 @@ const map = L.map('world', {
     minZoom,
     zoom: minZoom,
     zoomSnap: 0,
-    zoomControl: false
+    zoomControl: false,
 })
+
+/**
+ * MOBILE JS
+ */
+// Breakpoints
+const desktopMQ = window.matchMedia('(min-width: 900px)')
+
+function handleMapResize(e) {
+    if (e.matches) {
+        map.setMaxZoom(maxZoom)
+        map.setMinZoom(minZoom)
+    } else {
+        map.setMaxZoom(mobileZoomLevels.maxZoom)
+        map.setMinZoom(mobileZoomLevels.minZoom)
+    }
+}
+desktopMQ.addEventListener('change', handleMapResize)
+
+handleMapResize(desktopMQ)
 
 // Immediately set center of map
 L.control.zoom({
