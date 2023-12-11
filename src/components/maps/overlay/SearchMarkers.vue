@@ -269,9 +269,11 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
 <style lang="scss" scoped>
 .toolbar {
-    display: flex;
-    gap: 1.5rem;
-    align-items: start;
+    @media screen and (width >= 900px) {
+        display: flex;
+        gap: 1.5rem;
+        align-items: start;
+    }
 
     .search-w {
         padding: .5rem 1.2rem;
@@ -281,6 +283,10 @@ function resetAllFields(actionAfter?: "focusAfter") {
         border-radius: 25px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
         pointer-events: all;
+
+        @media screen and (width >= 900px) {
+            width: 25%;
+        }
 
         .input-w {
             $search-items-gap: .5rem;
@@ -483,12 +489,6 @@ function resetAllFields(actionAfter?: "focusAfter") {
                     padding-block-start: .2rem;
                 }
             }
-        }
-    }
-
-    @media screen and (width >= 900px) {
-        .search-w {
-            width: 29%;
         }
     }
 
