@@ -14,16 +14,29 @@ const markers = props.markers
 const qInput = ref()
 const { focused: isFocused } = useFocus(qInput)
 
+/**
+ * Available advanced search modes
+ * Currently only groups MapMarkerGroup and string "query"
+ */
+ type SearchMode = "query" | MapMarkerGroup
+
+const currentSearchMode = ref<SearchMode>('query')
+
 onMounted(() => {
     isFocused.value = true
 })
 
-const shouldBeActive = computed(() => q.value.length > 0 || currentSearchMode.value !== "query")
+const hasQuery = computed(() => q.value.length > 0)
+const shouldBeActive = computed(() => hasQuery.value || currentSearchMode.value !== "query")
 
 const q = ref<string>("")
 
 const unifier = new RegExp(/[^a-zA-Z0-9\-\'']/g)
 
+/**
+ * Dropdown's markers list
+ * If the search doesn't have a query set, defaults to marker grouping
+ */
 const filteredMarkers = computed(() => {
     if (currentSearchMode.value === "query") {
         return markers?.filter(m => {
@@ -40,7 +53,16 @@ const filteredMarkers = computed(() => {
     })
 })
 
-// Key Combos
+// Limit of menu list dropdown
+const currentLimit = computed(() => {
+    if (currentSearchMode.value === "query") return 10
+    return 100
+})
+
+/**
+ * ACCESSIBILITY
+ */
+// Registered key combos
 const keys = useMagicKeys()
 const shortcutKeyCombo = keys['Shift+Period']
 const eraseKeyCombo = keys['Escape']
@@ -49,13 +71,13 @@ whenever(shortcutKeyCombo, () => {
     isFocused.value = true
 })
 whenever(eraseKeyCombo, () => {
-    resetQueryValue()
-    setSearchMode('query')
+    resetAllFields()
     isFocused.value = true
 })
 
+// If query changes and has new value...
 watch(q, (n, o) => {
-    if (n) setSearchMode('query'); 
+    if (n) setSearchMode('query')
 })
 
 /**
@@ -89,32 +111,60 @@ onUpdated(() => {
     })
 })
 
-type SearchMode = "query" | MapMarkerGroup;
+/**
+ * Advanced Search Mode
+ * Uses filters to show specific kinds of markers in the search results
+ */
 
-const currentSearchMode = ref<SearchMode>('query');
-
-// This should be refactored with better type checking
+// TODO: This should be refactored with better type checking
 // It does the job for now but will be a pain if I had another feature that uses group sorting
 const hasGroupFilter = computed(() => {
     return currentSearchMode.value !== 'query'
 })
 
-const currentLimit = computed(() => {
-    if (currentSearchMode.value === "query") return 10
-    return 100;
-})
-
-function setSearchMode(m: SearchMode) {
-    currentSearchMode.value = m;
-}
-
 function setActiveCategory(g: MapMarkerGroup) {
     resetQueryValue()
-    currentSearchMode.value = g;
+
+    if (currentSearchMode.value !== g) {
+        currentSearchMode.value = g
+    } else {
+        currentSearchMode.value = "query"
+    }
 }
 
+/**
+ * EVENTS
+ */
+// Close Button event
+function onCloseQuery() {
+    resetAllFields("focusAfter")
+}
+
+/**
+ * UTILITIES
+ */
+/**
+ * Switches current search mode
+ */
+function setSearchMode(m: SearchMode) {
+    currentSearchMode.value = m
+}
+
+/**
+ * Resets active query in field
+ */
 function resetQueryValue() {
-    q.value = "";
+    q.value = ""
+}
+
+/**
+ * Resets category and query states, default state
+ */
+function resetAllFields(actionAfter?: "focusAfter") {
+    setSearchMode('query')
+    resetQueryValue()
+
+    if (actionAfter === "focusAfter") isFocused.value = true
 }
 </script>
 
@@ -125,7 +175,7 @@ function resetQueryValue() {
                 <i class="search-icon ph-fill ph-magnifying-glass"></i>
                 <input ref="qInput" name="recherche" type="text" v-model="q" title="Rechercher le monde" placeholder="Ville, point d'intérêt…">
 
-                <button v-if="hasGroupFilter" @click="setSearchMode('query')" class="close-btn" title="Enlever le filtre">
+                <button v-if="hasGroupFilter || hasQuery" @click="onCloseQuery" class="close-btn" title="Enlever le filtre">
                     <i class="ph-light ph-x"></i>
                 </button>
 
@@ -219,9 +269,11 @@ function resetQueryValue() {
 
 <style lang="scss" scoped>
 .toolbar {
-    display: flex;
-    gap: 1.5rem;
-    align-items: start;
+    @media screen and (width >= 900px) {
+        display: flex;
+        gap: 1.5rem;
+        align-items: start;
+    }
 
     .search-w {
         padding: .5rem 1.2rem;
@@ -231,6 +283,10 @@ function resetQueryValue() {
         border-radius: 25px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
         pointer-events: all;
+
+        @media screen and (width >= 900px) {
+            width: 25%;
+        }
 
         .input-w {
             $search-items-gap: .5rem;
@@ -433,12 +489,6 @@ function resetQueryValue() {
                     padding-block-start: .2rem;
                 }
             }
-        }
-    }
-
-    @media screen and (width >= 900px) {
-        .search-w {
-            width: 29%;
         }
     }
 

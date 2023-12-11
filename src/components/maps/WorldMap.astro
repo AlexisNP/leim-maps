@@ -1,4 +1,5 @@
 ---
+import CountryOverlay from './overlay/CountryOverlay.astro';
 import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
 
 import markersData from '@/components/maps/data/markers.json'
@@ -10,6 +11,8 @@ const players = playersData as PlayerMarker
 
 <div class="world-wrapper">
     <div id="world"></div>
+
+    <!-- <CountryOverlay /> -->
 </div>
 
 <script lang="ts" define:vars={{ markers, players }} defer>
@@ -47,7 +50,7 @@ L.control.zoom({
 }).addTo(map)
 
 // Layers
-const layer = L.tileLayer.zoomify('/zoomify/aldys-nord/{g}/{z}-{x}-{y}.jpg', {
+const baseTileLayer = L.tileLayer.zoomify('/zoomify/aldys-nord/{g}/{z}-{x}-{y}.jpg', {
     width: mapWidth,
     height: mapHeight,
 }).addTo(map)
@@ -194,7 +197,7 @@ if ( players && Object.keys(players).length > 0 ) {
     })
 }
 
-map.fitBounds(layer.getBounds())
+map.fitBounds(baseTileLayer.getBounds())
 
 /**
  * RULER
@@ -240,6 +243,18 @@ const rulerOptions = {
 
 const measureControl = L.control.measure(rulerOptions)
 measureControl.addTo(map)
+
+/**
+ * SVG LAYERS
+ */
+// const svgElement = document.getElementById('svg-overlay')
+// const latLngBounds = L.latLngBounds([baseTileLayer.getBounds().getSouth() + 0.9875, baseTileLayer.getBounds().getWest()], [baseTileLayer.getBounds().getNorth(), baseTileLayer.getBounds().getEast() - 1.675]);
+
+// const svgOverlay = L.svgOverlay(svgElement, latLngBounds, {
+//     opacity: 0.25,
+//     interactive: true,
+//     zIndex: 10,
+// }).addTo(map);
 
 /**
  * UTILITIES
@@ -288,8 +303,7 @@ function convertScaleToY(y) {
 map.addEventListener('click', (event) => {
     const lat = convertScaleToY(event.latlng.lat)
     const lon = convertScaleToX(event.latlng.lng)
-    console.log(lat, lon)
-    console.log(map.getZoom())
+    console.log(lat, lon, map.getZoom())
 })
 </script>
     
