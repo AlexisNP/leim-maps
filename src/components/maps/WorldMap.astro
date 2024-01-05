@@ -3,6 +3,7 @@ import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
 
 import markersData from '@/components/maps/data/markers.json'
 import playersData from '@/components/maps/data/players.json'
+import MarkerCreator from './overlay/MarkerCreator.vue';
 
 const markers = markersData.data as MapMarker[]
 const players = playersData as PlayerMarker
@@ -10,6 +11,8 @@ const players = playersData as PlayerMarker
 
 <div class="world-wrapper">
     <div id="world"></div>
+
+    <MarkerCreator client:load />
 </div>
 
 <script lang="ts" define:vars={{ markers, players }} defer>
@@ -358,6 +361,8 @@ body {
 .world-wrapper {
     position: fixed;
     inset: 0;
+    z-index: 0;
+    isolation: isolate;
 
     #world {
         height: 100%;
