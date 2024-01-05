@@ -1,5 +1,4 @@
 ---
-import CountryOverlay from './overlay/CountryOverlay.astro';
 import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
 
 import markersData from '@/components/maps/data/markers.json'
@@ -11,8 +10,6 @@ const players = playersData as PlayerMarker
 
 <div class="world-wrapper">
     <div id="world"></div>
-
-    <!-- <CountryOverlay /> -->
 </div>
 
 <script lang="ts" define:vars={{ markers, players }} defer>
