@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onClickOutside, onLongPress, useCssVar, useMouse, useTimeout, useTimeoutFn } from '@vueuse/core';
+import { onClickOutside, onLongPress, useCssVar, useLocalStorage, useMouse, useTimeout, useTimeoutFn } from '@vueuse/core';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 const markerMenu = ref<HTMLMenuElement>();
@@ -9,39 +9,34 @@ const markerMenu = ref<HTMLMenuElement>();
  */
 const isActive = ref<Boolean>(false)
 
-const hasBeenLongPressed = ref<Boolean>(false)
-const longPressDelay = 500
-const longPressOver = 1100
+// const hasBeenLongPressed = ref<Boolean>(false)
+// const longPressDelay = 500
+// const longPressOver = 1000
 
-const longPressTimer = useTimeoutFn(() => {
-    hasBeenLongPressed.value = false
-}, longPressOver)
+// const longPressTimer = useTimeoutFn(() => {
+//     hasBeenLongPressed.value = false
+// }, longPressOver)
 
 onMounted(() => {
     window.addEventListener('contextmenu', handleContextMenu)
-    onLongPress(document.documentElement, handleLongPress, { delay: longPressDelay })
+    // onLongPress(document.documentElement, handleLongPress, { delay: longPressDelay })
     onClickOutside(markerMenu, handleClickOutside)
 })
 
-function handleLongPress(e: Event) {
-    console.log(e)
+// function handleLongPress(e: Event) {
+//     hasBeenLongPressed.value = true
+//     longPressTimer.start()
 
-    hasBeenLongPressed.value = true
-    longPressTimer.start()
-
-    showMenu()
-}
+//     showMenu()
+// }
 
 function handleClickOutside(e: Event) {
-    console.log(e)
-
-    if (!hasBeenLongPressed.value) {
+    // if (!hasBeenLongPressed.value) {
         hideMenu()
-    }
+    // }
 }
 
 function handleContextMenu(e: Event) {
-    console.log(e)
     e.preventDefault()
 
     showMenu()
@@ -71,7 +66,6 @@ watch( isActive, (o, n) => {
 })
 
 function updateMenuPosition() {
-    storeMousePosition()
     updateCSSVars()
 }
 
@@ -81,23 +75,28 @@ function updateCSSVars() {
 }
 
 /**
- * Storing data and logic
+ * Adding custom marker
  */
-const lastHeldXPosition = ref<number>(0)
-const lastHeldYPosition = ref<number>(0)
+const lastHeldXPosition = useLocalStorage('lastHeldXPosition', 0);
+const lastHeldYPosition = useLocalStorage('lastHeldYPosition', 0);
 
-function storeMousePosition() {
-    lastHeldXPosition.value = mouse.x.value
-    lastHeldYPosition.value = mouse.y.value
-}
+const addCustomMarker = ref<HTMLButtonElement>();
+
+onMounted(() => {
+    const addCustomMarkerEvent = new CustomEvent(`add-custom-marker`, { bubbles: true })
+
+    addCustomMarker.value?.addEventListener('click', () => {
+        addCustomMarker.value?.dispatchEvent(addCustomMarkerEvent)
+    })
+})
 </script>
 
 <template>
     <Transition>
         <menu v-show="isActive" ref="markerMenu">
             <li>
-                <button>
-                    Add a marker {{ lastHeldXPosition }} {{ lastHeldYPosition }}
+                <button ref="addCustomMarker">
+                    Ajouter un marqueur personnel
                 </button>
             </li>
         </menu>

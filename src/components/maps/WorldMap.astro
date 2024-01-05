@@ -193,7 +193,6 @@ for (let i = 0; i < markers.length; i++) {
  * Add player's position marker
  */
 if ( players && Object.keys(players).length > 0 ) {
-    console.log(players)
     const playersPosition =[
         convertYToScale(players.markerCoords.y),
         convertXToScale(players.markerCoords.x)
@@ -288,16 +287,76 @@ map.setMaxBounds(
 )
 
 /**
- * SVG LAYERS
+ * CUSTOM MARKERS
  */
-// const svgElement = document.getElementById('svg-overlay')
-// const latLngBounds = L.latLngBounds([baseTileLayer.getBounds().getSouth() + 0.9875, baseTileLayer.getBounds().getWest()], [baseTileLayer.getBounds().getNorth(), baseTileLayer.getBounds().getEast() - 1.675]);
 
-// const svgOverlay = L.svgOverlay(svgElement, latLngBounds, {
-//     opacity: 0.25,
-//     interactive: true,
-//     zIndex: 10,
-// }).addTo(map);
+// List to be persisted in localStorage
+let customMarkersList = []
+
+function saveCustomMarkers() {
+    localStorage.setItem('custom-markers', JSON.stringify(customMarkersList))
+}
+
+// Stores last map coords on context
+map.addEventListener('contextmenu', storeLastHeldPositions)
+map.addEventListener('click', storeLastHeldPositions)
+
+function storeLastHeldPositions(e) {
+    localStorage.setItem('lastHeldXPosition', e.latlng.lng)
+    localStorage.setItem('lastHeldYPosition', e.latlng.lat)
+}
+
+/**
+ * Function that creates custom markers and places them on the map
+ */
+function addCustomMarker() {
+    const lon = Number(localStorage.getItem('lastHeldXPosition'))
+    const lat = Number(localStorage.getItem('lastHeldYPosition'))
+
+    const customMarkerIconOptions = {
+        iconUrl: `icon/push-pin.png`,
+        shadowUrl: `icon/push-pin-shadow.png`,
+        iconSize: [20, 20],
+        shadowSize: [30, 25],
+        iconAnchor: [0, 13],
+        shadowAnchor: [0, 15],
+        className: "fade-in"
+    }
+    const customMarkerIcon = L.icon(customMarkerIconOptions)
+
+    // Sticks the custom marker on the map
+    const customMarker = L.marker([lat, lon], { icon: customMarkerIcon }).addTo(map)
+    customMarkersList.push({
+        lat,
+        lon,
+        icon: customMarkerIconOptions
+    })
+
+    saveCustomMarkers()
+}
+
+// Listeners for the custom add marker event
+// See MarkerCreator.vue component for more details
+document.addEventListener('add-custom-marker', addCustomMarker)
+
+/**
+ * Load all custom markers onto the map
+ */
+function loadCustomMarkersFromStorage() {
+    const customMarkersData = JSON.parse(localStorage.getItem('custom-markers'))
+
+    if (!customMarkersData) return
+
+    customMarkersList = customMarkersData
+
+    for (let i = 0; i < customMarkersData.length; i++) {
+        const m = customMarkersData[i];
+        console.log(m)
+
+        L.marker([m.lat, m.lon], { icon: L.icon(m.icon) }).addTo(map)
+    }
+}
+loadCustomMarkersFromStorage()
 
 /**
  * UTILITIES
