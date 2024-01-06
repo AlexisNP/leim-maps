@@ -16,6 +16,7 @@ const players = playersData as PlayerMarker
 </div>
 
 <script lang="ts" define:vars={{ markers, players }} defer>
+
 const mapHeight = 21896; //
 const mapWidth = 30000; // Find these in the zoomify / original image data
 
@@ -308,8 +309,9 @@ function storeLastHeldPositions(e) {
 
 /**
  * Function that creates custom markers and places them on the map
+ * @param {string?} markerTitle
  */
-function addCustomMarker() {
+function addCustomMarker(markerTitle) {
     const lon = Number(localStorage.getItem('lastHeldXPosition'))
     const lat = Number(localStorage.getItem('lastHeldYPosition'))
 
@@ -326,9 +328,18 @@ function addCustomMarker() {
 
     // Sticks the custom marker on the map
     const customMarker = L.marker([lat, lon], { icon: customMarkerIcon }).addTo(map)
+
+    if (markerTitle) {
+        const popupContent = `
+            ${markerTitle}
+        `
+        customMarker.bindPopup(popupContent, { offset: [5, -5] }).openPopup()
+    }
+
     customMarkersList.push({
         lat,
         lon,
+        title: markerTitle,
         icon: customMarkerIconOptions
     })
 
@@ -337,7 +348,9 @@ function addCustomMarker() {
 
 // Listeners for the custom add marker event
 // See MarkerCreator.vue component for more details
-document.addEventListener('add-custom-marker', addCustomMarker)
+document.addEventListener('add-custom-marker', (e) => {
+    addCustomMarker(e.detail.title)
+})
 
 /**
  * Load all custom markers onto the map
@@ -352,7 +365,14 @@ function loadCustomMarkersFromStorage() {
     for (let i = 0; i < customMarkersData.length; i++) {
         const m = customMarkersData[i];
 
-        L.marker([m.lat, m.lon], { icon: L.icon(m.icon) }).addTo(map)
+        const savedMarker = L.marker([m.lat, m.lon], { icon: L.icon(m.icon) }).addTo(map)
+
+        if (m.title) {
+            const popupContent = `
+                ${m.title}
+            `
+            savedMarker.bindPopup(popupContent, { offset: [5, -5] })
+        }
     }
 }
 loadCustomMarkersFromStorage()

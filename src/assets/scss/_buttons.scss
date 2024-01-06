@@ -1,0 +1,47 @@
+.btn {
+    padding: .3rem .7rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .9em;
+    font-weight: 500;
+    border: 1px solid transparent;
+    border-radius: .2rem;
+    cursor: pointer;
+    transition-property: color, background-color, border-color;
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+    &-secondary {
+        &:not(:disabled) {
+            background-color: var(--slate-200);
+
+            &:hover,
+            &:focus-visible {
+                color: var(--white);
+                background-color: var(--blue-500);
+            }
+        }
+    }
+
+    &-danger {
+        &:not(:disabled) {
+            background-color: var(--slate-200);
+
+            &:hover,
+            &:focus-visible {
+                color: var(--white);
+                background-color: var(--red-500);
+            }
+        }
+    }
+
+    &-icon {
+        width: 1.75rem;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        aspect-ratio: 1;
+        border-radius: 50%;
+    }
+}

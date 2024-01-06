@@ -1,13 +1,21 @@
 <script lang="ts" setup>
-import { onClickOutside, onLongPress, useCssVar, useLocalStorage, useMouse, useTimeout, useTimeoutFn } from '@vueuse/core';
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { onClickOutside, onLongPress, useCssVar, useFocus, useLocalStorage, useMouse, useTimeout, useTimeoutFn } from '@vueuse/core';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 
 const markerMenu = ref<HTMLMenuElement>();
+
+type MenuMode = "editing-marker" | "default";
 
 /**
  * Appearing behaviour
  */
 const isActive = ref<Boolean>(false)
+const shouldBeShown = computed(() => isActive.value)
+const currentMode = ref<MenuMode>("default");
+
+function switchMenuMode(newMode: MenuMode) {
+    currentMode.value = newMode
+}
 
 // const hasBeenLongPressed = ref<Boolean>(false)
 // const longPressDelay = 500
@@ -18,9 +26,9 @@ const isActive = ref<Boolean>(false)
 // }, longPressOver)
 
 onMounted(() => {
-    window.addEventListener('contextmenu', handleContextMenu)
+    const mapRef = document.getElementById('world')
+    mapRef?.addEventListener('contextmenu', handleContextMenu)
     // onLongPress(document.documentElement, handleLongPress, { delay: longPressDelay })
-    onClickOutside(markerMenu, handleClickOutside)
 })
 
 // function handleLongPress(e: Event) {
@@ -77,30 +85,111 @@ function updateCSSVars() {
 /**
  * Adding custom marker
  */
-const lastHeldXPosition = useLocalStorage('lastHeldXPosition', 0);
-const lastHeldYPosition = useLocalStorage('lastHeldYPosition', 0);
+const markerTitle = ref<string>()
+const markerTitleInput = ref<HTMLInputElement>()
 
 const addCustomMarker = ref<HTMLButtonElement>();
 
-onMounted(() => {
-    const addCustomMarkerEvent = new CustomEvent(`add-custom-marker`, { bubbles: true })
+const markerModal = ref<HTMLDialogElement>()
+const markerModalOpen = ref<boolean>(false)
 
-    addCustomMarker.value?.addEventListener('click', () => {
-        addCustomMarker.value?.dispatchEvent(addCustomMarkerEvent)
-    })
+// Shows modal if mode changes to editing-marker
+watch(currentMode, (n, o) => {
+    if (n === 'editing-marker') {
+        showMarkerModal()
+    } else {
+        hideMarkerModal()
+    }
 })
+
+// Closes the menu if clicked outside
+onClickOutside(markerMenu, handleClickOutside, { ignore: [markerModal] })
+
+function handleAddCustomMarker() {
+    const addCustomMarkerEvent = new CustomEvent(`add-custom-marker`, { bubbles: true, detail: { title: markerTitle.value }})
+
+    addCustomMarker.value?.dispatchEvent(addCustomMarkerEvent)
+    hideMenu()
+    hideMarkerModal()
+    switchMenuMode('default')
+
+    markerTitle.value = ""
+}
+
+function handleMarkerModalCancel() {
+    showMenu()
+    hideMarkerModal()
+    switchMenuMode('default')
+}
+
+function showMarkerModal() {
+    markerModal.value?.showModal()
+    markerModalOpen.value = true
+    switchMenuMode('editing-marker')
+}
+
+function hideMarkerModal() {
+    markerModal.value?.close()
+    markerModalOpen.value = false
+    switchMenuMode('default')
+}
 </script>
 
 <template>
-    <Transition>
-        <menu v-show="isActive" ref="markerMenu">
-            <li>
-                <button ref="addCustomMarker">
-                    Ajouter un marqueur personnel
+    <div>
+        <Transition>
+            <menu v-show="shouldBeShown" ref="markerMenu">
+                <li>
+                    <button @click="switchMenuMode('editing-marker')">
+                        Nouveau marqueur
+                    </button>
+                </li>
+            </menu>
+        </Transition>
+
+        <dialog ref="markerModal" :class="{ 'open': markerModalOpen }" @cancel.prevent="handleMarkerModalCancel" @click="console.log">
+            <!-- <button autofocus @click="switchMenuMode('default')">Close</button> -->
+            <form @submit.prevent="handleAddCustomMarker">
+                <div class="modal-head">
+                    <h2>
+                        Ajouter un marqueur personnel
+                    </h2>
+                    <p class="modal-notice">
+                        <i class="icon ph-light ph-warning"></i>
+                        <span>Le marqueur sera sauvegardé mais n'apparaîtra que sur votre carte !</span>
+                    </p>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="marker-name">
+                            Titre
+                        </label>
+
+                        <div class="form-input">
+                            <input ref="markerTitleInput" type="text" name="marker-name" id="marker-name" v-model="markerTitle">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button
+                        ref="addCustomMarker"
+                        type="submit"
+                        class="btn btn-secondary"
+                    >
+                        <span>Créer</span>
+                    </button>
+                </div>
+            </form>
+
+            <div class="modal-actions">
+                <button class="btn btn-danger btn-icon" @click="hideMarkerModal">
+                    <i class="ph-light ph-x"></i>
                 </button>
-            </li>
-        </menu>
-    </Transition>
+            </div>
+        </dialog>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -109,6 +198,7 @@ menu {
     --mouse-x: 0px;
 
     position: absolute;
+    padding-block: .25rem;
     top: calc(var(--mouse-y) - .5rem);
     left: calc(var(--mouse-x) + .75rem);
     background-color: var(--white);
@@ -123,15 +213,93 @@ menu {
     li {
         a, button {
             display: block;
-            padding: .5rem 1.2rem;
-            font-size: .8em;
+            padding: .33rem 1rem;
+            font-size: .77em;
             cursor: pointer;
 
             &:hover,
             &:focus-within {
-
+                background-color: var(--slate-100);
             }
         }
+    }
+}
+
+dialog {
+    position: fixed;
+    width: 30%;
+    padding: 1.5rem 2rem;
+    z-index: 9999;
+    background-color: var(--white);
+    border: 1px solid var(--slate-400);
+    border-radius: .75rem;
+    overflow: visible;
+    transform: translateY(1rem);
+    transition: visibility 0s ease-out .3s, opacity .3s ease-out, transform .3s ease-out;
+
+    &,
+    &::backdrop {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    &.open {
+        transform: translateY(0);
+    }
+
+    &.open,
+    &.open::backdrop {
+        transition-delay: 0s;
+    }
+
+    &.open,
+    &.open::backdrop {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .modal-head {
+        margin-bottom: .75rem;
+
+        h2 {
+            font-size: 1.4em;
+        }
+
+        .modal-notice {
+            margin-top: .2rem;
+            display: flex;
+            align-items: center;
+            gap: .15rem;
+            opacity: .85;
+            font-size: .8em;
+
+            .icon {
+                font-size: 1.3em;
+            }
+        }
+    }
+
+    .modal-body {
+        > * + * {
+            margin-top: .5em;
+        }
+    }
+
+    .modal-footer {
+        margin-top: 1rem;
+    }
+
+    .modal-actions {
+        display: flex;
+        gap: 1rem;
+        position: absolute;
+        top: -0.8rem;
+        right: 0;
+        padding-right: .75rem;
     }
 }
 

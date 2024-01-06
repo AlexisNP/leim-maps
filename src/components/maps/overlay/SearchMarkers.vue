@@ -173,7 +173,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
         <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
             <div class="input-w">
                 <i class="search-icon ph-fill ph-magnifying-glass"></i>
-                <input ref="qInput" name="recherche" type="text" v-model="q" title="Rechercher le monde" placeholder="Ville, point d'intérêt…">
+                <input ref="qInput" class="" name="recherche" type="text" v-model="q" title="Rechercher le monde" placeholder="Ville, point d'intérêt…">
 
                 <button v-if="hasGroupFilter || hasQuery" @click="onCloseQuery" class="close-btn" title="Enlever le filtre">
                     <i class="ph-light ph-x"></i>
