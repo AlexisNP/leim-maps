@@ -233,6 +233,7 @@ dialog {
     background-color: var(--white);
     border: 1px solid var(--slate-400);
     border-radius: .75rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
     overflow: visible;
     transform: translateY(1rem);
     transition: visibility 0s ease-out .3s, opacity .3s ease-out, transform .3s ease-out;
