@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { onClickOutside, onLongPress, useCssVar, useFocus, useLocalStorage, useMouse, useTimeout, useTimeoutFn } from '@vueuse/core';
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import { onClickOutside, onLongPress, useCssVar, useFocus, useLocalStorage, useMouse, useTimeout, useTimeoutFn } from '@vueuse/core'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
-const markerMenu = ref<HTMLMenuElement>();
+const markerMenu = ref<HTMLMenuElement>()
 
-type MenuMode = "editing-marker" | "default";
+type MenuMode = "editing-marker" | "default"
 
 /**
  * Appearing behaviour
  */
 const isActive = ref<Boolean>(false)
 const shouldBeShown = computed(() => isActive.value)
-const currentMode = ref<MenuMode>("default");
+const currentMode = ref<MenuMode>("default")
 
 function switchMenuMode(newMode: MenuMode) {
     currentMode.value = newMode
@@ -76,7 +76,6 @@ watch( isActive, (o, n) => {
 function updateMenuPosition() {
     updateCSSVars()
 }
-
 function updateCSSVars() {
     mouseXVar.value = `${mouse.x.value.toFixed()}px`
     mouseYVar.value = `${mouse.y.value.toFixed()}px`
@@ -105,7 +104,12 @@ watch(currentMode, (n, o) => {
 // Closes the menu if clicked outside
 onClickOutside(markerMenu, handleClickOutside, { ignore: [markerModal] })
 
+/**
+ * Add Custom Marker
+ */
 function handleAddCustomMarker() {
+    if (!markerTitle.value) return
+
     const addCustomMarkerEvent = new CustomEvent(`add-custom-marker`, { bubbles: true, detail: { title: markerTitle.value }})
 
     addCustomMarker.value?.dispatchEvent(addCustomMarkerEvent)
@@ -116,18 +120,28 @@ function handleAddCustomMarker() {
     markerTitle.value = ""
 }
 
+/**
+ * Hide modal on cancel and resets 
+ */
 function handleMarkerModalCancel() {
     showMenu()
     hideMarkerModal()
     switchMenuMode('default')
 }
 
+/**
+ * Display marker modal
+ */
 function showMarkerModal() {
     markerModal.value?.showModal()
     markerModalOpen.value = true
     switchMenuMode('editing-marker')
 }
 
+/**
+ * Hide marker modal
+ * TODO: Implement a timer for animation
+ */
 function hideMarkerModal() {
     markerModal.value?.close()
     markerModalOpen.value = false
@@ -177,6 +191,7 @@ function hideMarkerModal() {
                         ref="addCustomMarker"
                         type="submit"
                         class="btn btn-secondary"
+                        :disabled="!markerTitle"
                     >
                         <span>Créer</span>
                     </button>
