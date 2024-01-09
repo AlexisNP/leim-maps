@@ -519,6 +519,10 @@ function resetAllFields(actionAfter?: "focusAfter") {
             transition-duration: .15s;
             transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
+            @media screen and (width < 900px) {
+                font-size: .76em;
+            }
+
             .icon {
                 font-size: 1.1em;
             }
