@@ -162,7 +162,6 @@ function hideMarkerModal() {
         </Transition>
 
         <dialog ref="markerModal" :class="{ 'open': markerModalOpen }" @cancel.prevent="handleMarkerModalCancel" @click="console.log">
-            <!-- <button autofocus @click="switchMenuMode('default')">Close</button> -->
             <form @submit.prevent="handleAddCustomMarker">
                 <div class="modal-head">
                     <h2>
