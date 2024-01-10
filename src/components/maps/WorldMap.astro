@@ -44,6 +44,8 @@ const inertiaDeceleration = 2000
 const maxBoundsPadding = 10
 const maxBoundsViscosity = .75
 
+const mapEl = document.getElementById('world')
+
 // Initializes the map
 const map = L.map('world', {
     crs: L.CRS.Simple,
@@ -296,6 +298,10 @@ let customMarkersList = []
 
 function saveCustomMarkers() {
     localStorage.setItem('custom-markers', JSON.stringify(customMarkersList))
+
+    const refreshCustomMarkersEvent = new CustomEvent('refresh-custom-markers', { bubbles: true })
+
+    mapEl.dispatchEvent(refreshCustomMarkersEvent)
 }
 
 // Stores last map coords on context

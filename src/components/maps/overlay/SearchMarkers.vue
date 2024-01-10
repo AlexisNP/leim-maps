@@ -1,24 +1,25 @@
 <script setup lang="ts">
 import type { MapMarker, MapMarkerGroup, PlayerMarker } from '@/types/Leaflet';
-import { useFocus, useMagicKeys, whenever } from '@vueuse/core';
+import type { SearchMode } from '@/types/Search';
+import { useFocus, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
 import { computed, onMounted, ref, onUpdated, watch } from 'vue';
+import SearchMarkersTags from './SearchMarkersTags.vue';
 
 const props = defineProps<{
     markers: MapMarker[],
     players: PlayerMarker,
 }>()
 
-const markers = props.markers
+const fixedMarkers = props.markers
+const customMarkersData = useLocalStorage('custom-markers', [])
+
+const allMarkers = computed(() => {
+    return [...fixedMarkers, ...customMarkersData.value]
+})
 
 // Search functions
 const qInput = ref()
 const { focused: isFocused } = useFocus(qInput)
-
-/**
- * Available advanced search modes
- * Currently only groups MapMarkerGroup and string "query"
- */
- type SearchMode = "query" | MapMarkerGroup
 
 const currentSearchMode = ref<SearchMode>('query')
 
@@ -39,7 +40,7 @@ const unifier = new RegExp(/[^a-zA-Z0-9\-\'']/g)
  */
 const filteredMarkers = computed(() => {
     if (currentSearchMode.value === "query") {
-        return markers?.filter(m => {
+        return allMarkers.value?.filter(m => {
             const queryString = new String(q.value).replace(unifier, "").toLocaleLowerCase()
             const hitTitle = m.title.replace(unifier, "").toLocaleLowerCase().includes(queryString)
             const hitDesc = m.description?.replace(unifier, "").toLocaleLowerCase().includes(queryString)
@@ -48,7 +49,7 @@ const filteredMarkers = computed(() => {
         })
     }
 
-    return markers?.filter(m => {
+    return allMarkers.value?.filter(m => {
         return m.group === currentSearchMode.value
     })
 })
@@ -115,14 +116,11 @@ onUpdated(() => {
  * Advanced Search Mode
  * Uses filters to show specific kinds of markers in the search results
  */
-
-// TODO: This should be refactored with better type checking
-// It does the job for now but will be a pain if I had another feature that uses group sorting
 const hasGroupFilter = computed(() => {
     return currentSearchMode.value !== 'query'
 })
 
-function setActiveCategory(g: MapMarkerGroup) {
+function handleCategorySwitch(g: MapMarkerGroup) {
     resetQueryValue()
 
     if (currentSearchMode.value !== g) {
@@ -166,6 +164,17 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
     if (actionAfter === "focusAfter") isFocused.value = true
 }
+
+/**
+ * CUSTOM MARKERS HANDLING
+ * This is really dirty (to me at least)
+ * It should probably be handled by a store system, but nanostores doesn't mesh well 
+ */
+onMounted(() => {
+    document.addEventListener('refresh-custom-markers', () => {
+        customMarkersData.value = useLocalStorage('custom-markers', []).value
+    })
+})
 </script>
 
 <template>
@@ -209,61 +218,11 @@ function resetAllFields(actionAfter?: "focusAfter") {
             </ul>
         </div>
 
-        <menu class="tag-list">
-            <li>
-                <button
-                    @click="setActiveCategory('quests')"
-                    class="red"
-                    :class="{
-                        'active': currentSearchMode === 'quests'
-                    }"
-                >
-                    <span class="icon">
-                        <i v-if="currentSearchMode === 'quests'" class="ph-bold ph-check"></i>
-                        <i v-else class="ph-fill ph-flag-banner"></i>
-                    </span>
-                    <span class="label">
-                        Quêtes
-                    </span>
-                </button>
-            </li>
-
-            <li>
-                <button
-                    @click="setActiveCategory('capitals')"
-                    class="blue"
-                    :class="{
-                        'active': currentSearchMode === 'capitals'
-                    }"
-                >
-                    <span class="icon">
-                        <i v-if="currentSearchMode === 'capitals'" class="ph-bold ph-check"></i>
-                        <i v-else class="ph-fill ph-castle-turret"></i>
-                    </span>
-                    <span class="label">
-                        Capitales
-                    </span>
-                </button>
-            </li>
-
-            <li>
-                <button
-                    @click="setActiveCategory('landmarks')"
-                    class="orange"
-                    :class="{
-                        'active': currentSearchMode === 'landmarks'
-                    }"
-                >
-                    <span class="icon">
-                        <i v-if="currentSearchMode === 'landmarks'" class="ph-bold ph-check"></i>
-                        <i v-else class="ph-fill ph-lighthouse"></i>
-                    </span>
-                    <span class="label">
-                        Points d'intérêt
-                    </span>
-                </button>
-            </li>
-        </menu>
+        <SearchMarkersTags
+            :current-search-mode="currentSearchMode"
+            :custom-markers="customMarkersData"
+            @on-category-switch="handleCategorySwitch"
+        />
     </nav>
 </template>
 
@@ -487,76 +446,6 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
                 input {
                     padding-block-start: .2rem;
-                }
-            }
-        }
-    }
-
-    /**
-    * TAG LIST
-    */
-    .tag-list {
-        display: flex;
-        gap: .5rem;
-        margin-top: .5rem;
-
-        button {
-            display: inline-flex;
-            align-items: center;
-            gap: .5ch;
-            padding-block: .25rem;
-            padding-inline: .8rem;
-            font-weight: 600;
-            font-size: .85em;
-            background: var(--white);
-            border: 1px solid var(--slate-400);
-            border-radius: 100vmax;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-            pointer-events: all;
-            cursor: pointer;
-            outline: .2rem solid transparent;
-            transition-property: color, background-color, border-color, outline-color;
-            transition-duration: .15s;
-            transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-
-            @media screen and (width < 900px) {
-                font-size: .76em;
-            }
-
-            .icon {
-                font-size: 1.1em;
-            }
-
-            .label {
-                text-underline-offset: .15rem;
-            }
-
-            $colors: 'red', 'blue', 'orange';
-
-            @each $c in $colors {
-                &.#{$c} {
-                    &.active {
-                        color: var(--white);
-                        background-color: var(--#{$c}-500);
-                        border-color: var(--#{$c}-700);
-                    }
-
-                    &:not(.active) {
-                        &:hover,
-                        &:focus-visible {
-                            color: var(--#{$c}-500);
-                        }
-                    }
-
-                    &:hover,
-                    &:focus-visible {
-                        outline-color: color-mix(in srgb, var(--#{$c}-500) 20%, transparent);
-                        border-color: var(--#{$c}-500);
-                        
-                        .label {
-                            text-decoration: underline;
-                        }
-                    }
                 }
             }
         }
