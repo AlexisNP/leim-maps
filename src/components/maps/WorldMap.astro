@@ -182,9 +182,9 @@ for (let i = 0; i < markers.length; i++) {
     marker.addTo(layerGroups[m.group])
 
     /**
-     * Display popup of marker
+     * Fly to specific marker
      */
-    document.addEventListener(`fly-to-${m.title}`, () => {
+    document.addEventListener(`fly-to-${m.title}`, (e) => {
         map.flyTo(coords, flyToZoomLevel, { duration: flyToDuration })
         setTimeout(() => {
             marker.openPopup()
@@ -331,9 +331,10 @@ function addCustomMarker(markerTitle) {
         className: "fade-in"
     }
     const customMarkerIcon = L.icon(customMarkerIconOptions)
+    const customMarkerCoords = [lat, lon]
 
     // Sticks the custom marker on the map
-    const customMarker = L.marker([lat, lon], { icon: customMarkerIcon }).addTo(map)
+    const customMarker = L.marker(customMarkerCoords, { icon: customMarkerIcon }).addTo(map)
 
     if (markerTitle) {
         const popupContent = `
@@ -342,11 +343,22 @@ function addCustomMarker(markerTitle) {
         customMarker.bindPopup(popupContent, { offset: [5, -5] }).openPopup()
     }
 
+    /**
+     * Register event listener to fly to this custom marker
+     */
+    document.addEventListener(`fly-to-${markerTitle}`, (e) => {
+        map.flyTo(customMarkerCoords, flyToZoomLevel, { duration: flyToDuration })
+        setTimeout(() => {
+            marker.openPopup()
+        }, flyToDuration * 1000)
+    })
+
     customMarkersList.push({
         lat,
         lon,
         title: markerTitle,
-        icon: customMarkerIconOptions
+        icon: customMarkerIconOptions,
+        group: "custom"
     })
 
     saveCustomMarkers()
@@ -371,7 +383,8 @@ function loadCustomMarkersFromStorage() {
     for (let i = 0; i < customMarkersData.length; i++) {
         const m = customMarkersData[i];
 
-        const savedMarker = L.marker([m.lat, m.lon], { icon: L.icon(m.icon) }).addTo(map)
+        const savedMarkerCoords = [m.lat, m.lon]
+        const savedMarker = L.marker(savedMarkerCoords, { icon: L.icon(m.icon) }).addTo(map)
 
         if (m.title) {
             const popupContent = `
@@ -379,6 +392,16 @@ function loadCustomMarkersFromStorage() {
             `
             savedMarker.bindPopup(popupContent, { offset: [5, -5] })
         }
+
+        /**
+         * Register event listener to fly to this custom marker
+         */
+        document.addEventListener(`fly-to-${m.title}`, (e) => {
+            map.flyTo(savedMarkerCoords, flyToZoomLevel, { duration: flyToDuration })
+            setTimeout(() => {
+                savedMarker.openPopup()
+            }, flyToDuration * 1000)
+        })
     }
 }
 loadCustomMarkersFromStorage()

@@ -110,7 +110,13 @@ onClickOutside(markerMenu, handleClickOutside, { ignore: [markerModal] })
 function handleAddCustomMarker() {
     if (!markerTitle.value) return
 
-    const addCustomMarkerEvent = new CustomEvent(`add-custom-marker`, { bubbles: true, detail: { title: markerTitle.value }})
+    const addCustomMarkerEvent = new CustomEvent(
+        `add-custom-marker`,
+        {
+            bubbles: true,
+            detail: { title: markerTitle.value }
+        }
+    )
 
     addCustomMarker.value?.dispatchEvent(addCustomMarkerEvent)
     hideMenu()

@@ -105,10 +105,12 @@ onUpdated(() => {
 
     markerBtnRefs.forEach((btn) => {
         const { toMarker } = (btn as HTMLButtonElement).dataset
-        if (!toMarker) return
-        const flyToMarker = new CustomEvent(`fly-to-${toMarker}`, { bubbles: true })
 
-        btn.addEventListener('click', () => btn.dispatchEvent(flyToMarker))
+        if (!toMarker) return
+
+        const flyToEvent = new CustomEvent(`fly-to-${toMarker}`, { bubbles: true })
+
+        btn.addEventListener('click', () => btn.dispatchEvent(flyToEvent))
     })
 })
 
@@ -171,6 +173,8 @@ function resetAllFields(actionAfter?: "focusAfter") {
  * It should probably be handled by a store system, but nanostores doesn't mesh well 
  */
 onMounted(() => {
+    customMarkersData.value = useLocalStorage('custom-markers', []).value
+
     document.addEventListener('refresh-custom-markers', () => {
         customMarkersData.value = useLocalStorage('custom-markers', []).value
     })

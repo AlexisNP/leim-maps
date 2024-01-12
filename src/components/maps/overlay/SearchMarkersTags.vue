@@ -18,79 +18,77 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
 
 <template>
     <menu class="tag-list">
-        <TransitionGroup name="tag-menu">
-            <li>
-                <button
-                    @click="emitCategorySwitch('quests')"
-                    class="red"
-                    :class="{
-                        'active': currentSearchMode === 'quests'
-                    }"
-                >
-                    <span class="icon">
-                        <i v-if="currentSearchMode === 'quests'" class="ph-bold ph-check"></i>
-                        <i v-else class="ph-fill ph-flag-banner"></i>
-                    </span>
-                    <span class="label">
-                        Quêtes
-                    </span>
-                </button>
-            </li>
+        <li>
+            <button
+                @click="emitCategorySwitch('quests')"
+                class="red"
+                :class="{
+                    'active': currentSearchMode === 'quests'
+                }"
+            >
+                <span class="icon">
+                    <i v-if="currentSearchMode === 'quests'" class="ph-bold ph-check"></i>
+                    <i v-else class="ph-fill ph-flag-banner"></i>
+                </span>
+                <span class="label">
+                    Quêtes
+                </span>
+            </button>
+        </li>
 
-            <li>
-                <button
-                    @click="emitCategorySwitch('capitals')"
-                    class="blue"
-                    :class="{
-                        'active': currentSearchMode === 'capitals'
-                    }"
-                >
-                    <span class="icon">
-                        <i v-if="currentSearchMode === 'capitals'" class="ph-bold ph-check"></i>
-                        <i v-else class="ph-fill ph-castle-turret"></i>
-                    </span>
-                    <span class="label">
-                        Capitales
-                    </span>
-                </button>
-            </li>
+        <li>
+            <button
+                @click="emitCategorySwitch('capitals')"
+                class="blue"
+                :class="{
+                    'active': currentSearchMode === 'capitals'
+                }"
+            >
+                <span class="icon">
+                    <i v-if="currentSearchMode === 'capitals'" class="ph-bold ph-check"></i>
+                    <i v-else class="ph-fill ph-castle-turret"></i>
+                </span>
+                <span class="label">
+                    Capitales
+                </span>
+            </button>
+        </li>
 
-            <li>
-                <button
-                    @click="emitCategorySwitch('landmarks')"
-                    class="orange"
-                    :class="{
-                        'active': currentSearchMode === 'landmarks'
-                    }"
-                >
-                    <span class="icon">
-                        <i v-if="currentSearchMode === 'landmarks'" class="ph-bold ph-check"></i>
-                        <i v-else class="ph-fill ph-lighthouse"></i>
-                    </span>
-                    <span class="label">
-                        Points d'intérêt
-                    </span>
-                </button>
-            </li>
+        <li>
+            <button
+                @click="emitCategorySwitch('landmarks')"
+                class="orange"
+                :class="{
+                    'active': currentSearchMode === 'landmarks'
+                }"
+            >
+                <span class="icon">
+                    <i v-if="currentSearchMode === 'landmarks'" class="ph-bold ph-check"></i>
+                    <i v-else class="ph-fill ph-lighthouse"></i>
+                </span>
+                <span class="label">
+                    Points d'intérêt
+                </span>
+            </button>
+        </li>
 
-            <li v-if="customMarkers.length > 0">
-                <button
-                    @click="emitCategorySwitch('custom')"
-                    class="purple"
-                    :class="{
-                        'active': currentSearchMode === 'custom'
-                    }"
-                >
-                    <span class="icon">
-                        <i v-if="currentSearchMode === 'custom'" class="ph-bold ph-check"></i>
-                        <i v-else class="ph-fill ph-user-circle"></i>
-                    </span>
-                    <span class="label">
-                        Personnels
-                    </span>
-                </button>
-            </li>
-        </TransitionGroup>
+        <li>
+            <button
+                @click="emitCategorySwitch('custom')"
+                class="purple"
+                :class="{
+                    'active': currentSearchMode === 'custom'
+                }"
+            >
+                <span class="icon">
+                    <i v-if="currentSearchMode === 'custom'" class="ph-bold ph-check"></i>
+                    <i v-else class="ph-fill ph-user-circle"></i>
+                </span>
+                <span class="label">
+                    Personnels
+                </span>
+            </button>
+        </li>
     </menu>
 </template>
 
