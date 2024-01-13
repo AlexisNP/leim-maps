@@ -296,6 +296,10 @@ map.setMaxBounds(
 // List to be persisted in localStorage
 let customMarkersList = []
 
+/**
+ * Function that saves the customMarkersList object into the localStorage
+ * It also sends an event to refresh data on other components that use localStorage
+ */
 function saveCustomMarkers() {
     localStorage.setItem('custom-markers', JSON.stringify(customMarkersList))
 
@@ -315,7 +319,7 @@ function storeLastHeldPositions(e) {
 
 /**
  * Function that creates custom markers and places them on the map
- * @param {string?} markerTitle
+ * @param {string} markerTitle
  */
 function addCustomMarker(markerTitle) {
     const lon = Number(localStorage.getItem('lastHeldXPosition'))
@@ -345,12 +349,21 @@ function addCustomMarker(markerTitle) {
 
     /**
      * Register event listener to fly to this custom marker
+     * TODO : Refactor these functions with the loadCustomMarkersFromStorage implementation
      */
     document.addEventListener(`fly-to-${markerTitle}`, (e) => {
         map.flyTo(customMarkerCoords, flyToZoomLevel, { duration: flyToDuration })
         setTimeout(() => {
             customMarker.openPopup()
         }, flyToDuration * 1000)
+    })
+
+    /**
+     * Register event listener to remove this custom marker
+     * TODO : Refactor these functions with the loadCustomMarkersFromStorage implementation
+     */
+    document.addEventListener(`delete-${markerTitle}`, () => {
+        removeCustomMarker(customMarker, markerTitle)
     })
 
     customMarkersList.push({
@@ -395,6 +408,7 @@ function loadCustomMarkersFromStorage() {
 
         /**
          * Register event listener to fly to this custom marker
+         * TODO : Refactor these functions with the addCustomMarker implementation
          */
         document.addEventListener(`fly-to-${m.title}`, (e) => {
             map.flyTo(savedMarkerCoords, flyToZoomLevel, { duration: flyToDuration })
@@ -402,9 +416,32 @@ function loadCustomMarkersFromStorage() {
                 savedMarker.openPopup()
             }, flyToDuration * 1000)
         })
+
+        /**
+         * Register event listener to remove this custom marker
+         * TODO : Refactor these functions with the addCustomMarker implementation
+         */
+        document.addEventListener(`delete-${m.title}`, () => {
+            removeCustomMarker(savedMarker, m.title)
+        })
     }
 }
 loadCustomMarkersFromStorage()
+
+/**
+ * Function that deletes a specific marker from storage and removes it from the map
+ * @param {Marker} marker Leaflet marker object
+ * @param {string} markerTitle Key for custom marker
+ */
+function removeCustomMarker(marker, markerTitle) {
+    marker.remove()
+
+    customMarkersList = customMarkersList.filter(m => {
+        return m.title !== markerTitle
+    })
+
+    saveCustomMarkers()
+}
 
 /**
  * UTILITIES

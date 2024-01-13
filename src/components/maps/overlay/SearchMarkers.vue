@@ -18,6 +18,7 @@ const allMarkers = computed(() => {
 })
 
 // Search functions
+const searchBar = ref<HTMLDivElement>()
 const qInput = ref()
 const { focused: isFocused } = useFocus(qInput)
 
@@ -179,6 +180,15 @@ onMounted(() => {
         customMarkersData.value = useLocalStorage('custom-markers', []).value
     })
 })
+
+/**
+ * Emit event to delete custom marker
+ */
+function emitDeleteCustomMarker(markerTitle: string) {
+    const deleteCMarkerEvent = new CustomEvent(`delete-${markerTitle}`, { bubbles: true })
+
+    searchBar.value?.dispatchEvent(deleteCMarkerEvent)
+}
 </script>
 
 <template>
@@ -222,7 +232,7 @@ onMounted(() => {
                             <i class="ph-light ph-pencil-simple-line"></i>
                         </button> -->
 
-                        <button class="btn btn-danger btn-icon btn-sm">
+                        <button class="btn btn-danger btn-icon btn-sm" @click="emitDeleteCustomMarker(m.title)">
                             <i class="ph-light ph-trash"></i>
                         </button>
                     </div>
