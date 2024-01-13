@@ -490,7 +490,11 @@ function convertScaleToY(y) {
 map.addEventListener('click', (event) => {
     const lat = convertScaleToY(event.latlng.lat)
     const lon = convertScaleToX(event.latlng.lng)
-    console.log(lat, lon, map.getZoom())
+    console.group('Point data')
+    console.log("Latitude :", lat)
+    console.log("Longitude :", lon)
+    console.log("Zoom :", map.getZoom())
+    console.groupEnd()
 })
 </script>
     

@@ -200,7 +200,7 @@ function setTitleError(error: Error | null) {
             </menu>
         </Transition>
 
-        <dialog ref="markerModal" :class="{ 'open': markerModalOpen }" @cancel.prevent="handleMarkerModalCancel" @click="console.log">
+        <dialog ref="markerModal" :class="{ 'open': markerModalOpen }" @cancel.prevent="handleMarkerModalCancel">
             <form @submit.prevent="handleAddCustomMarker">
                 <div class="modal-head">
                     <h2>
@@ -284,7 +284,7 @@ menu {
 
 dialog {
     position: fixed;
-    width: 30%;
+    max-width: calc(100% - 6rem);
     padding: 1.5rem 2rem;
     z-index: 9999;
     background-color: var(--white);
@@ -294,6 +294,10 @@ dialog {
     overflow: visible;
     transform: translateY(1rem);
     transition: visibility 0s ease-out .3s, opacity .3s ease-out, transform .3s ease-out;
+
+    @media screen and (width >= 900px) {
+        width: 50%;
+    }
 
     &,
     &::backdrop {
