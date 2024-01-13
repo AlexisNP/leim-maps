@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { MapMarker } from '@/types/Leaflet';
 import { onClickOutside, onLongPress, useCssVar, useFocus, useLocalStorage, useMouse, useTimeout, useTimeoutFn } from '@vueuse/core'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
@@ -87,6 +88,20 @@ function updateCSSVars() {
 const markerTitle = ref<string>()
 const markerTitleInput = ref<HTMLInputElement>()
 
+const markerTitleInputError = ref<Error | null>()
+
+// Data from localStorage
+const customMarkersData = useLocalStorage('custom-markers', [])
+
+// Refresh from localStorage
+onMounted(() => {
+    customMarkersData.value = useLocalStorage('custom-markers', []).value
+
+    document.addEventListener('refresh-custom-markers', () => {
+        customMarkersData.value = useLocalStorage('custom-markers', []).value
+    })
+})
+
 const addCustomMarker = ref<HTMLButtonElement>();
 
 const markerModal = ref<HTMLDialogElement>()
@@ -108,7 +123,17 @@ onClickOutside(markerMenu, handleClickOutside, { ignore: [markerModal] })
  * Add Custom Marker
  */
 function handleAddCustomMarker() {
+    // If title is empty, don't add anything
     if (!markerTitle.value) return
+
+    // If marker of the same name already exists, don't add anything
+    if (
+        customMarkersData.value.find((cm: MapMarker) => cm.title === markerTitle.value)
+    ) {
+        setTitleError(new Error('Ce titre est déjà utilisé par un marqueur !'))
+        return
+    }
+
 
     const addCustomMarkerEvent = new CustomEvent(
         `add-custom-marker`,
@@ -124,6 +149,7 @@ function handleAddCustomMarker() {
     switchMenuMode('default')
 
     markerTitle.value = ""
+    setTitleError(null)
 }
 
 /**
@@ -152,6 +178,13 @@ function hideMarkerModal() {
     markerModal.value?.close()
     markerModalOpen.value = false
     switchMenuMode('default')
+
+    markerTitle.value = ""
+    setTitleError(null)
+}
+
+function setTitleError(error: Error | null) {
+    markerTitleInputError.value = error
 }
 </script>
 
@@ -187,6 +220,10 @@ function hideMarkerModal() {
 
                         <div class="form-input">
                             <input ref="markerTitleInput" type="text" name="marker-name" id="marker-name" v-model="markerTitle">
+
+                            <div class="form-error" v-if="markerTitleInputError">
+                                {{ markerTitleInputError.message }}
+                            </div>
                         </div>
                     </div>
                 </div>

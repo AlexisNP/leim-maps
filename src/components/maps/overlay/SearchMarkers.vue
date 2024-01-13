@@ -170,8 +170,6 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
 /**
  * CUSTOM MARKERS HANDLING
- * This is really dirty (to me at least)
- * It should probably be handled by a store system, but nanostores doesn't mesh well 
  */
 onMounted(() => {
     customMarkersData.value = useLocalStorage('custom-markers', []).value
