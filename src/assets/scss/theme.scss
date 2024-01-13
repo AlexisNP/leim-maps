@@ -3,6 +3,9 @@
 @use 'reset';
 @use 'leaflet';
 
+@use 'forms';
+@use 'buttons';
+
 :root {
     --white: #fff;
     --black: #111;
@@ -25,6 +28,8 @@
     --blue-700: #0284c7;
     --orange-500: #f97316;
     --orange-700: #c2410c;
+    --purple-500: #8b5cf6;
+    --purple-700: #6d28d9;
 }
 
 html {

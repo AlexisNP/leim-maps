@@ -186,8 +186,8 @@
             "description": "",
             "link": "https://alexcreates.fr/leim/index.php/Cantane",
             "markerCoords": {
-                "x": 196.00387,
-                "y": -210.9071
+                "x": 197.3492280183025,
+                "y": -210.87224307207197
             }
         },
         {
@@ -468,6 +468,16 @@
             "markerCoords": {
                 "x": 125.35658,
                 "y": -95.44555
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Faille de Kiam",
+            "description": "Vaste réseau de falaises et de ravins où gisent des cristaux étranges.",
+            "link": "https://alexcreates.fr/leim/index.php/Faille_de_Kiam",
+            "markerCoords": {
+                "x": 121.47116769539711,
+                "y": -94.66997667550434
             }
         },
         {
@@ -762,8 +772,8 @@
             "title": "Les Cloches de Cantane",
             "description": "D'étranges disparitions secouent la cité minière de Cantane, rythmées par le tintement des cloches de l'église.",
             "markerCoords": {
-                "x": 195.6256582183996,
-                "y": -210.28328748968713
+                "x": 198.0424703459088,
+                "y": -210.9293951755887
             }
         },
         {

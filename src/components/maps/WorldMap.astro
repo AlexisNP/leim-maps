@@ -1,9 +1,9 @@
 ---
-import CountryOverlay from './overlay/CountryOverlay.astro';
 import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
 
 import markersData from '@/components/maps/data/markers.json'
 import playersData from '@/components/maps/data/players.json'
+import MarkerCreator from './overlay/MarkerCreator.vue';
 
 const markers = markersData.data as MapMarker[]
 const players = playersData as PlayerMarker
@@ -12,10 +12,11 @@ const players = playersData as PlayerMarker
 <div class="world-wrapper">
     <div id="world"></div>
 
-    <!-- <CountryOverlay /> -->
+    <MarkerCreator client:load />
 </div>
 
 <script lang="ts" define:vars={{ markers, players }} defer>
+
 const mapHeight = 21896; //
 const mapWidth = 30000; // Find these in the zoomify / original image data
 
@@ -42,6 +43,8 @@ const mobileZoomLevels = {
 const inertiaDeceleration = 2000
 const maxBoundsPadding = 10
 const maxBoundsViscosity = .75
+
+const mapEl = document.getElementById('world')
 
 // Initializes the map
 const map = L.map('world', {
@@ -179,9 +182,9 @@ for (let i = 0; i < markers.length; i++) {
     marker.addTo(layerGroups[m.group])
 
     /**
-     * Display popup of marker
+     * Fly to specific marker
      */
-    document.addEventListener(`fly-to-${m.title}`, () => {
+    document.addEventListener(`fly-to-${m.title}`, (e) => {
         map.flyTo(coords, flyToZoomLevel, { duration: flyToDuration })
         setTimeout(() => {
             marker.openPopup()
@@ -193,7 +196,6 @@ for (let i = 0; i < markers.length; i++) {
  * Add player's position marker
  */
 if ( players && Object.keys(players).length > 0 ) {
-    console.log(players)
     const playersPosition =[
         convertYToScale(players.markerCoords.y),
         convertXToScale(players.markerCoords.x)
@@ -288,16 +290,158 @@ map.setMaxBounds(
 )
 
 /**
- * SVG LAYERS
+ * CUSTOM MARKERS
  */
-// const svgElement = document.getElementById('svg-overlay')
-// const latLngBounds = L.latLngBounds([baseTileLayer.getBounds().getSouth() + 0.9875, baseTileLayer.getBounds().getWest()], [baseTileLayer.getBounds().getNorth(), baseTileLayer.getBounds().getEast() - 1.675]);
 
-// const svgOverlay = L.svgOverlay(svgElement, latLngBounds, {
-//     opacity: 0.25,
-//     interactive: true,
-//     zIndex: 10,
-// }).addTo(map);
+// List to be persisted in localStorage
+let customMarkersList = []
+
+/**
+ * Function that saves the customMarkersList object into the localStorage
+ * It also sends an event to refresh data on other components that use localStorage
+ */
+function saveCustomMarkers() {
+    localStorage.setItem('custom-markers', JSON.stringify(customMarkersList))
+
+    const refreshCustomMarkersEvent = new CustomEvent('refresh-custom-markers', { bubbles: true })
+
+    mapEl.dispatchEvent(refreshCustomMarkersEvent)
+}
+
+// Stores last map coords on context
+map.addEventListener('contextmenu', storeLastHeldPositions)
+map.addEventListener('click', storeLastHeldPositions)
+
+function storeLastHeldPositions(e) {
+    localStorage.setItem('lastHeldXPosition', e.latlng.lng)
+    localStorage.setItem('lastHeldYPosition', e.latlng.lat)
+}
+
+/**
+ * Function that creates custom markers and places them on the map
+ * @param {string} markerTitle
+ */
+function addCustomMarker(markerTitle) {
+    const lon = Number(localStorage.getItem('lastHeldXPosition'))
+    const lat = Number(localStorage.getItem('lastHeldYPosition'))
+
+    const customMarkerIconOptions = {
+        iconUrl: `icon/push-pin.png`,
+        shadowUrl: `icon/push-pin-shadow.png`,
+        iconSize: [20, 20],
+        shadowSize: [30, 25],
+        iconAnchor: [0, 13],
+        shadowAnchor: [0, 15],
+        className: "fade-in"
+    }
+    const customMarkerIcon = L.icon(customMarkerIconOptions)
+    const customMarkerCoords = [lat, lon]
+
+    // Sticks the custom marker on the map
+    const customMarker = L.marker(customMarkerCoords, { icon: customMarkerIcon }).addTo(map)
+
+    if (markerTitle) {
+        const popupContent = `
+            ${markerTitle}
+        `
+        customMarker.bindPopup(popupContent, { offset: [5, -5] }).openPopup()
+    }
+
+    /**
+     * Register event listener to fly to this custom marker
+     * TODO : Refactor these functions with the loadCustomMarkersFromStorage implementation
+     */
+    document.addEventListener(`fly-to-${markerTitle}`, (e) => {
+        map.flyTo(customMarkerCoords, flyToZoomLevel, { duration: flyToDuration })
+        setTimeout(() => {
+            customMarker.openPopup()
+        }, flyToDuration * 1000)
+    })
+
+    /**
+     * Register event listener to remove this custom marker
+     * TODO : Refactor these functions with the loadCustomMarkersFromStorage implementation
+     */
+    document.addEventListener(`delete-${markerTitle}`, () => {
+        removeCustomMarker(customMarker, markerTitle)
+    })
+
+    customMarkersList.push({
+        lat,
+        lon,
+        title: markerTitle,
+        icon: customMarkerIconOptions,
+        group: "custom"
+    })
+
+    saveCustomMarkers()
+}
+
+// Listeners for the custom add marker event
+// See MarkerCreator.vue component for more details
+document.addEventListener('add-custom-marker', (e) => {
+    addCustomMarker(e.detail.title)
+})
+
+/**
+ * Load all custom markers onto the map
+ */
+function loadCustomMarkersFromStorage() {
+    const customMarkersData = JSON.parse(localStorage.getItem('custom-markers'))
+
+    if (!customMarkersData) return
+
+    customMarkersList = customMarkersData
+
+    for (let i = 0; i < customMarkersData.length; i++) {
+        const m = customMarkersData[i];
+
+        const savedMarkerCoords = [m.lat, m.lon]
+        const savedMarker = L.marker(savedMarkerCoords, { icon: L.icon(m.icon) }).addTo(map)
+
+        if (m.title) {
+            const popupContent = `
+                ${m.title}
+            `
+            savedMarker.bindPopup(popupContent, { offset: [5, -5] })
+        }
+
+        /**
+         * Register event listener to fly to this custom marker
+         * TODO : Refactor these functions with the addCustomMarker implementation
+         */
+        document.addEventListener(`fly-to-${m.title}`, (e) => {
+            map.flyTo(savedMarkerCoords, flyToZoomLevel, { duration: flyToDuration })
+            setTimeout(() => {
+                savedMarker.openPopup()
+            }, flyToDuration * 1000)
+        })
+
+        /**
+         * Register event listener to remove this custom marker
+         * TODO : Refactor these functions with the addCustomMarker implementation
+         */
+        document.addEventListener(`delete-${m.title}`, () => {
+            removeCustomMarker(savedMarker, m.title)
+        })
+    }
+}
+loadCustomMarkersFromStorage()
+
+/**
+ * Function that deletes a specific marker from storage and removes it from the map
+ * @param {Marker} marker Leaflet marker object
+ * @param {string} markerTitle Key for custom marker
+ */
+function removeCustomMarker(marker, markerTitle) {
+    marker.remove()
+
+    customMarkersList = customMarkersList.filter(m => {
+        return m.title !== markerTitle
+    })
+
+    saveCustomMarkers()
+}
 
 /**
  * UTILITIES
@@ -346,7 +490,11 @@ function convertScaleToY(y) {
 map.addEventListener('click', (event) => {
     const lat = convertScaleToY(event.latlng.lat)
     const lon = convertScaleToX(event.latlng.lng)
-    console.log(lat, lon, map.getZoom())
+    console.group('Point data')
+    console.log("Latitude :", lat)
+    console.log("Longitude :", lon)
+    console.log("Zoom :", map.getZoom())
+    console.groupEnd()
 })
 </script>
     
@@ -361,6 +509,8 @@ body {
 .world-wrapper {
     position: fixed;
     inset: 0;
+    z-index: 0;
+    isolation: isolate;
 
     #world {
         height: 100%;
