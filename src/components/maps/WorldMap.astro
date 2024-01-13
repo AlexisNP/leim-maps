@@ -349,7 +349,7 @@ function addCustomMarker(markerTitle) {
     document.addEventListener(`fly-to-${markerTitle}`, (e) => {
         map.flyTo(customMarkerCoords, flyToZoomLevel, { duration: flyToDuration })
         setTimeout(() => {
-            marker.openPopup()
+            customMarker.openPopup()
         }, flyToDuration * 1000)
     })
 
