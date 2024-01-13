@@ -7,7 +7,6 @@
     font-weight: 500;
     border: 1px solid transparent;
     border-radius: .2rem;
-    box-shadow: rgba(0, 0, 0, 0.15) 0 .2rem .3rem;
     cursor: pointer;
     transition-property: color, background-color, border-color;
     transition-duration: .2s;
@@ -17,7 +16,7 @@
         cursor: not-allowed;
     }
 
-    &-secondary {
+    &.btn-secondary {
         &:not(:disabled) {
             background-color: var(--slate-200);
 
@@ -34,7 +33,19 @@
         }
     }
 
-    &-danger {
+    &.btn-info {
+        &:not(:disabled) {
+            background-color: var(--slate-200);
+
+            &:hover,
+            &:focus-visible {
+                color: var(--white);
+                background-color: var(--blue-500);
+            }
+        }
+    }
+
+    &.btn-danger {
         &:not(:disabled) {
             background-color: var(--slate-200);
 
@@ -46,12 +57,21 @@
         }
     }
 
-    &-icon {
+    &.btn-icon {
         width: 1.75rem;
         padding: 0;
         display: grid;
         place-items: center;
         aspect-ratio: 1;
         border-radius: 50%;
+
+        &.btn-sm {
+            font-size: .85em;
+            width: 1.5rem;
+        }
+    }
+
+    &.btn-shadow {
+        box-shadow: rgba(0, 0, 0, 0.15) 0 .2rem .3rem;
     }
 }

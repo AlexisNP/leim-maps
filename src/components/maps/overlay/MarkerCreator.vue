@@ -204,7 +204,7 @@ function hideMarkerModal() {
             </form>
 
             <div class="modal-actions">
-                <button class="btn btn-danger btn-icon" @click="hideMarkerModal">
+                <button class="btn btn-danger btn-icon btn-shadow" @click="hideMarkerModal">
                     <i class="ph-light ph-x"></i>
                 </button>
             </div>

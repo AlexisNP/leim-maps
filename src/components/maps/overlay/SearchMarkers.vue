@@ -210,14 +210,22 @@ onMounted(() => {
 
                         <div class="desc" v-html="m.description"></div>
 
-                        <div class="icon" v-if="m.group === 'quests'">
-                            <i class="ph-fill ph-flag-banner"></i>
-                        </div>
-
-                        <div class="icon" v-else-if="m.group === 'landmarks'">
-                            <i class="ph-fill ph-castle-turret"></i>
+                        <div class="icon">
+                            <i v-if="m.group === 'quests'" class="ph-fill ph-flag-banner"></i>
+                            <i v-else-if="m.group === 'landmarks'" class="ph-fill ph-castle-turret"></i>
                         </div>
                     </button>
+
+                    <!-- Custom marker actions -->
+                    <div class="search-item-actions" v-if="m.group === 'custom'">
+                        <!-- <button class="btn btn-info btn-icon btn-sm">
+                            <i class="ph-light ph-pencil-simple-line"></i>
+                        </button> -->
+
+                        <button class="btn btn-danger btn-icon btn-sm">
+                            <i class="ph-light ph-trash"></i>
+                        </button>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -366,44 +374,8 @@ onMounted(() => {
                 margin-bottom: .33rem;
             }
 
-            .search-item {
+            li {
                 position: relative;
-                cursor: pointer;
-                padding: .4rem .25em;
-                padding-right: 2.75rem;
-                width: 100%;
-                outline-offset: -1px;
-
-                .title,
-                .desc {
-                    display: block;
-                    font-size: .85em;
-                }
-
-                .title {
-                    font-weight: 500;
-                    text-underline-offset: 2px;
-                }
-                .desc {
-                    color: var(--slate-500);
-
-                    :deep(a) {
-                        text-underline-offset: 2px;
-                        text-decoration: underline;
-
-                        &:hover {
-                            color: var(--green-500);
-                        }
-                    }
-                }
-
-                .icon {
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    right: .75rem;
-                    color: var(--slate-400);
-                }
 
                 &:hover:not(:has(a:hover)) {
                     background-color: var(--slate-100);
@@ -413,29 +385,98 @@ onMounted(() => {
                     }
                 }
 
-                &:focus-visible {
-                    outline: 1px dotted var(--slate-500);
-                    outline: 4px auto var(--slate-900);
+                .search-item {
+                    position: relative;
+                    cursor: pointer;
+                    padding: .4rem .25em;
+                    padding-right: 2.75rem;
+                    width: 100%;
+                    outline-offset: -1px;
+
+                    .title,
+                    .desc {
+                        display: block;
+                        font-size: .85em;
+                    }
 
                     .title {
-                        text-decoration: underline;
+                        font-weight: 500;
+                        text-underline-offset: 2px;
+                    }
+                    .desc {
+                        color: var(--slate-500);
+
+                        :deep(a) {
+                            text-underline-offset: 2px;
+                            text-decoration: underline;
+
+                            &:hover {
+                                color: var(--green-500);
+                            }
+                        }
+                    }
+
+                    .icon {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        right: .75rem;
+                        color: var(--slate-400);
+                    }
+
+                    &:focus-visible {
+                        outline: 1px dotted var(--slate-500);
+                        outline: 4px auto var(--slate-900);
+
+                        .title {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    /**
+                    * Rules for specific groups (capitals, cities, etc...)
+                    */
+                    &.group-capitals {
+                        .title {
+                            font-weight: 600;
+                        }
+                    }
+
+                    &.group-quests {
+                        &:hover:not(:has(a:hover)) {
+                            .icon {
+                                color: var(--red-500);
+                            }
+                        }
                     }
                 }
 
                 /**
-                * Rules for specific groups (capitals, cities, etc...)
+                * Custom markers actions
                 */
-                &.group-capitals {
-                    .title {
-                        font-weight: 600;
+                .search-item-actions {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right: .25em;
+                    transition-property: visibility, opacity;
+                    transition-duration: .2s;
+                    transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+                }
+
+                &:hover {
+                    .search-item-actions {
+                        visibility: visible;
+                        opacity: 1;
+                        pointer-events: all;
                     }
                 }
 
-                &.group-quests {
-                    &:hover:not(:has(a:hover)) {
-                        .icon {
-                            color: var(--red-500);
-                        }
+                &:not(:hover) {
+                    .search-item-actions {
+                        visibility: hidden;
+                        opacity: 0;
+                        pointer-events: none;
                     }
                 }
             }
