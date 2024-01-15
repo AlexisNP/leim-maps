@@ -207,7 +207,7 @@ function setTitleError(error: Error | null) {
                         Ajouter un marqueur personnel
                     </h2>
                     <p class="modal-notice">
-                        <i class="icon ph-light ph-warning"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"/><path d="M142.41,40.22l87.46,151.87C236,202.79,228.08,216,215.46,216H40.54C27.92,216,20,202.79,26.13,192.09L113.59,40.22C119.89,29.26,136.11,29.26,142.41,40.22Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="128" y1="144" x2="128" y2="104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="128" cy="180" r="10"/></svg>
                         <span>Le marqueur sera sauvegardé mais n'apparaîtra que sur votre carte !</span>
                     </p>
                 </div>
@@ -242,7 +242,7 @@ function setTitleError(error: Error | null) {
 
             <div class="modal-actions">
                 <button class="btn btn-danger btn-icon btn-shadow" @click="hideMarkerModal">
-                    <i class="ph-light ph-x"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"/><line x1="200" y1="56" x2="56" y2="200" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="200" y1="200" x2="56" y2="56" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
                 </button>
             </div>
         </dialog>
@@ -340,7 +340,7 @@ dialog {
             font-size: .8em;
 
             .icon {
-                font-size: 1.3em;
+                width: 1.3em;
             }
         }
     }

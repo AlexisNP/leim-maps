@@ -10,14 +10,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/node": "^6.0.3",
-    "@astrojs/vue": "^3.0.1",
-    "@nanostores/vue": "^0.10.0",
-    "@types/leaflet": "^1.9.6",
+    "@astrojs/sitemap": "^3.0.4",
+    "@astrojs/vue": "^4.0.8",
+    "@types/leaflet": "^1.9.8",
     "@vueuse/core": "^10.7.1",
-    "astro": "^3.2.0",
-    "nanostores": "^0.9.3",
-    "vue": "^3.3.4"
+    "astro": "^4.1.2",
+    "vue": "^3.4.14"
   },
   "devDependencies": {
     "sass": "^1.68.0"
