@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^6.0.3",
+    "@astrojs/sitemap": "^3.0.4",
     "@astrojs/vue": "^3.0.1",
     "@nanostores/vue": "^0.10.0",
     "@types/leaflet": "^1.9.6",
