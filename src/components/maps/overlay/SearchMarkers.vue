@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MapMarker, MapMarkerGroup, PlayerMarker } from '@/types/Leaflet';
 import type { SearchMode } from '@/types/Search';
-import { useFocus, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
+import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
 import { computed, onMounted, ref, onUpdated, watch } from 'vue';
 import SearchMarkersTags from './SearchMarkersTags.vue';
 
@@ -19,17 +19,22 @@ const allMarkers = computed(() => {
 
 // Search functions
 const searchBar = ref<HTMLDivElement>()
+const searchBarWrapper = ref<HTMLDivElement>()
 const qInput = ref()
-const { focused: isFocused } = useFocus(qInput)
+const { focused: isComponentFocused } = useFocusWithin(searchBarWrapper)
+const { focused: isSearchFocused } = useFocus(qInput)
 
 const currentSearchMode = ref<SearchMode>('query')
 
 onMounted(() => {
-    isFocused.value = true
+    isSearchFocused.value = true
 })
 
 const hasQuery = computed(() => q.value.length > 0)
-const shouldBeActive = computed(() => hasQuery.value || currentSearchMode.value !== "query")
+const shouldBeActive = computed(() =>
+    (hasQuery.value && currentSearchMode.value === "query" && isComponentFocused.value)
+    || currentSearchMode.value !== "query"
+)
 
 const q = ref<string>("")
 
@@ -70,17 +75,19 @@ const shortcutKeyCombo = keys['Shift+Period']
 const eraseKeyCombo = keys['Escape']
 
 whenever(shortcutKeyCombo, () => {
-    isFocused.value = true
+    isSearchFocused.value = true
 })
 whenever(eraseKeyCombo, () => {
-    resetAllFields()
-    isFocused.value = true
+    resetAllFields('focusAfter')
 })
 
 // If query changes and has new value...
 watch(q, (n, o) => {
     if (n) setSearchMode('query')
 })
+
+// Toggle menu if clicked outside
+onClickOutside(searchBarWrapper, () => setSearchMode('query'))
 
 /**
  * Player geolocation
@@ -134,6 +141,26 @@ function handleCategorySwitch(g: MapMarkerGroup) {
 }
 
 /**
+ * Custom Markers handling
+ */
+ onMounted(() => {
+    customMarkersData.value = useLocalStorage('custom-markers', []).value
+
+    document.addEventListener('refresh-custom-markers', () => {
+        customMarkersData.value = useLocalStorage('custom-markers', []).value
+    })
+})
+
+/**
+ * Emit event to delete custom marker
+ */
+function emitDeleteCustomMarker(markerTitle: string) {
+    const deleteCMarkerEvent = new CustomEvent(`delete-${markerTitle}`, { bubbles: true })
+
+    searchBar.value?.dispatchEvent(deleteCMarkerEvent)
+}
+
+/**
  * EVENTS
  */
 // Close Button event
@@ -163,34 +190,15 @@ function resetQueryValue() {
  */
 function resetAllFields(actionAfter?: "focusAfter") {
     setSearchMode('query')
+
     resetQueryValue()
 
-    if (actionAfter === "focusAfter") isFocused.value = true
-}
-
-/**
- * CUSTOM MARKERS HANDLING
- */
-onMounted(() => {
-    customMarkersData.value = useLocalStorage('custom-markers', []).value
-
-    document.addEventListener('refresh-custom-markers', () => {
-        customMarkersData.value = useLocalStorage('custom-markers', []).value
-    })
-})
-
-/**
- * Emit event to delete custom marker
- */
-function emitDeleteCustomMarker(markerTitle: string) {
-    const deleteCMarkerEvent = new CustomEvent(`delete-${markerTitle}`, { bubbles: true })
-
-    searchBar.value?.dispatchEvent(deleteCMarkerEvent)
+    if (actionAfter === "focusAfter") isSearchFocused.value = true
 }
 </script>
 
 <template>
-    <nav class="toolbar">
+    <nav ref="searchBarWrapper" class="toolbar">
         <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
             <div class="input-w">
                 <i class="search-icon ph-fill ph-magnifying-glass"></i>
@@ -362,9 +370,13 @@ function emitDeleteCustomMarker(markerTitle: string) {
         }
 
         .search-results {
-            max-height: 50vh;
+            max-height: 20vh;
             overflow-y: auto;
             scrollbar-gutter: stable;
+
+            @media screen and (width >= 900px) {
+                max-height: 50vh;
+            }
 
             &::-webkit-scrollbar,
             &::-webkit-scrollbar-thumb {
