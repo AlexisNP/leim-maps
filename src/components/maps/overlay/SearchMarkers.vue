@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MapMarker, MapMarkerGroup, PlayerMarker } from '@/types/Leaflet';
 import type { SearchMode } from '@/types/Search';
-import { onClickOutside, useFocus, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
+import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
 import { computed, onMounted, ref, onUpdated, watch } from 'vue';
 import SearchMarkersTags from './SearchMarkersTags.vue';
 
@@ -21,16 +21,20 @@ const allMarkers = computed(() => {
 const searchBar = ref<HTMLDivElement>()
 const searchBarWrapper = ref<HTMLDivElement>()
 const qInput = ref()
-const { focused: isFocused } = useFocus(qInput)
+const { focused: isComponentFocused } = useFocusWithin(searchBarWrapper)
+const { focused: isSearchFocused } = useFocus(qInput)
 
 const currentSearchMode = ref<SearchMode>('query')
 
 onMounted(() => {
-    isFocused.value = true
+    isSearchFocused.value = true
 })
 
 const hasQuery = computed(() => q.value.length > 0)
-const shouldBeActive = computed(() => hasQuery.value || currentSearchMode.value !== "query")
+const shouldBeActive = computed(() =>
+    (hasQuery.value && currentSearchMode.value === "query" && isComponentFocused.value)
+    || currentSearchMode.value !== "query"
+)
 
 const q = ref<string>("")
 
@@ -71,11 +75,10 @@ const shortcutKeyCombo = keys['Shift+Period']
 const eraseKeyCombo = keys['Escape']
 
 whenever(shortcutKeyCombo, () => {
-    isFocused.value = true
+    isSearchFocused.value = true
 })
 whenever(eraseKeyCombo, () => {
-    resetAllFields()
-    isFocused.value = true
+    resetAllFields('focusAfter')
 })
 
 // If query changes and has new value...
@@ -83,8 +86,8 @@ watch(q, (n, o) => {
     if (n) setSearchMode('query')
 })
 
-// Remove menu if clicked outside
-onClickOutside(searchBarWrapper, () => resetAllFields())
+// Toggle menu if clicked outside
+onClickOutside(searchBarWrapper, () => setSearchMode('query'))
 
 /**
  * Player geolocation
@@ -187,9 +190,10 @@ function resetQueryValue() {
  */
 function resetAllFields(actionAfter?: "focusAfter") {
     setSearchMode('query')
+
     resetQueryValue()
 
-    if (actionAfter === "focusAfter") isFocused.value = true
+    if (actionAfter === "focusAfter") isSearchFocused.value = true
 }
 </script>
 
