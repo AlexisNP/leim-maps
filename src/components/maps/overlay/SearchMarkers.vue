@@ -62,8 +62,8 @@ const filteredMarkers = computed(() => {
 
 // Limit of menu list dropdown
 const currentLimit = computed(() => {
-    if (currentSearchMode.value === "query") return 10
-    return 100
+    if (currentSearchMode.value === "query") return 50
+    return 500
 })
 
 /**
@@ -201,15 +201,16 @@ function resetAllFields(actionAfter?: "focusAfter") {
     <nav ref="searchBarWrapper" class="toolbar">
         <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
             <div class="input-w">
-                <i class="search-icon ph-fill ph-magnifying-glass"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="search-icon"><rect width="256" height="256" fill="none"/><path d="M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z"/></svg>
+
                 <input ref="qInput" class="" name="recherche" type="text" v-model="q" title="Rechercher le monde" placeholder="Ville, point d'intérêt…">
 
                 <button v-if="hasGroupFilter || hasQuery" @click="onCloseQuery" class="close-btn" title="Enlever le filtre">
-                    <i class="ph-light ph-x"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"/><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg>
                 </button>
 
                 <button v-if="hasPlayers" data-to-players class="player-btn" :tabindex="shouldBeActive ? 1 : 0" title="Aller à la position actuelle des joueurs">
-                    <i class="pin-icon ph-fill ph-map-pin"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"/><path d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></svg>
                 </button>
             </div>
 
@@ -226,20 +227,19 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
                         <div class="desc" v-html="m.description"></div>
 
-                        <div class="icon">
-                            <i v-if="m.group === 'quests'" class="ph-fill ph-flag-banner"></i>
-                            <i v-else-if="m.group === 'landmarks'" class="ph-fill ph-castle-turret"></i>
-                        </div>
+                        <svg v-if="m.group === 'quests'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M231.22,59.44l-80,168a8,8,0,1,1-14.44-6.88L165.62,160H32a8,8,0,0,1-5.88-13.43l42.56-46.1L26.59,61.9A8,8,0,0,1,32,48H224a8,8,0,0,1,7.22,11.44Z"/></svg>
+                        <svg v-else-if="m.group === 'capitals'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M200,24h-8a16,16,0,0,0-16,16V56H148V40a16,16,0,0,0-16-16h-8a16,16,0,0,0-16,16V56H80V40A16,16,0,0,0,64,24H56A16,16,0,0,0,40,40V84.69A15.86,15.86,0,0,0,44.69,96L56,107.31V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V107.31L211.31,96A15.86,15.86,0,0,0,216,84.69V40A16,16,0,0,0,200,24ZM152,216H104V152a24,24,0,0,1,48,0Z"/></svg>
+                        <svg v-else-if="m.group === 'landmarks'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M208,80a8,8,0,0,0-8,8v16H188.85L184,55.2A8,8,0,0,0,181.31,50h0L138.44,11.88l-.2-.17a16,16,0,0,0-20.48,0l-.2.17L74.68,50v0A7.93,7.93,0,0,0,72,55.2L67.15,104H56V88a8,8,0,0,0-16,0v24a8,8,0,0,0,8,8H65.54l-9.47,94.48A16,16,0,0,0,72,232H184a16,16,0,0,0,15.92-17.56L190.46,120H208a8,8,0,0,0,8-8V88A8,8,0,0,0,208,80ZM87.24,64h81.52l4,40H136V88a8,8,0,0,0-16,0v16H83.23ZM72,216l4.81-48H179.19L184,216Z"/></svg>
                     </button>
 
                     <!-- Custom marker actions -->
                     <div class="search-item-actions" v-if="m.group === 'custom'">
                         <!-- <button class="btn btn-info btn-icon btn-sm">
-                            <i class="ph-light ph-pencil-simple-line"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"/><path d="M92.69,216H48a8,8,0,0,1-8-8V163.31a8,8,0,0,1,2.34-5.65L165.66,34.34a8,8,0,0,1,11.31,0L221.66,79a8,8,0,0,1,0,11.31L98.34,213.66A8,8,0,0,1,92.69,216Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="136" y1="64" x2="192" y2="120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
                         </button> -->
 
                         <button class="btn btn-danger btn-icon btn-sm" @click="emitDeleteCustomMarker(m.title)">
-                            <i class="ph-light ph-trash"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"/><line x1="216" y1="56" x2="40" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="104" y1="104" x2="104" y2="168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="152" y1="104" x2="152" y2="168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
                         </button>
                     </div>
                 </li>
@@ -301,8 +301,8 @@ function resetAllFields(actionAfter?: "focusAfter") {
                 top: 50%;
                 transform: translateY(-50%);
                 left: 0;
-                font-size: $search-icon-size;
-                color: var(--slate-400);
+                width: $search-icon-size;
+                fill: var(--slate-400);
                 pointer-events: none;
             }
 
@@ -345,8 +345,11 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
             .player-btn {
                 margin-left: .25rem;
-                font-size: 1.5em;
-                color: var(--red-500);
+                
+                .icon {
+                    font-size: 1.5em;
+                    fill: var(--red-500);
+                }
 
                 &:hover {
                     &::before {
@@ -441,7 +444,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
                         top: 50%;
                         transform: translateY(-50%);
                         right: .75rem;
-                        color: var(--slate-400);
+                        fill: var(--slate-400);
                     }
 
                     &:focus-visible {
@@ -469,6 +472,12 @@ function resetAllFields(actionAfter?: "focusAfter") {
                             }
                         }
                     }
+
+                    &.group-custom {
+                        .title {
+                            font-style: italic;
+                        }
+                    }
                 }
 
                 /**
@@ -479,6 +488,9 @@ function resetAllFields(actionAfter?: "focusAfter") {
                     top: 50%;
                     transform: translateY(-50%);
                     right: .25em;
+                    display: flex;
+                    align-items: center;
+                    gap: .3rem;
                     transition-property: visibility, opacity;
                     transition-duration: .2s;
                     transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
