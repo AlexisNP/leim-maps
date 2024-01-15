@@ -6,5 +6,5 @@ import vue from "@astrojs/vue";
 export default defineConfig({
     integrations: [vue()],
     output: 'static',
-    site: 'https://maps.alexcreates.fr'
+    site: 'https://maps.alexcreates.fr',
 });
