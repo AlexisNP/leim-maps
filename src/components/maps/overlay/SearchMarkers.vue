@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MapMarker, MapMarkerGroup, PlayerMarker } from '@/types/Leaflet';
 import type { SearchMode } from '@/types/Search';
-import { useFocus, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
+import { onClickOutside, useFocus, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
 import { computed, onMounted, ref, onUpdated, watch } from 'vue';
 import SearchMarkersTags from './SearchMarkersTags.vue';
 
@@ -19,6 +19,7 @@ const allMarkers = computed(() => {
 
 // Search functions
 const searchBar = ref<HTMLDivElement>()
+const searchBarWrapper = ref<HTMLDivElement>()
 const qInput = ref()
 const { focused: isFocused } = useFocus(qInput)
 
@@ -82,6 +83,9 @@ watch(q, (n, o) => {
     if (n) setSearchMode('query')
 })
 
+// Remove menu if clicked outside
+onClickOutside(searchBarWrapper, () => resetAllFields())
+
 /**
  * Player geolocation
  * Uses native JS to avoid changing leaflet library
@@ -134,6 +138,26 @@ function handleCategorySwitch(g: MapMarkerGroup) {
 }
 
 /**
+ * Custom Markers handling
+ */
+ onMounted(() => {
+    customMarkersData.value = useLocalStorage('custom-markers', []).value
+
+    document.addEventListener('refresh-custom-markers', () => {
+        customMarkersData.value = useLocalStorage('custom-markers', []).value
+    })
+})
+
+/**
+ * Emit event to delete custom marker
+ */
+function emitDeleteCustomMarker(markerTitle: string) {
+    const deleteCMarkerEvent = new CustomEvent(`delete-${markerTitle}`, { bubbles: true })
+
+    searchBar.value?.dispatchEvent(deleteCMarkerEvent)
+}
+
+/**
  * EVENTS
  */
 // Close Button event
@@ -167,30 +191,10 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
     if (actionAfter === "focusAfter") isFocused.value = true
 }
-
-/**
- * CUSTOM MARKERS HANDLING
- */
-onMounted(() => {
-    customMarkersData.value = useLocalStorage('custom-markers', []).value
-
-    document.addEventListener('refresh-custom-markers', () => {
-        customMarkersData.value = useLocalStorage('custom-markers', []).value
-    })
-})
-
-/**
- * Emit event to delete custom marker
- */
-function emitDeleteCustomMarker(markerTitle: string) {
-    const deleteCMarkerEvent = new CustomEvent(`delete-${markerTitle}`, { bubbles: true })
-
-    searchBar.value?.dispatchEvent(deleteCMarkerEvent)
-}
 </script>
 
 <template>
-    <nav class="toolbar">
+    <nav ref="searchBarWrapper" class="toolbar">
         <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
             <div class="input-w">
                 <i class="search-icon ph-fill ph-magnifying-glass"></i>
@@ -362,9 +366,13 @@ function emitDeleteCustomMarker(markerTitle: string) {
         }
 
         .search-results {
-            max-height: 50vh;
+            max-height: 20vh;
             overflow-y: auto;
             scrollbar-gutter: stable;
+
+            @media screen and (width >= 900px) {
+                max-height: 50vh;
+            }
 
             &::-webkit-scrollbar,
             &::-webkit-scrollbar-thumb {
