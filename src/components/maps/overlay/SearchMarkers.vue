@@ -280,12 +280,12 @@ function resetAllFields(actionAfter?: "focusAfter") {
             $search-icon-size: 1.2em;
 
             position: relative;
-            padding-block: .2rem;
             display: flex;
             align-items: center;
             gap: $search-items-gap;
 
             input {
+                padding-block: .2rem;
                 display: block;
                 min-width: 10rem;
                 padding-inline-start: calc($search-icon-size + $search-items-gap);
