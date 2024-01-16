@@ -91,6 +91,7 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
 <style lang="scss" scoped>
 .tag-list {
     display: flex;
+    flex-wrap: wrap;
     gap: .5rem;
     margin-top: .5rem;
 
@@ -124,6 +125,7 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
         border: 1px solid var(--slate-400);
         border-radius: 100vmax;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        white-space: nowrap;
         pointer-events: all;
         cursor: pointer;
         outline: .2rem solid transparent;
