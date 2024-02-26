@@ -31,10 +31,7 @@ onMounted(() => {
 })
 
 const hasQuery = computed(() => q.value.length > 0)
-const shouldBeActive = computed(() =>
-    (hasQuery.value && currentSearchMode.value === "query" && isComponentFocused.value)
-    || currentSearchMode.value !== "query"
-)
+const shouldBeActive = computed(() => hasQuery.value || currentSearchMode.value !== "query")
 
 const q = ref<string>("")
 
