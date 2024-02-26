@@ -106,6 +106,7 @@ for (let i = 0; i < markers.length; i++) {
     const coords = [convertYToScale(m.markerCoords.y), convertXToScale(m.markerCoords.x)]
 
     let markerIcon
+    let markerIconOverride
 
     switch (m.group) {
         case "capitals":
@@ -154,7 +155,20 @@ for (let i = 0; i < markers.length; i++) {
             break
     }
 
-    const marker = L.marker(coords, { icon: markerIcon }).addTo(map)
+    // Handle icon override if it's specified
+    markerIconOverride = markerIcon
+    if (m.icon) {
+        markerIconOverride = L.icon({
+            iconUrl: `icon/${m.icon}.png`,
+            shadowUrl: `icon/${m.icon}-shadow.png`,
+            iconSize: [25, 25],
+            shadowSize: [35, 30],
+            iconAnchor: [12.5, 8],
+            shadowAnchor: [11, 12]
+        })
+    }
+
+    const marker = L.marker(coords, { icon: markerIconOverride }).addTo(map)
     let popupContent = ""
     if (m.link) {
         popupContent = `

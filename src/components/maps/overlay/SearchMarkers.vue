@@ -31,10 +31,7 @@ onMounted(() => {
 })
 
 const hasQuery = computed(() => q.value.length > 0)
-const shouldBeActive = computed(() =>
-    (hasQuery.value && currentSearchMode.value === "query" && isComponentFocused.value)
-    || currentSearchMode.value !== "query"
-)
+const shouldBeActive = computed(() => hasQuery.value || currentSearchMode.value !== "query")
 
 const q = ref<string>("")
 
@@ -227,9 +224,14 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
                         <div class="desc" v-html="m.description"></div>
 
-                        <svg v-if="m.group === 'quests'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M231.22,59.44l-80,168a8,8,0,1,1-14.44-6.88L165.62,160H32a8,8,0,0,1-5.88-13.43l42.56-46.1L26.59,61.9A8,8,0,0,1,32,48H224a8,8,0,0,1,7.22,11.44Z"/></svg>
-                        <svg v-else-if="m.group === 'capitals'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M200,24h-8a16,16,0,0,0-16,16V56H148V40a16,16,0,0,0-16-16h-8a16,16,0,0,0-16,16V56H80V40A16,16,0,0,0,64,24H56A16,16,0,0,0,40,40V84.69A15.86,15.86,0,0,0,44.69,96L56,107.31V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V107.31L211.31,96A15.86,15.86,0,0,0,216,84.69V40A16,16,0,0,0,200,24ZM152,216H104V152a24,24,0,0,1,48,0Z"/></svg>
-                        <svg v-else-if="m.group === 'landmarks'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M208,80a8,8,0,0,0-8,8v16H188.85L184,55.2A8,8,0,0,0,181.31,50h0L138.44,11.88l-.2-.17a16,16,0,0,0-20.48,0l-.2.17L74.68,50v0A7.93,7.93,0,0,0,72,55.2L67.15,104H56V88a8,8,0,0,0-16,0v24a8,8,0,0,0,8,8H65.54l-9.47,94.48A16,16,0,0,0,72,232H184a16,16,0,0,0,15.92-17.56L190.46,120H208a8,8,0,0,0,8-8V88A8,8,0,0,0,208,80ZM87.24,64h81.52l4,40H136V88a8,8,0,0,0-16,0v16H83.23ZM72,216l4.81-48H179.19L184,216Z"/></svg>
+                        <div v-if="m.icon">
+                            <svg v-if="m.icon === 'graduation-cap'" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 256 256"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"></path></svg>
+                        </div>
+                        <div v-else>
+                            <svg v-if="m.group === 'quests'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M231.22,59.44l-80,168a8,8,0,1,1-14.44-6.88L165.62,160H32a8,8,0,0,1-5.88-13.43l42.56-46.1L26.59,61.9A8,8,0,0,1,32,48H224a8,8,0,0,1,7.22,11.44Z"/></svg>
+                            <svg v-else-if="m.group === 'capitals'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M200,24h-8a16,16,0,0,0-16,16V56H148V40a16,16,0,0,0-16-16h-8a16,16,0,0,0-16,16V56H80V40A16,16,0,0,0,64,24H56A16,16,0,0,0,40,40V84.69A15.86,15.86,0,0,0,44.69,96L56,107.31V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V107.31L211.31,96A15.86,15.86,0,0,0,216,84.69V40A16,16,0,0,0,200,24ZM152,216H104V152a24,24,0,0,1,48,0Z"/></svg>
+                            <svg v-else-if="m.group === 'landmarks'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M208,80a8,8,0,0,0-8,8v16H188.85L184,55.2A8,8,0,0,0,181.31,50h0L138.44,11.88l-.2-.17a16,16,0,0,0-20.48,0l-.2.17L74.68,50v0A7.93,7.93,0,0,0,72,55.2L67.15,104H56V88a8,8,0,0,0-16,0v24a8,8,0,0,0,8,8H65.54l-9.47,94.48A16,16,0,0,0,72,232H184a16,16,0,0,0,15.92-17.56L190.46,120H208a8,8,0,0,0,8-8V88A8,8,0,0,0,208,80ZM87.24,64h81.52l4,40H136V88a8,8,0,0,0-16,0v16H83.23ZM72,216l4.81-48H179.19L184,216Z"/></svg>
+                        </div>
                     </button>
 
                     <!-- Custom marker actions -->
