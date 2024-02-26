@@ -784,6 +784,94 @@
                 "x": 105.79962111804268,
                 "y": -82.40552057309549
             }
+        },
+        {
+            "group": "landmarks",
+            "title": "Faculté de Magie Appliquée",
+            "description": "Établissement d'enseignements arcaniques tout public, mais à la qualité lacunaire.",
+            "link": "https://alexcreates.fr/leim/index.php/Facult%C3%A9_de_Magie_Appliqu%C3%A9e",
+            "markerCoords": {
+                "x": 103.96761286182101,
+                "y": -79.90785827537563
+            },
+            "icon": "graduation-cap"
+        },
+        {
+            "group": "landmarks",
+            "title": "Académie Artistique Arcanique",
+            "description": "Institut d'apprentissage public centré sur les arts.",
+            "link": "https://alexcreates.fr/leim/index.php/Acad%C3%A9mie_Artistique_Arcanique",
+            "markerCoords": {
+                "x": 75.84445789595449,
+                "y": -199.14437153165204
+            },
+            "icon": "graduation-cap"
+        },
+        {
+            "group": "landmarks",
+            "title": "Académie Centrale Kaldélienne",
+            "description": "Une des plus grandes académies dispensant des cours de magie de l'Alliance. L'examen d'entrée est public, mais les coûts de scolarité restent à la charge des étudiants.",
+            "link": "https://alexcreates.fr/leim/index.php/Acad%C3%A9mie_Centrale_Kald%C3%A9lienne",
+            "markerCoords": {
+                "x": 83.80737652386473,
+                "y": -184.52963682119173
+            },
+            "icon": "graduation-cap"
+        },
+        {
+            "group": "landmarks",
+            "title": "Grande Maison de Flamberge",
+            "description": "La plus prestigieuse école des Terres de Syaltha. La Grande Maison est une des rares entités à certifier les sal'kayas.",
+            "link": "https://alexcreates.fr/leim/index.php/Grande_Maison_de_Flamberge",
+            "markerCoords": {
+                "x": 302.23491236190273,
+                "y": -110.07337124956246
+            },
+            "icon": "graduation-cap"
+        },
+        {
+            "group": "landmarks",
+            "title": "Haute-École de Magistrature Cordouenne",
+            "description": "Institut de l'Alliance formant les magistrats, juges et politiciens de demain.",
+            "link": "https://alexcreates.fr/leim/index.php/Haute-%C3%89cole_de_Magistrature_Cordouenne",
+            "markerCoords": {
+                "x": 131.07900289783518,
+                "y": -148.801890020031
+            },
+            "icon": "graduation-cap"
+        },
+        {
+            "group": "landmarks",
+            "title": "Institut du Fer Blanc",
+            "description": "Première école militaire de l'Alliance Kaldélienne.",
+            "link": "https://alexcreates.fr/leim/index.php/Institut_du_Fer_Blanc",
+            "markerCoords": {
+                "x": 140.3159943633407,
+                "y": -191.78102982328744
+            },
+            "icon": "graduation-cap"
+        },
+        {
+            "group": "landmarks",
+            "title": "Maison d'Études de Tourgrise",
+            "description": "Établissement pluridisciplinaires axé vers les études de législations mais possèdant un cursus d'études arcaniques général.",
+            "link": "https://alexcreates.fr/leim/index.php/Maison_d%27%C3%89tudes_de_Tourgrise",
+            "markerCoords": {
+                "x": 132.82148271354282,
+                "y": -98.7924395350658
+            },
+            "icon": "graduation-cap"
+        },
+        {
+            "group": "landmarks",
+            "title": "École des Arts Spirituels",
+            "description": "Institut privé spécialisé dans les maîtrises des arcanes spirituelles.",
+            "link": "https://alexcreates.fr/leim/index.php/%C3%89cole_des_Arts_Spirituels",
+            "markerCoords": {
+                "x": 124.8585640856326,
+                "y": -95.86995303475213
+            },
+            "icon": "graduation-cap"
         }
     ]
 }
