@@ -458,6 +458,84 @@ function removeCustomMarker(marker, markerTitle) {
 }
 
 /**
+ * URL PARAMETERS
+ */
+
+/**
+ * From the leaflet setup, get a working param config
+ *
+ * @returns Latitude, Longitude and zoom level of the map
+ */
+ function getURLFromSetup() {
+    const centerOfMap = map.getCenter()
+
+    const lat = centerOfMap.lat
+    const lon = centerOfMap.lng
+    const zoom = parseFloat(map.getZoom().toFixed(1))
+
+    return { lat, lon, zoom }
+}
+
+/**
+ * Get leaflet coords from URL params
+ * 
+ * @returns URLSearchParams
+ */
+function getCoordsSetupFromURL() {
+    const params = new URL(document.location).searchParams
+
+    return params
+}
+
+/**
+ * Check if the params in the URL can be parsed as leaflet coordinates
+ * 
+ * @return boolean
+ */
+function hasInitialSetup() {
+    const params = new URL(document.location).searchParams
+
+    return params.has('lat') && params.has('lon')
+}
+
+/**
+ * Function to refresh the URL params
+ * 
+ * @returns void
+ */
+function setupToURL() {
+    const setup = getURLFromSetup()
+
+    const newParams = new URLSearchParams(setup)
+    const newUrl = new URL(window.location.href)
+    newUrl.search = newParams.toString()
+
+    window.history.replaceState(null, '', newUrl.toString())
+}
+
+/**
+ * Uses the URL params to setup the leaflet map
+ */
+function setupFromURL() {
+    const setup = getCoordsSetupFromURL()
+
+    map.setView({ lat: setup.get('lat'), lng: setup.get('lon') }, setup.get('zoom') | minZoom, { animate: false })
+}
+
+// Check if the map has initial params in the URL
+// If not, just setup the default URL
+if (hasInitialSetup()) {
+    setupFromURL()
+} else {
+    setupToURL()
+}
+
+// When the map stops moving, update the URL to keep it up to date
+map.on('moveend', () => {
+    setupToURL()
+})
+
+/**
  * UTILITIES
  */
 /**
