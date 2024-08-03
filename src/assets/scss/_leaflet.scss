@@ -58,11 +58,11 @@
                     border-bottom-left-radius: 0;
                     border-bottom-right-radius: 0;
 
+                    @include text.stroke(2, #18181b);
+
                     &::before {
                         display: none;
                     }
-
-                    @include text.stroke(2, #18181b);
                 }
             }
         }
