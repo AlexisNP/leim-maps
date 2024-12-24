@@ -169,22 +169,42 @@ for (let i = 0; i < markers.length; i++) {
     }
 
     const marker = L.marker(coords, { icon: markerIconOverride }).addTo(map)
+
+    // Build popup content
     let popupContent = ""
+
+    if (m.cover && m.coverAuthor && m.coverLink) {
+        const figureClass = m.coverPortrait ? 'portrait' : 'landscape';
+        const figureWidth = m.coverPortrait ? 210 : 420;
+
+        popupContent += `
+            <figure class="${figureClass}">
+                <img src="/images/cover/${m.cover}" alt="${m.title}" width="${figureWidth}" loading="lazy" />
+                <figcaption>
+                    <cite>par <a href="${m.coverLink}" target="_blank">${m.coverAuthor}</a></cite>
+                </figcaption>
+            </figure>
+        `
+    }
+
     if (m.link) {
-        popupContent = `
+        popupContent += `
             <a href="${m.link}" target="_blank" class="title">
                 ${m.title}
             </a>
-            <p>${m.description}</p>
         `
     } else {
-        popupContent = `
+        popupContent += `
             <strong class="title">
                 ${m.title}
             </strong>
-            <p>${m.description}</p>
         `
     }
+
+    if (m.description) {
+        popupContent += `<p>${m.description}</p>`
+    }
+
     marker.bindPopup(popupContent).openPopup()
 
     const displayTooltip = m.group === 'capitals'

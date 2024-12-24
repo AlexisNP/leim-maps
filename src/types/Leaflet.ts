@@ -13,6 +13,10 @@ export type MapMarker = {
     link?: string,
     group?: MapMarkerGroup,
     icon?: MapMarkerIcon,
+    cover?: string,
+    coverLink?: string,
+    coverAuthor?: string,
+    coverPortrait?: boolean
 }
 
 export type PlayerMarker = {

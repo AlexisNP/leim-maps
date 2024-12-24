@@ -11,9 +11,83 @@
         .leaflet-popup-pane {
             .leaflet-popup-content-wrapper {
                 border-radius: .25rem;
+                overflow: clip;
 
                 .leaflet-popup-content {
-                    margin: .65rem 1.3rem .65rem .9rem;
+                    min-width: 20rem;
+                    margin: 1rem;
+
+                    figure {
+                        position: relative;
+                        margin-inline: -1.1rem;
+                        margin-top: -1.1rem;
+                        margin-bottom: .5rem;
+
+                        &.landscape {
+                            aspect-ratio: 16 / 9;
+                            min-width: 20rem;
+                        }
+
+                        &.portrait {
+                            aspect-ratio: 15 / 16;
+                            min-width: 10rem;
+                        }
+
+                        &::before {
+                            content: '';
+                            display: block;
+                            pointer-events: none;
+                            user-select: none;
+                            position: absolute;
+                            inset: 0;
+                            z-index: 10;
+                            // Make a linear gradient from top to bottom, from transparent to black
+                            background: linear-gradient(to bottom, transparent 70%, var(--black) 100%);
+                        }
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            object-position: top;
+                        }
+
+                        figcaption cite {
+                            position: absolute;
+                            font-size: 85%;
+                            font-style: italic;
+                            font-weight: 600;
+                            bottom: .5rem;
+                            right: 1rem;
+                            color: var(--white);
+                            z-index: 20;
+                            opacity: .6;
+                            transition-property: opacity;
+                            transition-duration: .2s;
+                            transition-timing-function: cubic-bezier(0.23, 1, 0.320, 1);
+
+                            a {
+                                padding-right: 0;
+                                color: var(--white);
+                                text-decoration: underline;
+                                text-underline-offset: .15rem;
+
+                                &:hover {
+                                    color: var(--blue-500);
+                                }
+
+                                &::after {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        &:hover {
+                            figcaption cite {
+                                opacity: 1;
+                            }
+                        }
+                    }
 
                     .title {
                         display: block;

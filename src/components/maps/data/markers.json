@@ -8,7 +8,10 @@
             "markerCoords": {
                 "x": 83.6,
                 "y": -185.2
-            }
+            },
+            "cover": "Ambrose.jpg",
+            "coverAuthor": "Claudio Pilia",
+            "coverLink": "https://pilia-art.com/portfolio-item/game-of-thrones-the-city-of-tyrosh/"
         },
         {
             "group": "capitals",
@@ -18,7 +21,10 @@
             "markerCoords": {
                 "x": 133.46875,
                 "y": -146.0625
-            }
+            },
+            "cover": "Cordouac.jpg",
+            "coverAuthor": "Vincent Joyal",
+            "coverLink": "https://www.artstation.com/artwork/6B0b0"
         },
         {
             "group": "capitals",
@@ -38,7 +44,11 @@
             "markerCoords": {
                 "x": 132.26953,
                 "y": -98.19141
-            }
+            },
+            "cover": "Tourgrise.png",
+            "coverAuthor": "saya kuroha",
+            "coverLink": "https://www.pixiv.net/en/artworks/83793821",
+            "coverPortrait": true
         },
         {
             "group": "capitals",
@@ -68,7 +78,10 @@
             "markerCoords": {
                 "x": 168.39491,
                 "y": -109.13376
-            }
+            },
+            "cover": "Port-brisé.jpg",
+            "coverAuthor": "JC Jongwon Park",
+            "coverLink": "https://www.artstation.com/artwork/okmQL"
         },
         {
             "group": "capitals",
@@ -108,7 +121,10 @@
             "markerCoords": {
                 "x": 204.42515,
                 "y": -226.85883
-            }
+            },
+            "cover": "Soubreciel.jpg",
+            "coverAuthor": "Tony Andreas Rudolph",
+            "coverLink": "https://www.artstation.com/artwork/EB84"
         },
         {
             "group": "capitals",
@@ -148,7 +164,10 @@
             "markerCoords": {
                 "x": 138.44531,
                 "y": -51.54687
-            }
+            },
+            "cover": "Port_de_Borélis.jpeg",
+            "coverAuthor": "Anton Bezrukov",
+            "coverLink": "https://www.artstation.com/artwork/oODL5B"
         },
         {
             "group": "cities",
@@ -188,7 +207,10 @@
             "markerCoords": {
                 "x": 197.3492280183025,
                 "y": -210.87224307207197
-            }
+            },
+            "cover": "Cantane.jpg",
+            "coverAuthor": "Andreas Roller",
+            "coverLink": "https://en.wikipedia.org/wiki/Andreas_Roller"
         },
         {
             "group": "cities",
@@ -198,7 +220,10 @@
             "markerCoords": {
                 "x": 185.57431,
                 "y": -229.08588
-            }
+            },
+            "cover": "Horfer.jpg",
+            "coverAuthor": "Nele-Diel",
+            "coverLink": "https://www.deviantart.com/nele-diel/art/City-in-the-Lowlands-693529688"
         },
         {
             "group": "cities",
@@ -528,7 +553,10 @@
             "markerCoords": {
                 "x": 107.50352,
                 "y": -67.36631
-            }
+            },
+            "cover": "Willeau.jpg",
+            "coverAuthor": "Inconnu",
+            "coverLink": "https://www.hebus.com/image-339033.html"
         },
         {
             "group": "cities",
@@ -587,7 +615,11 @@
             "markerCoords": {
                 "x": 168.31641,
                 "y": -60.54297
-            }
+            },
+            "cover": "Tours_des_Cages.jpg",
+            "coverAuthor": "25kartinok",
+            "coverLink": "https://www.deviantart.com/25kartinok/art/the-dark-tower-700231527",
+            "coverPortrait": true
         },
         {
             "group": "landmarks",
@@ -816,6 +848,9 @@
                 "x": 83.80737652386473,
                 "y": -184.52963682119173
             },
+            "cover": "Académie_Centrale_Kaldélienne.jpg",
+            "coverAuthor": "Pengzhen Zhang",
+            "coverLink": "https://www.artstation.com/artwork/zAOWNd",
             "icon": "graduation-cap"
         },
         {
