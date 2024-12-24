@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 /// Stroke font-character
 /// @param  {Integer} $stroke - Stroke width
 /// @param  {Color}   $color  - Stroke color
@@ -8,7 +10,7 @@
 
     @for $i from $from through $stroke {
         @for $j from $from through $stroke {
-            $shadow: append($shadow, $i*1px $j*1px 0 $color, comma);
+            $shadow: list.append($shadow, $i*1px $j*1px 0 $color, comma);
         }
     }
 
