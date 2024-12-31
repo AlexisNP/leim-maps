@@ -503,7 +503,11 @@
             "markerCoords": {
                 "x": 121.47116769539711,
                 "y": -94.66997667550434
-            }
+            },
+            "cover": "Faille_de_Kiam.jpg",
+            "coverAuthor": "Laura Sava",
+            "coverLink": "https://www.behance.net/gallery/16130223/Zariels-Doom",
+            "coverPortrait": true
         },
         {
             "group": "cities",
@@ -649,6 +653,18 @@
                 "x": 165.08197,
                 "y": -57.93673
             }
+        },
+        {
+            "group": "landmarks",
+            "title": "Plaines de Poussière",
+            "link": "https://alexcreates.fr/leim/index.php/Plaines_de_poussière",
+            "markerCoords": {
+                "x": 159.57688930332125,
+                "y": -157.4739168466964
+            },
+            "cover": "Plaines_de_poussière.png",
+            "coverAuthor": "Inconnu",
+            "coverLink": "https://www.pinterest.com/pin/pin-de-soup-em-inspiration--279223245638830461"
         },
         {
             "group": "capitals",
