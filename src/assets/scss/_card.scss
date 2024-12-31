@@ -1,0 +1,10 @@
+.card {
+    padding-block: 0.75rem;
+    padding-inline: .75rem;
+    border-radius: 8px;
+    background-color: var(--white);
+
+    .card-arrow {
+        fill: var(--white);
+    }
+}
