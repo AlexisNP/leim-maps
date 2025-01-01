@@ -68,7 +68,10 @@
             "markerCoords": {
                 "x": 122.87040892704968,
                 "y": -58.7910005354329
-            }
+            },
+            "cover": "Rocheverre.jpg",
+            "coverAuthor": "Creative Intelligence Arts",
+            "coverLink": "https://www.kickstarter.com/projects/1300298569/project-phoenix-japans-indie-rpg-feat-aaa-talent"
         },
         {
             "group": "landmarks",
@@ -94,7 +97,7 @@
         {
             "group": "landmarks",
             "title": "Tours d'Anfall",
-            "description": "",
+            "description": "Institut arcanique public, faisant office d'alternative à l'Académie de la Feuille d'Or pour les étudiants des milieux plus modestes de Bamast.",
             "link": "https://alexcreates.fr/leim/index.php/Tours d'Anfall",
             "markerCoords": {
                 "x": 128.134559374788,
@@ -178,8 +181,17 @@
             "description": "",
             "link": "https://alexcreates.fr/leim/index.php/Rastys",
             "markerCoords": {
-                "x": 107.88172380301971,
-                "y": -102.55907647074645
+                "x": 114.06646730992365,
+                "y": -102.12951165200633
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Champs communaux de Rastys",
+            "description": "Plusieurs collines côtières où le sol y est riche en nutriments. Certaines terres sont cultivées par des familles possédant des terres, mais certains champs sont publics et appartiennent à la communauté de Rastys.",
+            "markerCoords": {
+                "x": 114.62855568365849,
+                "y": -101.5674232782715
             }
         },
         {
