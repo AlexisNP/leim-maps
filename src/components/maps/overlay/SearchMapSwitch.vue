@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { PopoverArrow, PopoverContent, PopoverRoot, PopoverTrigger } from 'radix-vue'
-import { computed, onMounted, onUpdated, ref, watch } from 'vue';
-import { useElementHover, useFocus, useUrlSearchParams, watchDebounced } from '@vueuse/core'
+import { computed, onUpdated, ref, watch } from 'vue';
+import { useElementHover, useFocus } from '@vueuse/core'
 
 const navModel = ref(false);
 
