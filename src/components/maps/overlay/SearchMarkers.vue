@@ -4,6 +4,7 @@ import type { SearchMode } from '@/types/Search';
 import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
 import { computed, onMounted, ref, onUpdated, watch } from 'vue';
 import SearchMarkersTags from './SearchMarkersTags.vue';
+import SearchMapSwitch from './SearchMapSwitch.vue';
 
 const props = defineProps<{
     markers: MapMarker[],
@@ -196,6 +197,8 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
 <template>
     <nav ref="searchBarWrapper" class="toolbar">
+        <SearchMapSwitch />
+
         <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
             <div class="input-w">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="search-icon"><rect width="256" height="256" fill="none"/><path d="M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z"/></svg>
@@ -262,10 +265,13 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
 <style lang="scss" scoped>
 .toolbar {
+    margin-left: calc(45px + .5rem);
+
     @media screen and (width >= 900px) {
         display: flex;
-        gap: 1.5rem;
+        gap: .75rem;
         align-items: start;
+        margin-left: 0;
     }
 
     .search-w {
@@ -279,6 +285,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
         @media screen and (width >= 900px) {
             width: 25%;
+            margin-right: .75rem;
         }
 
         .input-w {
@@ -351,7 +358,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
             .player-btn {
                 margin-left: .25rem;
-                
+
                 .icon {
                     font-size: 1.5em;
                     fill: var(--red-500);
