@@ -12,7 +12,7 @@ const players = playersData as PlayerMarker
 <div class="world-wrapper">
     <div id="world"></div>
 
-    <MarkerCreator client:load />
+    <MarkerCreator client:load mapKey="bamast" />
 </div>
 
 <script lang="ts" define:vars={{ markers, players }} defer>
@@ -335,7 +335,7 @@ let customMarkersList = []
  * It also sends an event to refresh data on other components that use localStorage
  */
 function saveCustomMarkers() {
-    localStorage.setItem('custom-markers', JSON.stringify(customMarkersList))
+    localStorage.setItem('custom-markers-bamast', JSON.stringify(customMarkersList))
 
     const refreshCustomMarkersEvent = new CustomEvent('refresh-custom-markers', { bubbles: true })
 
@@ -421,7 +421,7 @@ document.addEventListener('add-custom-marker', (e) => {
  * Load all custom markers onto the map
  */
 function loadCustomMarkersFromStorage() {
-    const customMarkersData = JSON.parse(localStorage.getItem('custom-markers'))
+    const customMarkersData = JSON.parse(localStorage.getItem('custom-markers-bamast'))
 
     if (!customMarkersData) return
 

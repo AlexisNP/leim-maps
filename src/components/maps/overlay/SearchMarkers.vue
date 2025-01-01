@@ -9,10 +9,13 @@ import SearchMapSwitch from './SearchMapSwitch.vue';
 const props = defineProps<{
     markers: MapMarker[],
     players: PlayerMarker,
+    mapKey?: string
 }>()
 
+const customMarkersKey = props.mapKey ? `custom-markers-${props.mapKey}` : 'custom-markers'
+
 const fixedMarkers = props.markers
-const customMarkersData = useLocalStorage('custom-markers', [])
+const customMarkersData = useLocalStorage(customMarkersKey, [])
 
 const allMarkers = computed(() => {
     return [...fixedMarkers, ...customMarkersData.value]
@@ -142,10 +145,10 @@ function handleCategorySwitch(g: MapMarkerGroup) {
  * Custom Markers handling
  */
  onMounted(() => {
-    customMarkersData.value = useLocalStorage('custom-markers', []).value
+    customMarkersData.value = useLocalStorage(customMarkersKey, []).value
 
     document.addEventListener('refresh-custom-markers', () => {
-        customMarkersData.value = useLocalStorage('custom-markers', []).value
+        customMarkersData.value = useLocalStorage(customMarkersKey, []).value
     })
 })
 
