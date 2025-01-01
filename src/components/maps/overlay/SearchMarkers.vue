@@ -265,10 +265,13 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
 <style lang="scss" scoped>
 .toolbar {
+    margin-left: calc(45px + .5rem);
+
     @media screen and (width >= 900px) {
         display: flex;
         gap: .75rem;
         align-items: start;
+        margin-left: 0;
     }
 
     .search-w {
