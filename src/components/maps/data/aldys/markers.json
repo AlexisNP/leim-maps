@@ -833,15 +833,6 @@
         },
         {
             "group": "quests",
-            "title": "Les Cloches de Cantane",
-            "description": "D'étranges disparitions secouent la cité minière de Cantane, rythmées par le tintement des cloches de l'église.",
-            "markerCoords": {
-                "x": 198.0424703459088,
-                "y": -210.9293951755887
-            }
-        },
-        {
-            "group": "quests",
             "title": "Mémoires de fer",
             "description": "L'usine clandestine de l'Aegis doit incinérer ses stocks d'automates défaillants, mais une poignée d'entre-eux ne comptent pas se laisser détruire aussi simplement.",
             "markerCoords": {
