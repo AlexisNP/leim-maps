@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { MapMarker } from '@/types/Leaflet';
 import { onClickOutside, useCssVar, useLocalStorage, useMouse } from '@vueuse/core'
-import { computed, onMounted, ref, watch, defineProps } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const markerMenu = ref<HTMLMenuElement>()
 

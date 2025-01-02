@@ -8,7 +8,10 @@
             "markerCoords": {
                 "x": 119.6667886200924,
                 "y": -17.945469721492717
-            }
+            },
+            "cover": "Faranne.jpg",
+            "coverAuthor": "Pablo Mendoza Peces",
+            "coverLink": "https://www.artstation.com/artwork/dAJr1"
         },
         {
             "group": "cities",
@@ -28,7 +31,10 @@
             "markerCoords": {
                 "x": 113.52851847725508,
                 "y": -19.882939646724424
-            }
+            },
+            "cover": "Miverne.jpg",
+            "coverAuthor": "Andrei-Pervukhin",
+            "coverLink": "https://www.artstation.com/artwork/dAJr1"
         },
         {
             "group": "cities",
@@ -63,7 +69,7 @@
         {
             "group": "capitals",
             "title": "Rocheverre",
-            "description": "",
+            "description": "Capitale de l'Union Bahamienne, qui tire son nom du minerai éponyme et de ses falaises de basalt.",
             "link": "https://alexcreates.fr/leim/index.php/Rocheverre",
             "markerCoords": {
                 "x": 122.87040892704968,
