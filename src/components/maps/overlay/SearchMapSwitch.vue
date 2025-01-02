@@ -34,12 +34,12 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
     {
         name: 'Aldys',
-        img: 'https://picsum.photos/id/13/40',
+        img: '/images/aldys-cover.png',
         url: '/'
     },
     {
         name: 'Bamast',
-        img: 'https://picsum.photos/id/14/40',
+        img: '/images/bamast-cover.png',
         url: '/bamast'
     }
 ]
@@ -60,7 +60,7 @@ const menuItems: MenuItem[] = [
                     <li v-for="item in menuItems" :key="item.name">
                         <a :href="item.url" :class="{ 'active': url?.pathname === item.url }" :tabindex="url?.pathname === item.url ? -1 : 0">
                             <figure>
-                                <img :src="item.img" alt="" width="40" height="40" loading="lazy">
+                                <img :src="item.img" alt="" width="40" height="40" loading="eager">
 
                                 <figcaption>
                                     {{ item.name }}
