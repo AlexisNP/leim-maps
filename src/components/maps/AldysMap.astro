@@ -12,7 +12,7 @@ const players = playersData as PlayerMarker
 <div class="world-wrapper">
     <div id="world"></div>
 
-    <MarkerCreator client:load />
+    <MarkerCreator client:load mapKey="aldys" />
 </div>
 
 <script lang="ts" define:vars={{ markers, players }} defer>
@@ -111,8 +111,8 @@ for (let i = 0; i < markers.length; i++) {
     switch (m.group) {
         case "capitals":
             markerIcon = L.icon({
-                iconUrl: `icon/castle.png`,
-                shadowUrl: `icon/castle-shadow.png`,
+                iconUrl: `/icon/castle.png`,
+                shadowUrl: `/icon/castle-shadow.png`,
                 iconSize: [25, 25],
                 shadowSize: [35, 30],
                 iconAnchor: [12.5, 8],
@@ -122,15 +122,15 @@ for (let i = 0; i < markers.length; i++) {
         
         case "cities":
             markerIcon = L.icon({
-                iconUrl: `icon/circle.png`,
+                iconUrl: `/icon/circle.png`,
                 iconSize: [12, 12],
             })
             break
 
         case "landmarks":
             markerIcon = L.icon({
-                iconUrl: `icon/monument.png`,
-                shadowUrl: `icon/monument-shadow.png`,
+                iconUrl: `/icon/monument.png`,
+                shadowUrl: `/icon/monument-shadow.png`,
                 iconSize: [18, 18],
                 shadowSize: [32, 14],
                 iconAnchor: [12.5, 8],
@@ -140,8 +140,8 @@ for (let i = 0; i < markers.length; i++) {
 
         case "quests":
             markerIcon = L.icon({
-                iconUrl: `icon/flag.png`,
-                shadowUrl: `icon/flag-shadow.png`,
+                iconUrl: `/icon/flag.png`,
+                shadowUrl: `/icon/flag-shadow.png`,
                 iconSize: [20, 23],
                 shadowSize: [35, 30],
                 iconAnchor: [12.5, 8],
@@ -159,8 +159,8 @@ for (let i = 0; i < markers.length; i++) {
     markerIconOverride = markerIcon
     if (m.icon) {
         markerIconOverride = L.icon({
-            iconUrl: `icon/${m.icon}.png`,
-            shadowUrl: `icon/${m.icon}-shadow.png`,
+            iconUrl: `/icon/${m.icon}.png`,
+            shadowUrl: `/icon/${m.icon}-shadow.png`,
             iconSize: [25, 25],
             shadowSize: [35, 30],
             iconAnchor: [12.5, 8],
@@ -236,8 +236,8 @@ if ( players && Object.keys(players).length > 0 ) {
     ]
 
     const playerIcon = L.icon({
-        iconUrl: `icon/location-pin.png`,
-        shadowUrl: `icon/location-pin-shadow.png`,
+        iconUrl: `/icon/location-pin.png`,
+        shadowUrl: `/icon/location-pin-shadow.png`,
         iconSize: [18, 24],
         shadowSize: [20, 16],
         iconAnchor: [11, 8],
@@ -335,7 +335,7 @@ let customMarkersList = []
  * It also sends an event to refresh data on other components that use localStorage
  */
 function saveCustomMarkers() {
-    localStorage.setItem('custom-markers', JSON.stringify(customMarkersList))
+    localStorage.setItem('custom-markers-aldys', JSON.stringify(customMarkersList))
 
     const refreshCustomMarkersEvent = new CustomEvent('refresh-custom-markers', { bubbles: true })
 
@@ -360,8 +360,8 @@ function addCustomMarker(markerTitle) {
     const lat = Number(localStorage.getItem('lastHeldYPosition'))
 
     const customMarkerIconOptions = {
-        iconUrl: `icon/push-pin.png`,
-        shadowUrl: `icon/push-pin-shadow.png`,
+        iconUrl: `/icon/push-pin.png`,
+        shadowUrl: `/icon/push-pin-shadow.png`,
         iconSize: [20, 20],
         shadowSize: [30, 25],
         iconAnchor: [0, 13],
@@ -421,7 +421,7 @@ document.addEventListener('add-custom-marker', (e) => {
  * Load all custom markers onto the map
  */
 function loadCustomMarkersFromStorage() {
-    const customMarkersData = JSON.parse(localStorage.getItem('custom-markers'))
+    const customMarkersData = JSON.parse(localStorage.getItem('custom-markers-aldys'))
 
     if (!customMarkersData) return
 

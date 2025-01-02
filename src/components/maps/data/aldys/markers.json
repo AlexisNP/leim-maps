@@ -694,6 +694,19 @@
             "markerCoords": {
                 "x": 285.0990986858211,
                 "y": -146.08986069534564
+            },
+            "cover": "Garràn.jpg",
+            "coverAuthor": "Dmitry Dubinsky",
+            "coverLink": "https://elhour.artstation.com/projects/RYynYm?album_id=47640"
+        },
+        {
+            "group": "landmarks",
+            "title": "Ligatorium",
+            "description": "Monument qui renferme les archives royales de l'empire des Terres de Syaltha.",
+            "link": "https://alexcreates.fr/leim/index.php/Garr%C3%A0n#Ligatorium",
+            "markerCoords": {
+                "x": 283.4611668744801,
+                "y": -146.1972028485071
             }
         },
         {
@@ -744,7 +757,10 @@
             "markerCoords": {
                 "x": 326.7497076703842,
                 "y": -206.67114645854178
-            }
+            },
+            "cover": "Fasàch.jpg",
+            "coverAuthor": "Liang Mark",
+            "coverLink": "https://www.artstation.com/artwork/Jll2Jd"
         },
         {
             "group": "cities",
@@ -813,15 +829,6 @@
             "markerCoords": {
                 "x": 327.15022290440396,
                 "y": -206.1154623032882
-            }
-        },
-        {
-            "group": "quests",
-            "title": "Les Cloches de Cantane",
-            "description": "D'étranges disparitions secouent la cité minière de Cantane, rythmées par le tintement des cloches de l'église.",
-            "markerCoords": {
-                "x": 198.0424703459088,
-                "y": -210.9293951755887
             }
         },
         {

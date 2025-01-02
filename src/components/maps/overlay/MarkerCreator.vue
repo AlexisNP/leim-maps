@@ -7,6 +7,12 @@ const markerMenu = ref<HTMLMenuElement>()
 
 type MenuMode = "editing-marker" | "default"
 
+const props = defineProps<{
+    mapKey?: string
+}>()
+
+const customMarkersKey = props.mapKey ? `custom-markers-${props.mapKey}` : 'custom-markers'
+
 /**
  * Appearing behaviour
  */
@@ -91,14 +97,14 @@ const markerTitleInput = ref<HTMLInputElement>()
 const markerTitleInputError = ref<Error | null>()
 
 // Data from localStorage
-const customMarkersData = useLocalStorage('custom-markers', [])
+const customMarkersData = useLocalStorage(customMarkersKey, [])
 
 // Refresh from localStorage
 onMounted(() => {
-    customMarkersData.value = useLocalStorage('custom-markers', []).value
+    customMarkersData.value = useLocalStorage(customMarkersKey, []).value
 
     document.addEventListener('refresh-custom-markers', () => {
-        customMarkersData.value = useLocalStorage('custom-markers', []).value
+        customMarkersData.value = useLocalStorage(customMarkersKey, []).value
     })
 })
 
