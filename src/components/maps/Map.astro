@@ -1,24 +1,37 @@
 ---
 import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
-
-import markersData from '@/components/maps/data/aldys/markers.json'
-import playersData from '@/components/maps/data/aldys/players.json'
 import MarkerCreator from './overlay/MarkerCreator.vue';
 
-const markers = markersData.data as MapMarker[]
-const players = playersData as PlayerMarker
+interface Props {
+    mapKey: string
+    zoomifyKey: string
+    mapHeight: number
+    mapWidth: number
+    markers?: MapMarker[]
+    players?: PlayerMarker
+    rulerDistanceRatio?: number
+    backgroundColor?: string
+}
+
+const {
+    mapKey,
+    zoomifyKey,
+    mapHeight, //
+    mapWidth, // Find these in the zoomify / original image data
+    markers = [] as MapMarker[],
+    players = {} as PlayerMarker,
+    rulerDistanceRatio = 1,
+    backgroundColor = 'transparent',
+} = Astro.props
 ---
 
 <div class="world-wrapper">
     <div id="world"></div>
 
-    <MarkerCreator client:load mapKey="aldys" />
+    <MarkerCreator client:load mapKey={mapKey} />
 </div>
 
-<script lang="ts" define:vars={{ markers, players }} defer>
-
-const mapHeight = 21896; //
-const mapWidth = 30000; // Find these in the zoomify / original image data
+<script lang="ts" define:vars={{ mapKey, rulerDistanceRatio, zoomifyKey, markers, players, mapHeight, mapWidth }} defer>
 
 // Units used for convertions to avoid changing original marker coords
 const xRatio = .68447
@@ -83,7 +96,7 @@ L.control.zoom({
 }).addTo(map)
 
 // Layers
-const baseTileLayer = L.tileLayer.zoomify('/zoomify/aldys-nord/{g}/{z}-{x}-{y}.jpg', {
+const baseTileLayer = L.tileLayer.zoomify(`/zoomify/${zoomifyKey}/{g}/{z}-{x}-{y}.jpg`, {
     width: mapWidth,
     height: mapHeight,
 }).addTo(map)
@@ -298,8 +311,6 @@ L.Control.Measure.include({
     },
 })
 
-const rulerDistanceRatio = 2
-
 const rulerOptions = {
     position: 'bottomleft',
     primaryLengthUnit: 'kilometers',
@@ -346,7 +357,7 @@ let customMarkersList = []
  * It also sends an event to refresh data on other components that use localStorage
  */
 function saveCustomMarkers() {
-    localStorage.setItem('custom-markers-aldys', JSON.stringify(customMarkersList))
+    localStorage.setItem(`custom-markers-${mapKey}`, JSON.stringify(customMarkersList))
 
     const refreshCustomMarkersEvent = new CustomEvent('refresh-custom-markers', { bubbles: true })
 
@@ -432,7 +443,7 @@ document.addEventListener('add-custom-marker', (e) => {
  * Load all custom markers onto the map
  */
 function loadCustomMarkersFromStorage() {
-    const customMarkersData = JSON.parse(localStorage.getItem('custom-markers-aldys'))
+    const customMarkersData = JSON.parse(localStorage.getItem(`custom-markers-${mapKey}`))
 
     if (!customMarkersData) return
 
@@ -621,7 +632,7 @@ map.addEventListener('click', (event) => {
 })
 </script>
     
-<style lang="scss">
+<style lang="scss" define:vars={{ backgroundColor }}>
 html,
 body {
     height: 100vh;
@@ -643,5 +654,6 @@ body {
 
 .leaflet-container {
     aspect-ratio: 1551 / 1605;
+    background-color: var(--backgroundColor);
 }
 </style>

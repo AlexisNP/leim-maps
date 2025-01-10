@@ -1,10 +1,19 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import CantaneMap from '../../../components/maps/CantaneMap.astro'
-import CantaneMapOverlay from '../../../components/maps/CantaneMapOverlay.astro'
+import Layout from '@/layouts/Layout.astro';
+import Map from '@/components/maps/Map.astro'
+import MapOverlay from '@/components/maps/MapOverlay.astro'
 ---
 
 <Layout title="Cantane ~ Cartographie">
-    <CantaneMapOverlay />
-    <CantaneMap />
+    <MapOverlay
+        mapKey='aldys-cantane'
+    />
+    <Map
+        mapKey='aldys-cantane'
+        zoomifyKey='cantane'
+        mapHeight={4124}
+        mapWidth={4067}
+        rulerDistanceRatio={1.15}
+        backgroundColor="#CDCAC3"
+    />
 </Layout>
