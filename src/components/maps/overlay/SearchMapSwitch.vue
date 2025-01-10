@@ -52,12 +52,12 @@ const cityMenuItems: MenuItem[] = [
     // },
     {
         name: 'Borélis',
-        img: '/images/aldys-cover.png',
+        img: '/images/aldys-borelis-cover.png',
         url: '/aldys/borelis'
     },
     {
         name: 'Cantane',
-        img: '/images/aldys-cover.png',
+        img: '/images/aldys-cantane-cover.png',
         url: '/aldys/cantane'
     },
 ]
@@ -201,8 +201,9 @@ svg {
             pointer-events: none;
 
             figure img {
-                border-width: .1rem;
-                border-color: var(--blue-500);
+                border-width: .15rem;
+                border-color: var(--blue-300);
+                filter: grayscale(50%);
             }
         }
     }
