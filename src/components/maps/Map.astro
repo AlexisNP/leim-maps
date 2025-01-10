@@ -9,7 +9,9 @@ interface Props {
     mapWidth: number
     markers?: MapMarker[]
     players?: PlayerMarker
+    rulerMainUnit?: string
     rulerDistanceRatio?: number
+    rulerHideWalkDistance?: boolean
     backgroundColor?: string
 }
 
@@ -20,7 +22,9 @@ const {
     mapWidth, // Find these in the zoomify / original image data
     markers = [] as MapMarker[],
     players = {} as PlayerMarker,
+    rulerMainUnit = 'Kilomètres',
     rulerDistanceRatio = 1,
+    rulerHideWalkDistance = false,
     backgroundColor = 'transparent',
 } = Astro.props
 ---
@@ -31,7 +35,7 @@ const {
     <MarkerCreator client:load mapKey={mapKey} />
 </div>
 
-<script lang="ts" define:vars={{ mapKey, rulerDistanceRatio, zoomifyKey, markers, players, mapHeight, mapWidth }} defer>
+<script lang="ts" define:vars={{ mapKey, zoomifyKey, markers, players, mapHeight, mapWidth, rulerDistanceRatio, rulerMainUnit, rulerHideWalkDistance }} defer>
 
 // Units used for convertions to avoid changing original marker coords
 const xRatio = .68447
@@ -311,15 +315,20 @@ L.Control.Measure.include({
     },
 })
 
-const rulerOptions = {
-    position: 'bottomleft',
-    primaryLengthUnit: 'kilometers',
-    secondaryLengthUnit: 'days',
-    primaryAreaUnit: 'hectares',
-    units: {
-        kilometers: {
+let rulerUnits
+
+if (rulerHideWalkDistance) {
+    rulerUnits = {
+        mainUnit: {
             factor: 0.00013 * rulerDistanceRatio,
-            display: 'Kilomètres',
+            display: rulerMainUnit,
+        }
+    }
+} else {
+    rulerUnits = {
+        mainUnit: {
+            factor: 0.00013 * rulerDistanceRatio,
+            display: rulerMainUnit,
         },
         days: {
             factor: 0.00000325 * rulerDistanceRatio,
@@ -327,6 +336,14 @@ const rulerOptions = {
             decimals: 1
         }
     }
+}
+
+const rulerOptions = {
+    position: 'bottomleft',
+    primaryLengthUnit: 'mainUnit',
+    secondaryLengthUnit: 'days',
+    primaryAreaUnit: 'hectares',
+    units: rulerUnits
 }
 
 const measureControl = L.control.measure(rulerOptions)
