@@ -11,6 +11,7 @@ export type MapMarker = {
     markerCoords: MapCoords,
     description?: string,
     link?: string,
+    mapId?: string,
     group?: MapMarkerGroup,
     icon?: MapMarkerIcon,
     cover?: string,

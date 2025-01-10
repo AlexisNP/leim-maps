@@ -205,6 +205,14 @@ for (let i = 0; i < markers.length; i++) {
         popupContent += `<p>${m.description}</p>`
     }
 
+    if (m.mapId) {
+        popupContent += `
+            <a href="${m.mapId}" class="title">
+                Voir la carte détaillée
+            </a>
+        `
+    }
+
     marker.bindPopup(popupContent).openPopup()
 
     const displayTooltip = m.group === 'capitals'

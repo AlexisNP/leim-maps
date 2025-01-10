@@ -31,7 +31,7 @@ interface MenuItem {
     url: string
 }
 
-const menuItems: MenuItem[] = [
+const worldMenuItems: MenuItem[] = [
     {
         name: 'Aldys',
         img: '/images/aldys-cover.png',
@@ -42,6 +42,24 @@ const menuItems: MenuItem[] = [
         img: '/images/bamast-cover.png',
         url: '/bamast'
     }
+]
+
+const cityMenuItems: MenuItem[] = [
+    // {
+    //     name: 'Ambrose',
+    //     img: '/images/aldys-cover.png',
+    //     url: '/aldys/ambrose'
+    // },
+    {
+        name: 'Borélis',
+        img: '/images/aldys-cover.png',
+        url: '/aldys/borelis'
+    },
+    {
+        name: 'Cantane',
+        img: '/images/aldys-cover.png',
+        url: '/aldys/cantane'
+    },
 ]
 </script>
 
@@ -56,8 +74,30 @@ const menuItems: MenuItem[] = [
             <PopoverContent side="bottom" :side-offset="6" :collision-padding="10" class="card" style="z-index: 100;">
                 <PopoverArrow class="card-arrow" />
 
-                <menu class="world-menu">
-                    <li v-for="item in menuItems" :key="item.name">
+                <div class="menu-title">
+                    Continents
+                </div>
+
+                <menu class="map-menu">
+                    <li v-for="item in worldMenuItems" :key="item.name">
+                        <a :href="item.url" :class="{ 'active': url?.pathname === item.url }" :tabindex="url?.pathname === item.url ? -1 : 0">
+                            <figure>
+                                <img :src="item.img" alt="" width="40" height="40" loading="eager">
+
+                                <figcaption>
+                                    {{ item.name }}
+                                </figcaption>
+                            </figure>
+                        </a>
+                    </li>
+                </menu>
+
+                <div class="menu-title">
+                    Villes
+                </div>
+
+                <menu class="map-menu">
+                    <li v-for="item in cityMenuItems" :key="item.name">
                         <a :href="item.url" :class="{ 'active': url?.pathname === item.url }" :tabindex="url?.pathname === item.url ? -1 : 0">
                             <figure>
                                 <img :src="item.img" alt="" width="40" height="40" loading="eager">
@@ -87,6 +127,13 @@ const menuItems: MenuItem[] = [
 
 button {
     cursor: pointer;
+}
+
+.menu-title {
+    font-size: .9em;
+    font-weight: 600;
+    margin-bottom: .25rem;
+    margin-left: .25rem;
 }
 
 .btn-round {
@@ -135,8 +182,9 @@ svg {
     width: 1.15em;
 }
 
-.world-menu {
+.map-menu {
     margin-top: .25rem;
+    margin-bottom: .5rem;
     margin-inline: .25rem;
     display: flex;
     gap: 1rem;

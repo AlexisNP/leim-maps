@@ -1,0 +1,25 @@
+---
+import type { MapMarker, PlayerMarker } from "@/types/Leaflet";
+
+import SearchMarkers from "./overlay/SearchMarkers.vue";
+
+const markers = [] as MapMarker[]
+const players = {} as PlayerMarker
+---
+
+<div class="world-overlay">
+    <SearchMarkers client:load markers={markers} players={players} mapKey="aldys" />
+</div>
+
+<style lang="scss">
+.world-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10;
+    padding: 10px;
+    pointer-events: none;
+}
+</style>
