@@ -293,23 +293,17 @@ L.Control.Measure.include({
     },
 })
 
-const rulerDistanceRatio = 2
+const rulerDistanceRatio = 1.15
 
 const rulerOptions = {
     position: 'bottomleft',
     primaryLengthUnit: 'kilometers',
-    secondaryLengthUnit: 'days',
-    primaryAreaUnit: 'hectares',
+    primaryAreaUnit: null,
     units: {
         kilometers: {
             factor: 0.00013 * rulerDistanceRatio,
-            display: 'Kilomètres',
+            display: 'Mètres',
         },
-        days: {
-            factor: 0.00000325 * rulerDistanceRatio,
-            display: 'Jours de marche',
-            decimals: 1
-        }
     }
 }
 
