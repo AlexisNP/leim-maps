@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "group": "landmarks",
+            "title": "Pilier d'Ikami",
+            "description": "Abbaye locale dédiée au culte d'Ikami. Une tour de 30m de haut a été érigée à l'arrière de la nef pour servir de clocher.",
+            "markerCoords": {
+                "x": 142.6711747082816,
+                "y": -132.92203370330174
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Quartiers du Duc",
+            "description": "Manoir du Duc de Cantane, Geil Brilâme. Beaucoup de grenouilles pataugent dans les douves et les étangs qui entourent la propriété.",
+            "markerCoords": {
+                "x": 171.29758708733308,
+                "y": -83.60967931316306
+            }
+        }
+    ]
+}

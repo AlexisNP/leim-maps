@@ -12,7 +12,15 @@ const markers = markersData.data as MapMarker[]
 const players = playersData as PlayerMarker
 ---
 
-<Layout title="Aldys ~ Cartographie">
+<Layout
+    title="Aldys ~ Cartographie"
+    head={
+        {
+            description: "Carte de l'Alliance Kaldélienne sur la planète de Léim.",
+            image: '/images/bailey-zindel-NRQV-hBF10M-unsplash.jpg'
+        }
+    }
+>
     <MapOverlay
         mapKey='aldys'
         markers={markers}

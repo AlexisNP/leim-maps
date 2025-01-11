@@ -203,12 +203,13 @@
         {
             "group": "cities",
             "title": "Cantane",
-            "description": "",
+            "description": "Petite ville minière excentrée qui accueille les commerçants de gemmes des environs une fois par an.",
             "link": "https://wiki.alexcreates.fr/index.php/Cantane",
             "markerCoords": {
                 "x": 197.3492280183025,
                 "y": -210.87224307207197
             },
+            "mapId": "/aldys/cantane",
             "cover": "Cantane.jpg",
             "coverAuthor": "Andreas Roller",
             "coverLink": "https://en.wikipedia.org/wiki/Andreas_Roller"
