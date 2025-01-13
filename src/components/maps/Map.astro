@@ -196,7 +196,8 @@ for (let i = 0; i < markers.length; i++) {
 
         popupContent += `
             <figure class="${figureClass}">
-                <img src="/images/cover/${m.cover}" alt="${m.title}" width="${figureWidth}" loading="lazy" />
+                <img src="/images/cover/${m.cover}" alt="${m.title}" width="${figureWidth}" loading="eager" />
+
                 <figcaption>
                     <cite>par <a href="${m.coverLink}" target="_blank">${m.coverAuthor}</a></cite>
                 </figcaption>
@@ -642,8 +643,8 @@ map.addEventListener('click', (event) => {
     const lat = convertScaleToY(event.latlng.lat)
     const lon = convertScaleToX(event.latlng.lng)
     console.group('Point data')
-    console.log("Latitude :", lat)
     console.log("Longitude :", lon)
+    console.log("Latitude :", lat)
     console.log("Zoom :", map.getZoom())
     console.groupEnd()
 })
