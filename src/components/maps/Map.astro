@@ -35,8 +35,20 @@ const {
     <MarkerCreator client:load mapKey={mapKey} />
 </div>
 
-<script lang="ts" define:vars={{ mapKey, zoomifyKey, markers, players, mapHeight, mapWidth, rulerDistanceRatio, rulerMainUnit, rulerHideWalkDistance }} defer>
-
+<script
+    define:vars={{
+        mapKey,
+        zoomifyKey,
+        markers,
+        players,
+        mapHeight,
+        mapWidth,
+        rulerDistanceRatio,
+        rulerMainUnit,
+        rulerHideWalkDistance
+    }}
+    defer
+>
 // Units used for convertions to avoid changing original marker coords
 const xRatio = .68447
 const yRatio = .68447
