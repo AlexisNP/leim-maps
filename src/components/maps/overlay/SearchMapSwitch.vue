@@ -2,7 +2,6 @@
 import { PopoverArrow, PopoverContent, PopoverRoot, PopoverTrigger } from 'radix-vue'
 import { computed, onUpdated, ref, watch } from 'vue';
 import { useElementHover, useFocus } from '@vueuse/core'
-import Tag from '@/components/global/Tag.vue';
 
 const navModel = ref(false);
 
