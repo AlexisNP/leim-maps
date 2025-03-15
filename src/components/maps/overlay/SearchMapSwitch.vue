@@ -42,7 +42,6 @@ const worldMenuItems: MenuItem[] = [
         name: 'Bamast',
         img: '/images/bamast-cover.png',
         url: '/bamast',
-        newItem: true
     }
 ]
 
@@ -56,13 +55,11 @@ const cityMenuItems: MenuItem[] = [
         name: 'Borélis',
         img: '/images/aldys-borelis-cover.png',
         url: '/aldys/borelis',
-        newItem: true
     },
     {
         name: 'Cantane',
         img: '/images/aldys-cantane-cover.png',
         url: '/aldys/cantane',
-        newItem: true
     },
 ]
 </script>
