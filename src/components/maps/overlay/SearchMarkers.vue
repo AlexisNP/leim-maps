@@ -290,7 +290,8 @@ function resetAllFields(actionAfter?: "focusAfter") {
         pointer-events: all;
 
         @media screen and (width >= 900px) {
-            width: 30%;
+            width: clamp(25rem, 35dvw, 30rem);
+            width: clamp(25rem, 35vw, 30rem);
             margin-right: .75rem;
         }
 
