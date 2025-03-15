@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import type { MapMarker, MapMarkerGroup } from '@/types/Leaflet';
+import type { SearchConfig } from '@/types/Map';
 import type { SearchMode } from '@/types/Search';
 
 defineProps<{
     currentSearchMode: SearchMode,
-    customMarkers: MapMarker[]
+    customMarkers: MapMarker[],
+    searchConfig?: SearchConfig
 }>()
 
 const emit = defineEmits<{
@@ -18,7 +20,7 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
 
 <template>
     <menu class="tag-list">
-        <li>
+        <li v-if="!searchConfig?.disableQuests">
             <button
                 @click="emitCategorySwitch('quests')"
                 class="red"
@@ -35,7 +37,7 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
             </button>
         </li>
 
-        <li>
+        <li v-if="!searchConfig?.disableCapitals">
             <button
                 @click="emitCategorySwitch('capitals')"
                 class="blue"
@@ -52,7 +54,7 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
             </button>
         </li>
 
-        <li>
+        <li v-if="!searchConfig?.disableLandmarks">
             <button
                 @click="emitCategorySwitch('landmarks')"
                 class="orange"

@@ -5,14 +5,14 @@ import Layout from '@/layouts/Layout.astro';
 import Map from '@/components/maps/Map.astro'
 import MapOverlay from '@/components/maps/MapOverlay.astro'
 
-import markersData from '@/components/maps/data/aldys/cantane/markers.json'
+import markersData from '@/components/maps/data/aldys/cantane/les-mines-blanches/markers.json';
 
 const markers = markersData.data as MapMarker[]
 ---
 
-<Layout title="Cantane ~ Cartographie">
+<Layout title="Les Mines Blanches ~ Cartographie">
     <MapOverlay
-        mapKey='aldys-cantane'
+        mapKey='aldys-cantane-mines'
         markers={markers}
         searchConfig={{
             disableCapitals: true,
@@ -20,14 +20,14 @@ const markers = markersData.data as MapMarker[]
         }}
     />
     <Map
-        mapKey='aldys-cantane'
-        zoomifyKey='cantane'
-        mapHeight={4124}
-        mapWidth={4067}
+        mapKey='aldys-cantane-mines'
+        zoomifyKey='mines-blanches'
+        mapHeight={6020}
+        mapWidth={10290}
         markers={markers}
         rulerDistanceRatio={1.15}
         rulerMainUnit='Mètres'
         rulerHideWalkDistance={true}
-        backgroundColor="#CDCAC3"
+        backgroundColor="#101010"
     />
 </Layout>

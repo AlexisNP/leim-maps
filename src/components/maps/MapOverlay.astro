@@ -2,22 +2,24 @@
 import type { MapMarker, PlayerMarker } from "@/types/Leaflet";
 
 import SearchMarkers from "./overlay/SearchMarkers.vue";
+import type { MapOverlayProps } from "@/types/Map";
 
-interface Props {
-    mapKey: string
-    markers?: MapMarker[]
-    players?: PlayerMarker
-}
+interface Props extends MapOverlayProps {}
 
 const {
     mapKey,
     markers = [] as MapMarker[],
     players = {} as PlayerMarker,
+    searchConfig = {
+        disableCapitals: false,
+        disableLandmarks: false,
+        disableQuests: false,
+    }
 } = Astro.props
 ---
 
 <div class="world-overlay">
-    <SearchMarkers client:load mapKey={mapKey} markers={markers} players={players} />
+    <SearchMarkers client:load mapKey={mapKey} markers={markers} players={players} searchConfig={searchConfig} />
 </div>
 
 <style lang="scss">

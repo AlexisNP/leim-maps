@@ -1,19 +1,9 @@
 ---
 import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
+import type { MapProps } from '@/types/Map';
 import MarkerCreator from './overlay/MarkerCreator.vue';
 
-interface Props {
-    mapKey: string
-    zoomifyKey: string
-    mapHeight: number
-    mapWidth: number
-    markers?: MapMarker[]
-    players?: PlayerMarker
-    rulerMainUnit?: string
-    rulerDistanceRatio?: number
-    rulerHideWalkDistance?: boolean
-    backgroundColor?: string
-}
+interface Props extends MapProps {}
 
 const {
     mapKey,

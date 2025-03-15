@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import type { MapMarker, MapMarkerGroup, PlayerMarker } from '@/types/Leaflet';
+import type { SearchConfig } from '@/types/Map';
 import type { SearchMode } from '@/types/Search';
 import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
-import { computed, onMounted, ref, onUpdated, watch } from 'vue';
-import SearchMarkersTags from './SearchMarkersTags.vue';
+import { computed, onMounted, onUpdated, ref, watch } from 'vue';
 import SearchMapSwitch from './SearchMapSwitch.vue';
+import SearchMarkersTags from './SearchMarkersTags.vue';
 
 const props = defineProps<{
     markers: MapMarker[],
     players: PlayerMarker,
-    mapKey?: string
+    mapKey?: string,
+    searchConfig?: SearchConfig
 }>()
 
 const customMarkersKey = props.mapKey ? `custom-markers-${props.mapKey}` : 'custom-markers'
@@ -261,6 +263,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
         <SearchMarkersTags
             :current-search-mode="currentSearchMode"
             :custom-markers="customMarkersData"
+            :search-config="props.searchConfig"
             @on-category-switch="handleCategorySwitch"
         />
     </nav>
