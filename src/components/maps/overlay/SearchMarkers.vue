@@ -287,7 +287,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
         pointer-events: all;
 
         @media screen and (width >= 900px) {
-            width: 25%;
+            width: 30%;
             margin-right: .75rem;
         }
 
@@ -440,8 +440,8 @@ function resetAllFields(actionAfter?: "focusAfter") {
                     img {
                         display: block;
                         width: 100%;
-                        max-height: 15dvh;
-                        max-height: 15vh;
+                        max-height: 22.5dvh;
+                        max-height: 22.5vh;
                         object-fit: cover;
                     }
 

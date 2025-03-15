@@ -34,21 +34,15 @@ function switchMenuMode(newMode: MenuMode) {
 
 onMounted(() => {
     const mapRef = document.getElementById('world')
-    mapRef?.addEventListener('contextmenu', handleContextMenu)
-    // onLongPress(document.documentElement, handleLongPress, { delay: longPressDelay })
+    if (mapRef) {
+        mapRef.addEventListener('contextmenu', handleContextMenu)
+        mapRef.addEventListener('mousedown', hideMenu)
+    }
 })
 
-// function handleLongPress(e: Event) {
-//     hasBeenLongPressed.value = true
-//     longPressTimer.start()
-
-//     showMenu()
-// }
 
 function handleClickOutside(e: Event) {
-    // if (!hasBeenLongPressed.value) {
-        hideMenu()
-    // }
+    hideMenu()
 }
 
 function handleContextMenu(e: Event) {

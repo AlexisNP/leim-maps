@@ -1,5 +1,5 @@
 export type MapMarkerGroup = "capitals" | "cities" | "towns" | "landmarks" | "quests" | "custom";
-export type MapMarkerIcon = "castle" | "flag" | "graduation-cap" | "location-pin" | "monument" | "push-pin"
+export type MapMarkerIcon = "castle" | "flag" | "graduation-cap" | "location-pin" | "monument" | "push-pin" | "house"
 
 export type MapCoords = {
     x: number,
@@ -11,6 +11,7 @@ export type MapMarker = {
     markerCoords: MapCoords,
     description?: string,
     link?: string,
+    mapId?: string,
     group?: MapMarkerGroup,
     icon?: MapMarkerIcon,
     cover?: string,
