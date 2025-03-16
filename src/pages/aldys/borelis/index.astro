@@ -11,6 +11,10 @@ import MapOverlay from '@/components/maps/MapOverlay.astro'
             disableCapitals: true,
             disableQuests: true,
         }}
+        breadcrumbs={[
+            { name: 'Aldys', url: '/' },
+            { name: 'Borélis', url: '/aldys/borelis' },
+        ]}
     />
     <Map
         mapKey='aldys-borelis'

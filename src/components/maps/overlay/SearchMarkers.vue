@@ -271,16 +271,14 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
 <style lang="scss" scoped>
 .toolbar {
-    margin-left: calc(45px + .5rem);
-
     @media screen and (width >= 900px) {
         display: flex;
         gap: .75rem;
         align-items: start;
-        margin-left: 0;
     }
 
     .search-w {
+        margin-left: calc(45px + .5rem);
         padding: .5rem 1.2rem;
         width: calc(100% - 3rem);
         background: var(--white);
@@ -293,6 +291,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
             width: clamp(25rem, 35dvw, 30rem);
             width: clamp(25rem, 35vw, 30rem);
             margin-right: .75rem;
+            margin-left: 0;
         }
 
         .input-w {

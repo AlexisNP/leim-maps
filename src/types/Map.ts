@@ -1,5 +1,10 @@
 import type { MapMarker, PlayerMarker } from "./Leaflet"
 
+export interface BreadcrumbItem {
+    name: string;
+    url: string;
+}
+
 export interface SearchConfig {
     disableQuests?: boolean
     disableCapitals?: boolean
@@ -24,4 +29,5 @@ export interface MapOverlayProps {
     markers?: MapMarker[]
     players?: PlayerMarker
     searchConfig?: SearchConfig
+    breadcrumbs?: BreadcrumbItem[]
 }

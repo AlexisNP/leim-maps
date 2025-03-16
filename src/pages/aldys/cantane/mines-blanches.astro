@@ -18,6 +18,11 @@ const markers = markersData.data as MapMarker[]
             disableCapitals: true,
             disableQuests: true,
         }}
+        breadcrumbs={[
+            { name: 'Aldys', url: '/' },
+            { name: 'Cantane', url: '/aldys/cantane' },
+            { name: 'Mines Blanches', url: '/aldys/cantane/mines-blanches' },
+        ]}
     />
     <Map
         mapKey='aldys-cantane-mines'
