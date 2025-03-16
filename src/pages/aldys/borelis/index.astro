@@ -7,6 +7,14 @@ import MapOverlay from '@/components/maps/MapOverlay.astro'
 <Layout title="Borélis ~ Cartographie">
     <MapOverlay
         mapKey='aldys-borelis'
+        searchConfig={{
+            disableCapitals: true,
+            disableQuests: true,
+        }}
+        breadcrumbs={[
+            { name: 'Aldys', url: '/' },
+            { name: 'Borélis', url: '/aldys/borelis' },
+        ]}
     />
     <Map
         mapKey='aldys-borelis'

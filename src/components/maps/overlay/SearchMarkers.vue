@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import type { MapMarker, MapMarkerGroup, PlayerMarker } from '@/types/Leaflet';
+import type { SearchConfig } from '@/types/Map';
 import type { SearchMode } from '@/types/Search';
 import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
-import { computed, onMounted, ref, onUpdated, watch } from 'vue';
-import SearchMarkersTags from './SearchMarkersTags.vue';
+import { computed, onMounted, onUpdated, ref, watch } from 'vue';
 import SearchMapSwitch from './SearchMapSwitch.vue';
+import SearchMarkersTags from './SearchMarkersTags.vue';
 
 const props = defineProps<{
     markers: MapMarker[],
     players: PlayerMarker,
-    mapKey?: string
+    mapKey?: string,
+    searchConfig?: SearchConfig
 }>()
 
 const customMarkersKey = props.mapKey ? `custom-markers-${props.mapKey}` : 'custom-markers'
@@ -231,7 +233,16 @@ function resetAllFields(actionAfter?: "focusAfter") {
                         <div class="content-wrapper">
                             <span class="title">{{ m.title }}</span>
 
-                            <div class="desc" v-html="m.description"></div>
+                            <div class="desc">
+                                <p v-html="m.description" />
+
+                                <a v-if="m.mapId" :href="m.mapId" class="map-link">
+                                    <span>
+                                        Voir la carte détaillée
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="80" y1="112" x2="144" y2="112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="112" y1="80" x2="112" y2="144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                                </a>
+                            </div>
 
                             <div v-if="m.icon">
                                 <svg v-if="m.icon === 'graduation-cap'" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 256 256"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"></path></svg>
@@ -261,6 +272,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
         <SearchMarkersTags
             :current-search-mode="currentSearchMode"
             :custom-markers="customMarkersData"
+            :search-config="props.searchConfig"
             @on-category-switch="handleCategorySwitch"
         />
     </nav>
@@ -268,16 +280,14 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
 <style lang="scss" scoped>
 .toolbar {
-    margin-left: calc(45px + .5rem);
-
     @media screen and (width >= 900px) {
         display: flex;
         gap: .75rem;
         align-items: start;
-        margin-left: 0;
     }
 
     .search-w {
+        margin-left: calc(45px + .5rem);
         padding: .5rem 1.2rem;
         width: calc(100% - 3rem);
         background: var(--white);
@@ -287,8 +297,10 @@ function resetAllFields(actionAfter?: "focusAfter") {
         pointer-events: all;
 
         @media screen and (width >= 900px) {
-            width: 30%;
+            width: clamp(25rem, 35dvw, 30rem);
+            width: clamp(25rem, 35vw, 30rem);
             margin-right: .75rem;
+            margin-left: 0;
         }
 
         .input-w {
@@ -463,6 +475,25 @@ function resetAllFields(actionAfter?: "focusAfter") {
                     }
                     .desc {
                         color: var(--slate-500);
+
+                        .map-link {
+                            margin-top: .5rem;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: .5ch;
+                            text-underline-offset: 2px;
+                            text-decoration: underline;
+
+                            &:hover {
+                                text-decoration: none;
+                                color: var(--green-500);
+                            }
+
+                            svg {
+                                width: 1rem;
+                                height: 1rem;
+                            }
+                        }
 
                         :deep(a) {
                             text-underline-offset: 2px;

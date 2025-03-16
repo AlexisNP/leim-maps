@@ -1,0 +1,72 @@
+{
+    "data": [
+        {
+            "group": "landmarks",
+            "title": "Escalier principal",
+            "description": "Escalier principal menant à l'entrée des mines.",
+            "markerCoords": {
+                "x": 204.17153606569804,
+                "y": -97.2765317771096
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Escalier secret",
+            "description": "Escalier secret menant à l'extérieur de la montagne. Il a été taillé dans la pierre par les Étincelles de Cantane.",
+            "markerCoords": {
+                "x": 30.312497957367608,
+                "y": -112.61072064780724
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Cadavre de Taleb Vaht",
+            "description": "Son visage a été vidé de sa chair et ses yeux ont été arrachés. Son bas corps est fondu dans le mur.",
+            "markerCoords": {
+                "x": 73.98667751443935,
+                "y": -48.86054114319268
+            },
+            "icon": "death"
+        },
+        {
+            "group": "landmarks",
+            "title": "Cadavre de Thérence",
+            "description": "Le corps est transpercé par une lance ; il a l'air de s'être jeté dessus.",
+            "markerCoords": {
+                "x": 53.322483262000056,
+                "y": -47.64614423471167
+            },
+            "icon": "death"
+        },
+        {
+            "group": "landmarks",
+            "title": "Cadavre de Sébastien",
+            "description": "Le corps est tranché en deux dans la longueur.",
+            "markerCoords": {
+                "x": 114.33884300089663,
+                "y": -62.16106768041688
+            },
+            "icon": "death"
+        },
+        {
+            "group": "landmarks",
+            "title": "Cadavre de Donovane",
+            "description": "Le corps complètement fondu dans le sol. La pierre alentour a été minée par sa main.",
+            "markerCoords": {
+                "x": 187.9956058143303,
+                "y": 30.86756210204816
+            },
+            "icon": "death"
+        },
+        {
+            "group": "landmarks",
+            "title": "Cadavre de Mathilda Boulais",
+            "description": "Son corps a l'air d'avoir explosé et fondu de l'intérieur. Elle n'est pas reconnaissable.",
+            "markerCoords": {
+                "x": 54.935192730348106,
+                "y": 6.478401650708764
+            },
+            "icon": "death"
+        }
+    ]
+}
