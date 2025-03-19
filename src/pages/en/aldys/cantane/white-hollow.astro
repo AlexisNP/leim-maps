@@ -10,7 +10,7 @@ import markersData from '@/components/maps/data/en/aldys/cantane/les-mines-blanc
 const markers = markersData.data as MapMarker[]
 ---
 
-<Layout title="Les Mines Blanches ~ Cartographie">
+<Layout title="White Hollow ~ Maps">
     <MapOverlay
         mapKey='aldys-cantane-mines'
         markers={markers}
@@ -21,7 +21,7 @@ const markers = markersData.data as MapMarker[]
         breadcrumbs={[
             { name: 'Aldys', url: '/en/' },
             { name: 'Cantane', url: '/en/aldys/cantane' },
-            { name: 'Mines Blanches', url: '/en/aldys/cantane/mines-blanches' },
+            { name: 'White Hollow', url: '/en/aldys/cantane/white-hollow' },
         ]}
     />
     <Map
@@ -31,7 +31,7 @@ const markers = markersData.data as MapMarker[]
         mapWidth={10290}
         markers={markers}
         rulerDistanceRatio={0.1}
-        rulerMainUnit='Mètres'
+        rulerMainUnit='Meters'
         rulerHideWalkDistance={true}
         backgroundColor="#101010"
     />

@@ -3,7 +3,7 @@
         {
             "group": "capitals",
             "title": "Ambrose",
-            "description": "Chef-lieu de Nacride et Capitale économique de l'Alliance Kaldélienne.",
+            "description": "Capital of Nacride and Economic Capital of the Kaldelian Alliance.",
             "link": "https://wiki.alexcreates.fr/index.php/Ambrose",
             "markerCoords": {
                 "x": 83.6,
@@ -16,7 +16,7 @@
         {
             "group": "capitals",
             "title": "Cordouac",
-            "description": "Chef-lieu d'Héraldie et Capitale administrative de l'Alliance Kaldélienne.",
+            "description": "Capital of Heraldy and Administrative Capital of the Kaldelian Alliance.",
             "link": "https://wiki.alexcreates.fr/index.php/Cordouac",
             "markerCoords": {
                 "x": 133.46875,
@@ -29,7 +29,7 @@
         {
             "group": "capitals",
             "title": "Bordelac",
-            "description": "Chef-lieu des Hautes-Berges",
+            "description": "Capital of the High Banks",
             "link": "https://wiki.alexcreates.fr/index.php/Bordelac",
             "markerCoords": {
                 "x": 151.22656,
@@ -39,7 +39,7 @@
         {
             "group": "capitals",
             "title": "Tourgrise",
-            "description": "Chef-lieu de Ternâcre. C'est une cité de mages archivistes, mais c'est aussi ici qu'on trouve la plus grande population carcérale de l'Alliance.",
+            "description": "Capital of Ternacre. It's a city of archivist mages, but it also houses the largest prison population in the Alliance.",
             "link": "https://wiki.alexcreates.fr/index.php/Tourgrise",
             "markerCoords": {
                 "x": 132.26953,
@@ -53,7 +53,7 @@
         {
             "group": "capitals",
             "title": "Valsoie",
-            "description": "Chef-lieu de Mireloin.",
+            "description": "Capital of Mireloin.",
             "link": "https://wiki.alexcreates.fr/index.php/Valsoie",
             "markerCoords": {
                 "x": 103.4375,
@@ -63,7 +63,7 @@
         {
             "group": "capitals",
             "title": "Prismalline",
-            "description": "Chef-lieu de Corambre.",
+            "description": "Capital of Corambre.",
             "link": "https://wiki.alexcreates.fr/index.php/Prismalline",
             "markerCoords": {
                 "x": 103.00329,
@@ -86,7 +86,7 @@
         {
             "group": "capitals",
             "title": "Berce",
-            "description": "Chef-lieu des Basses-berges.",
+            "description": "Capital of Bottom Banks.",
             "link": "https://wiki.alexcreates.fr/index.php/Berce",
             "markerCoords": {
                 "x": 173.39874,
@@ -96,7 +96,7 @@
         {
             "group": "capitals",
             "title": "Lamière",
-            "description": "Chef-lieu de Quillon.",
+            "description": "Capital of Quillon.",
             "link": "https://wiki.alexcreates.fr/index.php/Lamière",
             "markerCoords": {
                 "x": 140.20731,
@@ -106,7 +106,7 @@
         {
             "group": "capitals",
             "title": "Halport",
-            "description": "Chef-lieu de Lagarde.",
+            "description": "Capital of Lagarde.",
             "link": "https://wiki.alexcreates.fr/index.php/Halport",
             "markerCoords": {
                 "x": 76.6803,
@@ -116,7 +116,7 @@
         {
             "group": "capitals",
             "title": "Soubreciel",
-            "description": "Chef-lieu de Rougefer.",
+            "description": "Capital of Rougefer.",
             "link": "https://wiki.alexcreates.fr/index.php/Soubreciel",
             "markerCoords": {
                 "x": 204.42515,
@@ -129,7 +129,7 @@
         {
             "group": "capitals",
             "title": "Dramast",
-            "description": "Chef-lieu d'Asharos.",
+            "description": "Capital of Asharos.",
             "link": "https://wiki.alexcreates.fr/index.php/Dramast",
             "markerCoords": {
                 "x": 119.35456,
@@ -139,7 +139,7 @@
         {
             "group": "capitals",
             "title": "Briseroc",
-            "description": "Chef-lieu de Pergaré.",
+            "description": "Capital of Pergaré.",
             "link": "https://wiki.alexcreates.fr/index.php/Briseroc",
             "markerCoords": {
                 "x": 41.96763,
@@ -149,7 +149,7 @@
         {
             "group": "cities",
             "title": "Demilieu",
-            "description": "Ancienne cité militaire laissée à l'abandon depuis plusieurs centaines d'années.",
+            "description": "A former military town that has been abandoned for several hundred years.",
             "link": "https://wiki.alexcreates.fr/index.php/Demilieu",
             "markerCoords": {
                 "x": 204.75462,
@@ -159,7 +159,7 @@
         {
             "group": "cities",
             "title": "Borélis",
-            "description": "Cité côtière vivant principalement de la pêche.",
+            "description": "A coastal town living mainly from fishing.",
             "link": "https://wiki.alexcreates.fr/index.php/Borélis",
             "markerCoords": {
                 "x": 138.44531,
@@ -203,7 +203,7 @@
         {
             "group": "cities",
             "title": "Cantane",
-            "description": "Petite ville minière excentrée qui accueille les commerçants de gemmes des environs une fois par an.",
+            "description": "A small, out-of-the-way mining town that welcomes gem traders from the surrounding area once a year.",
             "link": "https://wiki.alexcreates.fr/index.php/Cantane",
             "markerCoords": {
                 "x": 197.3492280183025,
@@ -216,13 +216,13 @@
         },
         {
             "group": "landmarks",
-            "title": "Les Mines Blanches",
-            "description": "Ancien complexe minier fermé depuis un éboulement. Des ischiels sauvages y avaient élu domicile.",
+            "title": "White Hollow",
+            "description": "A former mining complex that has been closed since a landslide. Wild ischiels had taken up residence there.",
             "markerCoords": {
                 "x": 198.0424703459088,
                 "y": -210.9293951755887
             },
-            "mapId": "/en/aldys/cantane/mines-blanches",
+            "mapId": "/en/aldys/cantane/white-hollow",
             "cover": "Les Mines Blanches.png",
             "coverAuthor": "MeckanicalMind",
             "coverLink": "https://www.deviantart.com/meckanicalmind/art/R3-Mines-258469134"
@@ -512,8 +512,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Faille de Kiam",
-            "description": "Vaste réseau de falaises et de ravins où gisent des cristaux étranges.",
+            "title": "Kiam Rift",
+            "description": "Vast network of cliffs and ravines where strange crystals lie.",
             "link": "https://wiki.alexcreates.fr/index.php/Faille_de_Kiam",
             "markerCoords": {
                 "x": 121.47116769539711,
@@ -629,7 +629,7 @@
         {
             "group": "landmarks",
             "title": "Les Cages Handaniennes",
-            "description": "Complexe pénitencier réservé aux criminels maîtrisant la magie.",
+            "description": "Penitentiary complex reserved for criminals who have mastered magic.",
             "link": "https://wiki.alexcreates.fr/index.php/Cages_Handaniennes",
             "markerCoords": {
                 "x": 168.31641,
@@ -663,7 +663,7 @@
         {
             "group": "landmarks",
             "title": "Épave de l'Éclipse",
-            "description": "Carcasse d'un bateau de garde de la cité de Borélis, échouée sur le rivage rocheux par <a href=\"https://wiki.alexcreates.fr/index.php/Sulvan Trois-Barbes\" target=\"_blank\">Sulvan Trois-Barbes</a>, un anarchiste de Bamast.",
+            "description": "Shipwrecked boat from the city of Borélis, beached on the rocky shore by <a href='https://wiki.alexcreates.fr/index.php/Sulvan Trois-Barbes' target='_blank'>Sulvan Trois-Barbes</a>, an anarchist from Bamast.",
             "markerCoords": {
                 "x": 165.08197,
                 "y": -57.93673
@@ -684,7 +684,7 @@
         {
             "group": "capitals",
             "title": "Flamberge",
-            "description": "Cité principale et capitale de l'empire des Terres de Syaltha.",
+            "description": "Main city and capital of the empire of the Lands of Syaltha.",
             "link": "https://wiki.alexcreates.fr/index.php/Flamberge",
             "markerCoords": {
                 "x": 301.5278268956225,
@@ -717,7 +717,7 @@
         {
             "group": "landmarks",
             "title": "Ligatorium",
-            "description": "Monument qui renferme les archives royales de l'empire des Terres de Syaltha.",
+            "description": "Monument containing the royal archives of the empire of the Lands of Syaltha.",
             "link": "https://wiki.alexcreates.fr/index.php/Garr%C3%A0n#Ligatorium",
             "markerCoords": {
                 "x": 283.4611668744801,
@@ -810,7 +810,7 @@
         {
             "group": "capitals",
             "title": "Ormünd",
-            "description": "Capitale de la République séparatiste de Sakâr",
+            "description": "Capital of the breakaway Republic of Sakâr",
             "link": "https://wiki.alexcreates.fr/index.php/Orm%C3%BCnd",
             "markerCoords": {
                 "x": 331.89665426999727,
@@ -839,8 +839,8 @@
         },
         {
             "group": "quests",
-            "title": "Pour la République",
-            "description": "La cité de Fasàch reçoit quelques généraux de Gàrran lors d'un comité des armées, mais cette visite intéresse également les révolutionnaires d'Ormünd.",
+            "title": "For the Republic",
+            "description": "The city of Fasàch receives some of Gàrran's generals during an army committee meeting, but this visit is also of interest to Ormünd's revolutionaries.",
             "markerCoords": {
                 "x": 327.15022290440396,
                 "y": -206.1154623032882
@@ -848,8 +848,8 @@
         },
         {
             "group": "quests",
-            "title": "Mémoires de fer",
-            "description": "L'usine clandestine de l'Aegis doit incinérer ses stocks d'automates défaillants, mais une poignée d'entre-eux ne comptent pas se laisser détruire aussi simplement.",
+            "title": "Ironwork memories",
+            "description": "The clandestine Aegis factory is due to incinerate its stock of malfunctioning automatons, but a handful of them have no intention of being so simply destroyed.",
             "markerCoords": {
                 "x": 105.79962111804268,
                 "y": -82.40552057309549
@@ -857,8 +857,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Faculté de Magie Appliquée",
-            "description": "Établissement d'enseignements arcaniques tout public, mais à la qualité lacunaire.",
+            "title": "Faculty of Magical Studies",
+            "description": "A centre offering arcane courses to the general public, but with a lack of quality.",
             "link": "https://wiki.alexcreates.fr/index.php/Facult%C3%A9_de_Magie_Appliqu%C3%A9e",
             "markerCoords": {
                 "x": 103.96761286182101,
@@ -868,8 +868,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Académie Artistique Arcanique",
-            "description": "Institut d'apprentissage public centré sur les arts.",
+            "title": "Academy of the Arcane Arts",
+            "description": "Public learning institute focusing on the arts.",
             "link": "https://wiki.alexcreates.fr/index.php/Acad%C3%A9mie_Artistique_Arcanique",
             "markerCoords": {
                 "x": 75.84445789595449,
@@ -879,8 +879,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Académie Centrale Kaldélienne",
-            "description": "Une des plus grandes académies dispensant des cours de magie de l'Alliance. L'examen d'entrée est public, mais les coûts de scolarité restent à la charge des étudiants.",
+            "title": "Central Kaldelian Academy",
+            "description": "One of the Alliance's largest magic academies. The entrance exam is open to the public, but students must pay their own tuition fees.",
             "link": "https://wiki.alexcreates.fr/index.php/Acad%C3%A9mie_Centrale_Kald%C3%A9lienne",
             "markerCoords": {
                 "x": 83.80737652386473,
@@ -893,8 +893,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Grande Maison de Flamberge",
-            "description": "La plus prestigieuse école des Terres de Syaltha. La Grande Maison est une des rares entités à certifier les sal'kayas.",
+            "title": "Flamberge Hearth Academy",
+            "description": "The most prestigious school in the Lands of Syaltha. The Hearth Academy is one of the few bodies to certify sal'kayas.",
             "link": "https://wiki.alexcreates.fr/index.php/Grande_Maison_de_Flamberge",
             "markerCoords": {
                 "x": 302.23491236190273,
@@ -904,8 +904,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Haute-École de Magistrature Cordouenne",
-            "description": "Institut de l'Alliance formant les magistrats, juges et politiciens de demain.",
+            "title": "Cordovan School of Magistrates",
+            "description": "Prestigious academy training the magistrates, judges and politicians of tomorrow.",
             "link": "https://wiki.alexcreates.fr/index.php/Haute-%C3%89cole_de_Magistrature_Cordouenne",
             "markerCoords": {
                 "x": 131.07900289783518,
@@ -915,8 +915,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Institut du Fer Blanc",
-            "description": "Première école militaire de l'Alliance Kaldélienne.",
+            "title": "Whitesteel Institute",
+            "description": "First military school of the Kaldelian Alliance.",
             "link": "https://wiki.alexcreates.fr/index.php/Institut_du_Fer_Blanc",
             "markerCoords": {
                 "x": 140.3159943633407,
@@ -927,7 +927,7 @@
         {
             "group": "landmarks",
             "title": "Maison d'Études de Tourgrise",
-            "description": "Établissement pluridisciplinaires axé vers les études de législations mais possèdant un cursus d'études arcaniques général.",
+            "description": "Multi-disciplinary institution focusing on legislative studies but with a general arcanic studies curriculum.",
             "link": "https://wiki.alexcreates.fr/index.php/Maison_d%27%C3%89tudes_de_Tourgrise",
             "markerCoords": {
                 "x": 132.82148271354282,
@@ -937,8 +937,8 @@
         },
         {
             "group": "landmarks",
-            "title": "École des Arts Spirituels",
-            "description": "Institut privé spécialisé dans les maîtrises des arcanes spirituelles.",
+            "title": "School of Spiritual Arts",
+            "description": "Private institute specializing in spiritual arcane mastery.",
             "link": "https://wiki.alexcreates.fr/index.php/%C3%89cole_des_Arts_Spirituels",
             "markerCoords": {
                 "x": 124.8585640856326,

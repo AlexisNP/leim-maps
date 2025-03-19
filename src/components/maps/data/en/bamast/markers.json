@@ -26,7 +26,7 @@
         {
             "group": "landmarks",
             "title": "Miverne",
-            "description": "Ancien hameau réduite en cendres depuis les Charbonneries.",
+            "description": "Old hamlet reduced to ashes since the Charbonneries",
             "link": "https://wiki.alexcreates.fr/index.php/Miverne",
             "markerCoords": {
                 "x": 113.52851847725508,
@@ -69,7 +69,7 @@
         {
             "group": "capitals",
             "title": "Rocheverre",
-            "description": "Capitale de l'Union Bahamienne, qui tire son nom du minerai éponyme et de ses falaises de basalt.",
+            "description": "Capital of the Bahamian Concord, named after the mineral of the same name and its basalt cliffs.",
             "link": "https://wiki.alexcreates.fr/index.php/Rocheverre",
             "markerCoords": {
                 "x": 122.87040892704968,
@@ -81,7 +81,7 @@
         },
         {
             "group": "landmarks",
-            "title": "Académie de la Feuille d'Or",
+            "title": "Golden Leaf Academy",
             "description": "",
             "link": "https://wiki.alexcreates.fr/index.php/Académie de la Feuille d'Or",
             "markerCoords": {
@@ -102,8 +102,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Tours d'Anfall",
-            "description": "Institut arcanique public, faisant office d'alternative à l'Académie de la Feuille d'Or pour les étudiants des milieux plus modestes de Bamast.",
+            "title": "Anfall Towers",
+            "description": "Public arcane institute, serving as an alternative to the Golden Leaf Academy for students from more modest backgrounds in Bamast.",
             "link": "https://wiki.alexcreates.fr/index.php/Tours d'Anfall",
             "markerCoords": {
                 "x": 128.134559374788,
@@ -193,8 +193,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Champs communaux de Rastys",
-            "description": "Plusieurs collines côtières où le sol y est riche en nutriments. Certaines terres sont cultivées par des familles possédant des terres, mais certains champs sont publics et appartiennent à la communauté de Rastys.",
+            "title": "Communal fields of Rastys",
+            "description": "Several coastal hills where the soil is rich in nutrients. Some lands are cultivated by families owning lands, but some fields are public and belong to the community of Rastys.",
             "markerCoords": {
                 "x": 114.62855568365849,
                 "y": -101.5674232782715
