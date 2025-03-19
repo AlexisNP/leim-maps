@@ -165,7 +165,7 @@
                 "x": 138.44531,
                 "y": -51.54687
             },
-            "mapId": "/aldys/borelis",
+            "mapId": "/en/aldys/borelis",
             "cover": "Port_de_Borélis.jpeg",
             "coverAuthor": "Anton Bezrukov",
             "coverLink": "https://www.artstation.com/artwork/oODL5B"
@@ -209,7 +209,7 @@
                 "x": 197.3492280183025,
                 "y": -210.87224307207197
             },
-            "mapId": "/aldys/cantane",
+            "mapId": "/en/aldys/cantane",
             "cover": "Cantane.jpg",
             "coverAuthor": "Andreas Roller",
             "coverLink": "https://en.wikipedia.org/wiki/Andreas_Roller"
@@ -222,7 +222,7 @@
                 "x": 198.0424703459088,
                 "y": -210.9293951755887
             },
-            "mapId": "/aldys/cantane/mines-blanches",
+            "mapId": "/en/aldys/cantane/mines-blanches",
             "cover": "Les Mines Blanches.png",
             "coverAuthor": "MeckanicalMind",
             "coverLink": "https://www.deviantart.com/meckanicalmind/art/R3-Mines-258469134"

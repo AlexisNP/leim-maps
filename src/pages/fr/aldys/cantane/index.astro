@@ -1,0 +1,37 @@
+---
+import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
+
+import Layout from '@/layouts/Layout.astro';
+import Map from '@/components/maps/Map.astro'
+import MapOverlay from '@/components/maps/MapOverlay.astro'
+
+import markersData from '@/components/maps/data/fr/aldys/cantane/markers.json'
+
+const markers = markersData.data as MapMarker[]
+---
+
+<Layout title="Cantane ~ Cartographie">
+    <MapOverlay
+        mapKey='aldys-cantane'
+        markers={markers}
+        searchConfig={{
+            disableCapitals: true,
+            disableQuests: true,
+        }}
+        breadcrumbs={[
+            { name: 'Aldys', url: '/fr/' },
+            { name: 'Cantane', url: '/fr/aldys/cantane' },
+        ]}
+    />
+    <Map
+        mapKey='aldys-cantane'
+        zoomifyKey='cantane'
+        mapHeight={4124}
+        mapWidth={4067}
+        markers={markers}
+        rulerDistanceRatio={1.15}
+        rulerMainUnit='Mètres'
+        rulerHideWalkDistance={true}
+        backgroundColor="#CDCAC3"
+    />
+</Layout>

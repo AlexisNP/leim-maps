@@ -5,34 +5,33 @@ import Layout from '@/layouts/Layout.astro';
 import Map from '@/components/maps/Map.astro'
 import MapOverlay from '@/components/maps/MapOverlay.astro'
 
-import markersData from '@/components/maps/data/aldys/cantane/les-mines-blanches/markers.json';
+import markersData from '@/components/maps/data/en/aldys/cantane/markers.json'
 
 const markers = markersData.data as MapMarker[]
 ---
 
-<Layout title="Les Mines Blanches ~ Cartographie">
+<Layout title="Cantane ~ Cartographie">
     <MapOverlay
-        mapKey='aldys-cantane-mines'
+        mapKey='aldys-cantane'
         markers={markers}
         searchConfig={{
             disableCapitals: true,
             disableQuests: true,
         }}
         breadcrumbs={[
-            { name: 'Aldys', url: '/' },
-            { name: 'Cantane', url: '/aldys/cantane' },
-            { name: 'Mines Blanches', url: '/aldys/cantane/mines-blanches' },
+            { name: 'Aldys', url: '/en/' },
+            { name: 'Cantane', url: '/en/aldys/cantane' },
         ]}
     />
     <Map
-        mapKey='aldys-cantane-mines'
-        zoomifyKey='mines-blanches'
-        mapHeight={6020}
-        mapWidth={10290}
+        mapKey='aldys-cantane'
+        zoomifyKey='cantane'
+        mapHeight={4124}
+        mapWidth={4067}
         markers={markers}
-        rulerDistanceRatio={0.1}
+        rulerDistanceRatio={1.15}
         rulerMainUnit='Mètres'
         rulerHideWalkDistance={true}
-        backgroundColor="#101010"
+        backgroundColor="#CDCAC3"
     />
 </Layout>

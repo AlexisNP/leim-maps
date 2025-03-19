@@ -5,27 +5,35 @@ import Layout from '@/layouts/Layout.astro';
 import Map from '@/components/maps/Map.astro'
 import MapOverlay from '@/components/maps/MapOverlay.astro'
 
-import markersData from '@/components/maps/data/bamast/markers.json'
-import playersData from '@/components/maps/data/bamast/players.json'
+import markersData from '@/components/maps/data/fr/aldys/markers.json'
+import playersData from '@/components/maps/data/fr/aldys/players.json'
 
 const markers = markersData.data as MapMarker[]
 const players = playersData as PlayerMarker
 ---
 
-<Layout title="Bamast ~ Cartographie">
+<Layout
+    title="Aldys ~ Cartographie"
+    head={
+        {
+            description: "Carte de l'Alliance Kaldélienne sur la planète de Léim.",
+            image: '/images/bailey-zindel-NRQV-hBF10M-unsplash.jpg'
+        }
+    }
+>
     <MapOverlay
-        mapKey='bamast'
+        mapKey='aldys'
         markers={markers}
         players={players}
         breadcrumbs={[
-            { name: 'Bamast', url: '/bamast' },
+            { name: 'Aldys', url: '/' },
         ]}
     />
     <Map
-        mapKey='bamast'
-        zoomifyKey='bamast'
-        mapHeight={18342}
-        mapWidth={15000}
+        mapKey='aldys'
+        zoomifyKey='aldys-nord'
+        mapHeight={21896}
+        mapWidth={30000}
         markers={markers}
         players={players}
         rulerDistanceRatio={2}

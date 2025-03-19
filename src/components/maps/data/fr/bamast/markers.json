@@ -1,0 +1,214 @@
+{
+    "data": [
+        {
+            "group": "capitals",
+            "title": "Faranne",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Faranne",
+            "markerCoords": {
+                "x": 119.6667886200924,
+                "y": -17.945469721492717
+            },
+            "cover": "Faranne.jpg",
+            "coverAuthor": "Pablo Mendoza Peces",
+            "coverLink": "https://www.artstation.com/artwork/dAJr1"
+        },
+        {
+            "group": "cities",
+            "title": "Alorie",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Alorie",
+            "markerCoords": {
+                "x": 120.39729093844922,
+                "y": -13.692664769841931
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Miverne",
+            "description": "Ancien hameau réduite en cendres depuis les Charbonneries.",
+            "link": "https://wiki.alexcreates.fr/index.php/Miverne",
+            "markerCoords": {
+                "x": 113.52851847725508,
+                "y": -19.882939646724424
+            },
+            "cover": "Miverne.jpg",
+            "coverAuthor": "Andrei-Pervukhin",
+            "coverLink": "https://www.deviantart.com/andrei-pervukhin/art/Medieval-Village-383779337"
+        },
+        {
+            "group": "cities",
+            "title": "Valourde",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Valourde",
+            "markerCoords": {
+                "x": 118.82386540626896,
+                "y": -26.524623165045536
+            }
+        },
+        {
+            "group": "cities",
+            "title": "Bucarie",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Bucarie",
+            "markerCoords": {
+                "x": 121.22773731204137,
+                "y": -32.909643754809295
+            }
+        },
+        {
+            "group": "capitals",
+            "title": "Brisaube",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Brisaube",
+            "markerCoords": {
+                "x": 117.00664279509309,
+                "y": -45.03852369536854
+            }
+        },
+        {
+            "group": "capitals",
+            "title": "Rocheverre",
+            "description": "Capitale de l'Union Bahamienne, qui tire son nom du minerai éponyme et de ses falaises de basalt.",
+            "link": "https://wiki.alexcreates.fr/index.php/Rocheverre",
+            "markerCoords": {
+                "x": 122.87040892704968,
+                "y": -58.7910005354329
+            },
+            "cover": "Rocheverre.jpg",
+            "coverAuthor": "Creative Intelligence Arts",
+            "coverLink": "https://www.kickstarter.com/projects/1300298569/project-phoenix-japans-indie-rpg-feat-aaa-talent"
+        },
+        {
+            "group": "landmarks",
+            "title": "Académie de la Feuille d'Or",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Académie de la Feuille d'Or",
+            "markerCoords": {
+                "x": 123.11414481237149,
+                "y": -59.316085319396734
+            },
+            "icon": "graduation-cap"
+        },
+        {
+            "group": "capitals",
+            "title": "Taralie",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Taralie",
+            "markerCoords": {
+                "x": 129.26032961638916,
+                "y": -68.91926130477364
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Tours d'Anfall",
+            "description": "Institut arcanique public, faisant office d'alternative à l'Académie de la Feuille d'Or pour les étudiants des milieux plus modestes de Bamast.",
+            "link": "https://wiki.alexcreates.fr/index.php/Tours d'Anfall",
+            "markerCoords": {
+                "x": 128.134559374788,
+                "y": -68.06430226842451
+            },
+            "icon": "graduation-cap"
+        },
+        {
+            "group": "cities",
+            "title": "Lameroy",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Lameroy",
+            "markerCoords": {
+                "x": 151.66724865788115,
+                "y": -41.479728474288045
+            }
+        },
+        {
+            "group": "cities",
+            "title": "Garech",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Garech",
+            "markerCoords": {
+                "x": 150.24269883199952,
+                "y": -51.12778776489305
+            }
+        },
+        {
+            "group": "capitals",
+            "title": "Escarmin",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Escarmin",
+            "markerCoords": {
+                "x": 142.44974653559413,
+                "y": -51.68971626301039
+            }
+        },
+        {
+            "group": "capitals",
+            "title": "Typhos",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Typhos",
+            "markerCoords": {
+                "x": 120.90400634757226,
+                "y": -90.77028040549715
+            }
+        },
+        {
+            "group": "cities",
+            "title": "Portelyre",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Portelyre",
+            "markerCoords": {
+                "x": 124.18423280853722,
+                "y": -83.98547764082718
+            }
+        },
+        {
+            "group": "cities",
+            "title": "Hatenyr",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Hatenyr",
+            "markerCoords": {
+                "x": 113.60389451777777,
+                "y": -84.04978856750651
+            }
+        },
+        {
+            "group": "cities",
+            "title": "Florette",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Florette",
+            "markerCoords": {
+                "x": 114.47218975744497,
+                "y": -77.77947321627123
+            }
+        },
+        {
+            "group": "cities",
+            "title": "Rastys",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Rastys",
+            "markerCoords": {
+                "x": 114.06646730992365,
+                "y": -102.12951165200633
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Champs communaux de Rastys",
+            "description": "Plusieurs collines côtières où le sol y est riche en nutriments. Certaines terres sont cultivées par des familles possédant des terres, mais certains champs sont publics et appartiennent à la communauté de Rastys.",
+            "markerCoords": {
+                "x": 114.62855568365849,
+                "y": -101.5674232782715
+            }
+        },
+        {
+            "group": "capitals",
+            "title": "Dayà",
+            "description": "",
+            "link": "https://wiki.alexcreates.fr/index.php/Dàyà",
+            "markerCoords": {
+                "x": 114.50042048704195,
+                "y": -113.75000202375236
+            }
+        }
+    ]
+}
