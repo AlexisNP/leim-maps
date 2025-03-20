@@ -41,12 +41,12 @@ const worldMenuItems: MenuItem[] = [
     {
         name: 'Aldys',
         img: '/images/aldys-cover.png',
-        url: '/'
+        url: `/${$currentLang.value}/`
     },
     {
         name: 'Bamast',
         img: '/images/bamast-cover.png',
-        url: '/bamast',
+        url: `/${$currentLang.value}/bamast`
     }
 ]
 
@@ -59,12 +59,12 @@ const cityMenuItems: MenuItem[] = [
     {
         name: 'Borélis',
         img: '/images/aldys-borelis-cover.png',
-        url: '/aldys/borelis',
+        url: `/${$currentLang.value}/aldys/borelis`
     },
     {
         name: 'Cantane',
         img: '/images/aldys-cantane-cover.png',
-        url: '/aldys/cantane',
+        url: `/${$currentLang.value}/aldys/cantane`
     },
 ]
 
@@ -72,7 +72,7 @@ const extraMenuitems: MenuItem[] = [
     {
         name: 'Mines Blanches',
         img: '/images/aldys-cantane-mines-blanches-cover.png',
-        url: '/aldys/cantane/mines-blanches',
+        url: `/${$currentLang.value}/aldys/cantane/mines-blanches`,
         newItem: true
     },
 ]
