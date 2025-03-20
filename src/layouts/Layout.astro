@@ -1,16 +1,21 @@
 ---
+import { defaultLang, type Language } from '@/i18n/ui';
+import { getLangFromUrl } from '@/i18n/utils';
 import type { Head } from '@/types/Head';
 
 interface Props {
-	title: string;
+	title: string
     head?: Head
+    lang?: Language
 }
 
 const { title, head } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url) || defaultLang;
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
         <meta name="author" content="Alexis Pelé" />
