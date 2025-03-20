@@ -1,7 +1,12 @@
 <script lang="ts" setup>
-import { PopoverArrow, PopoverContent, PopoverRoot, PopoverTrigger } from 'radix-vue'
 import { computed, onUpdated, ref, watch } from 'vue';
 import { useElementHover, useFocus } from '@vueuse/core'
+import { PopoverArrow, PopoverContent, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { useStore } from '@nanostores/vue';
+
+import { currentLang } from '@/i18n/store';
+
+const $currentLang = useStore(currentLang);
 
 const navModel = ref(false);
 

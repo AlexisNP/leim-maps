@@ -1,11 +1,18 @@
 <script setup lang="ts">
+import { useStore } from '@nanostores/vue';
+import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
+import { computed, onMounted, onUpdated, ref, watch } from 'vue';
+
 import type { MapMarker, MapMarkerGroup, PlayerMarker } from '@/types/Leaflet';
 import type { SearchConfig } from '@/types/Map';
 import type { SearchMode } from '@/types/Search';
-import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
-import { computed, onMounted, onUpdated, ref, watch } from 'vue';
+
+import { currentLang } from '@/i18n/store';
+
 import SearchMapSwitch from './SearchMapSwitch.vue';
 import SearchMarkersTags from './SearchMarkersTags.vue';
+
+const $currentLang = useStore(currentLang);
 
 const props = defineProps<{
     markers: MapMarker[],

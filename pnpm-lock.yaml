@@ -14,6 +14,12 @@ importers:
       '@astrojs/vue':
         specifier: ^5.0.7
         version: 5.0.7(astro@5.5.3(jiti@2.4.2)(rollup@4.36.0)(sass@1.86.0)(typescript@5.7.2))(jiti@2.4.2)(rollup@4.36.0)(sass@1.86.0)(vue@3.5.13(typescript@5.7.2))
+      '@nanostores/persistent':
+        specifier: ^0.10.2
+        version: 0.10.2(nanostores@0.11.4)
+      '@nanostores/vue':
+        specifier: ^0.11.0
+        version: 0.11.0(nanostores@0.11.4)(vue@3.5.13(typescript@5.7.2))
       '@types/leaflet':
         specifier: ^1.9.16
         version: 1.9.16
@@ -23,6 +29,9 @@ importers:
       astro:
         specifier: ^5.5.3
         version: 5.5.3(jiti@2.4.2)(rollup@4.36.0)(sass@1.86.0)(typescript@5.7.2)
+      nanostores:
+        specifier: ^0.11.4
+        version: 0.11.4
       radix-vue:
         specifier: ^1.9.17
         version: 1.9.17(vue@3.5.13(typescript@5.7.2))
@@ -499,6 +508,26 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@nanostores/persistent@0.10.2':
+    resolution: {integrity: sha512-BEndnLhRC+yP7gXTESepBbSj8XNl8OXK9hu4xAgKC7MWJHKXnEqJMqY47LUyHxK6vYgFnisyHmqq+vq8AUFyIg==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0
+
+  '@nanostores/vue@0.11.0':
+    resolution: {integrity: sha512-4ndyLhwVFl1xhOnvWuMvYiG4K2rYvkaQWP3nJC1/RwK/dvpDgLPywwv6MnBdFydqbOGuXNaXOEwa3HsG9CujmA==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+    peerDependencies:
+      '@nanostores/logger': '>=0.4.0'
+      '@vue/devtools-api': '>=7.6.2'
+      nanostores: '>=0.11.3'
+      vue: '>=3.3.1'
+    peerDependenciesMeta:
+      '@nanostores/logger':
+        optional: true
+      '@vue/devtools-api':
+        optional: true
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
@@ -1510,6 +1539,10 @@ packages:
     resolution: {integrity: sha512-Ir/+ZpE9fDsNH0hQ3C68uyThDXzYcim2EqcZ8zn8Chtt1iylPT9xXJB0kPCnqzgcEGikO9RxSrh63MsmVCU7Fw==}
     engines: {node: ^18 || >=20}
     hasBin: true
+
+  nanostores@0.11.4:
+    resolution: {integrity: sha512-k1oiVNN4hDK8NcNERSZLQiMfRzEGtfnvZvdBvey3SQbgn8Dcrk0h1I6vpxApjb10PFUflZrgJ2WEZyJQ+5v7YQ==}
+    engines: {node: ^18.0.0 || >=20.0.0}
 
   neotraverse@0.6.18:
     resolution: {integrity: sha512-Z4SmBUweYa09+o6pG+eASabEpP6QkQ70yHj351pQoEXIs8uHbaU2DWVmzBANKgflPa47A50PtB2+NgRpQvr7vA==}
@@ -2582,6 +2615,15 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@nanostores/persistent@0.10.2(nanostores@0.11.4)':
+    dependencies:
+      nanostores: 0.11.4
+
+  '@nanostores/vue@0.11.0(nanostores@0.11.4)(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      nanostores: 0.11.4
+      vue: 3.5.13(typescript@5.7.2)
 
   '@oslojs/encoding@1.1.0': {}
 
@@ -3870,6 +3912,8 @@ snapshots:
   nanoid@3.3.11: {}
 
   nanoid@5.1.5: {}
+
+  nanostores@0.11.4: {}
 
   neotraverse@0.6.18: {}
 

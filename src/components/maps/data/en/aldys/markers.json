@@ -3,7 +3,7 @@
         {
             "group": "capitals",
             "title": "Ambrose",
-            "description": "Capital of Nacride and Economic Capital of the Kaldelian Alliance.",
+            "description": "Capital of Nacride and bustling economic center of the Kaldelium Accord.",
             "link": "https://wiki.alexcreates.fr/index.php/Ambrose",
             "markerCoords": {
                 "x": 83.6,
@@ -16,7 +16,7 @@
         {
             "group": "capitals",
             "title": "Cordouac",
-            "description": "Capital of Heraldy and Administrative Capital of the Kaldelian Alliance.",
+            "description": "Capital of Heraldy and administrative core of the Kaldelium Accord.",
             "link": "https://wiki.alexcreates.fr/index.php/Cordouac",
             "markerCoords": {
                 "x": 133.46875,
@@ -28,7 +28,7 @@
         },
         {
             "group": "capitals",
-            "title": "Bordelac",
+            "title": "Shorehaven",
             "description": "Capital of the High Banks",
             "link": "https://wiki.alexcreates.fr/index.php/Bordelac",
             "markerCoords": {
@@ -38,8 +38,8 @@
         },
         {
             "group": "capitals",
-            "title": "Tourgrise",
-            "description": "Capital of Ternacre. It's a city of archivist mages, but it also houses the largest prison population in the Alliance.",
+            "title": "Grayspire",
+            "description": "Capital of Ternacre. It's a city of archivist mages, but it also houses the largest prison population in the Accord.",
             "link": "https://wiki.alexcreates.fr/index.php/Tourgrise",
             "markerCoords": {
                 "x": 132.26953,
@@ -52,7 +52,7 @@
         },
         {
             "group": "capitals",
-            "title": "Valsoie",
+            "title": "Silkdale",
             "description": "Capital of Mireloin.",
             "link": "https://wiki.alexcreates.fr/index.php/Valsoie",
             "markerCoords": {
@@ -72,8 +72,8 @@
         },
         {
             "group": "capitals",
-            "title": "Port-brisé",
-            "description": "Chef-lieu d'Émerose.",
+            "title": "Shattered Port",
+            "description": "Capital of Émerose.",
             "link": "https://wiki.alexcreates.fr/index.php/Port-brisé",
             "markerCoords": {
                 "x": 168.39491,
@@ -879,8 +879,8 @@
         },
         {
             "group": "landmarks",
-            "title": "Central Kaldelian Academy",
-            "description": "One of the Alliance's largest magic academies. The entrance exam is open to the public, but students must pay their own tuition fees.",
+            "title": "Central Kaldelium Academy",
+            "description": "One of the Accord's largest magic academies. The entrance exam is open to the public, but students must pay their own tuition fees.",
             "link": "https://wiki.alexcreates.fr/index.php/Acad%C3%A9mie_Centrale_Kald%C3%A9lienne",
             "markerCoords": {
                 "x": 83.80737652386473,
@@ -916,7 +916,7 @@
         {
             "group": "landmarks",
             "title": "Whitesteel Institute",
-            "description": "First military school of the Kaldelian Alliance.",
+            "description": "First military school of the Kaldelium Accord.",
             "link": "https://wiki.alexcreates.fr/index.php/Institut_du_Fer_Blanc",
             "markerCoords": {
                 "x": 140.3159943633407,
