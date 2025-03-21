@@ -2,6 +2,8 @@
 import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
 import type { MapProps } from '@/types/Map';
 import MarkerCreator from './overlay/MarkerCreator.vue';
+import { t } from '@/i18n/store';
+import { getLangFromUrl } from '@/i18n/utils';
 
 interface Props extends MapProps {}
 
@@ -17,6 +19,11 @@ const {
     rulerHideWalkDistance = false,
     backgroundColor = 'transparent',
 } = Astro.props
+
+const lang = getLangFromUrl(Astro.url);
+
+const byText = t('common.by', lang)
+const seeMapText = t('maps.go-to-map', lang)
 ---
 
 <div class="world-wrapper">
@@ -35,10 +42,15 @@ const {
         mapWidth,
         rulerDistanceRatio,
         rulerMainUnit,
-        rulerHideWalkDistance
+        rulerHideWalkDistance,
+        byText,
+        seeMapText
     }}
     defer
 >
+/**
+ * LEAFLET MAP SETUP
+ */
 // Units used for convertions to avoid changing original marker coords
 const xRatio = .68447
 const yRatio = .68447
@@ -198,10 +210,10 @@ for (let i = 0; i < markers.length; i++) {
 
         popupContent += `
             <figure class="${figureClass}">
-                <img src="/images/cover/${m.cover}" alt="${m.title}" width="${figureWidth}" loading="eager" />
+                <img src="/images/cover/${m.cover}" alt="${m.title}" width="${figureWidth}" />
 
                 <figcaption>
-                    <cite>par <a href="${m.coverLink}" target="_blank">${m.coverAuthor}</a></cite>
+                    <cite>${byText} <a href="${m.coverLink}" target="_blank">${m.coverAuthor}</a></cite>
                 </figcaption>
             </figure>
         `
@@ -229,7 +241,7 @@ for (let i = 0; i < markers.length; i++) {
         popupContent += `
             <a href="${m.mapId}" class="map-link">
                 <span>
-                    Voir la carte détaillée
+                    ${ seeMapText }
                 </span>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="80" y1="112" x2="144" y2="112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="112" y1="80" x2="112" y2="144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
             </a>

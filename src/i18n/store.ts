@@ -7,6 +7,6 @@ export function setLang(lang: Language) {
     currentLang.set(lang);
 }
 
-export function t(key: string): string {
-    return translations[currentLang.get()][key]
+export function t(key: string, lang: Language = currentLang.get()): string {
+    return translations[lang][key]
 }

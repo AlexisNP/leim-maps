@@ -241,7 +241,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
                         tabindex="0"
                         :title="m.group === 'quests' ? t('maps.seeQuest') : t('maps.seePlace')"
                     >
-                        <img v-if="m.cover && !m.coverPortrait" :src="`/images/cover/${m.cover}`" :alt="m.title" width="300" />
+                        <img v-if="m.cover && !m.coverPortrait" :src="`/images/cover/${m.cover}`" :alt="m.title" height="200" width="300" />
 
                         <div class="content-wrapper">
                             <span class="title">{{ m.title }}</span>
@@ -465,9 +465,9 @@ function resetAllFields(actionAfter?: "focusAfter") {
                     img {
                         display: block;
                         width: 100%;
+                        object-fit: cover;
                         max-height: 22.5dvh;
                         max-height: 22.5vh;
-                        object-fit: cover;
                     }
 
                     .content-wrapper {

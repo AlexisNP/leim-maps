@@ -11,11 +11,11 @@ export default defineConfig({
   integrations: [vue(), sitemap()],
   output: 'static',
   site: 'https://maps.alexcreates.fr',
-  i18n: {
-    locales: availableLangs,
-    defaultLocale: defaultLang,
-    routing: {
-        prefixDefaultLocale: true,
-    }
-  }
+//   i18n: {
+//     locales: availableLangs,
+//     defaultLocale: defaultLang,
+//     routing: {
+//         prefixDefaultLocale: true,
+//     }
+//   }
 });

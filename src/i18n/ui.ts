@@ -8,6 +8,7 @@ export const translations: LanguageDict = {
     'fr': {
         'common.title': 'Titre',
         'common.create': 'Créer',
+        'common.by': 'par',
         'continents': 'Continents',
         'cities': 'Villes',
         'others': 'Autres',
@@ -30,6 +31,7 @@ export const translations: LanguageDict = {
     'en': {
         'common.title': 'Title',
         'common.create': 'Create',
+        'common.by': 'by',
         'continents': 'Continents',
         'cities': 'Cities',
         'others': 'Others',
