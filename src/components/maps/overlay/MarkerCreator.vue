@@ -3,6 +3,8 @@ import type { MapMarker } from '@/types/Leaflet';
 import { onClickOutside, useCssVar, useLocalStorage, useMouse } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
+import { t } from '@/i18n/store';
+
 const markerMenu = ref<HTMLMenuElement>()
 
 type MenuMode = "editing-marker" | "default"
@@ -194,7 +196,7 @@ function setTitleError(error: Error | null) {
             <menu v-show="shouldBeShown" ref="markerMenu">
                 <li>
                     <button @click="switchMenuMode('editing-marker')">
-                        Nouveau marqueur
+                        {{ t('maps.markers.new') }}
                     </button>
                 </li>
             </menu>
@@ -204,18 +206,18 @@ function setTitleError(error: Error | null) {
             <form @submit.prevent="handleAddCustomMarker">
                 <div class="modal-head">
                     <h2>
-                        Ajouter un marqueur personnel
+                        {{ t('maps.markers.addPersonal') }}
                     </h2>
                     <p class="modal-notice">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"/><path d="M142.41,40.22l87.46,151.87C236,202.79,228.08,216,215.46,216H40.54C27.92,216,20,202.79,26.13,192.09L113.59,40.22C119.89,29.26,136.11,29.26,142.41,40.22Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="128" y1="144" x2="128" y2="104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="128" cy="180" r="10"/></svg>
-                        <span>Le marqueur sera sauvegardé mais n'apparaîtra que sur votre carte !</span>
+                        <span>{{ t('maps.markers.newNotice') }}</span>
                     </p>
                 </div>
 
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="marker-name">
-                            Titre
+                            {{ t('common.title') }}
                         </label>
 
                         <div class="form-input">
@@ -235,7 +237,7 @@ function setTitleError(error: Error | null) {
                         class="btn btn-secondary"
                         :disabled="!markerTitle"
                     >
-                        <span>Créer</span>
+                        <span>{{ t('common.create') }}</span>
                     </button>
                 </div>
             </form>

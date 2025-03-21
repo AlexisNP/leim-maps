@@ -21,7 +21,9 @@ const {
 ---
 
 <div class="world-overlay">
-    <SearchMarkers client:visible mapKey={mapKey} markers={markers} players={players} searchConfig={searchConfig} />
+    <SearchMarkers client:only="vue" mapKey={mapKey} markers={markers} players={players} searchConfig={searchConfig} >
+        <div slot="fallback" style="height: 45px;"></div>
+    </SearchMarkers>
 
     <MapOverlayBreadcrumbs breadcrumbs={breadcrumbs} />
 </div>
