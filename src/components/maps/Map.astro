@@ -32,6 +32,33 @@ const seeMapText = t('maps.go-to-map', lang)
     
         <MarkerCreator client:only="vue" mapKey={mapKey} />
     </div>
+
+    {markers.map((m, index) => (
+        <div id="popup-template" data-id={`marker-${index}`} class="tooltip-content">
+            {m.cover && m.coverAuthor && m.coverLink && (
+                <figure class={m.coverPortrait ? 'portrait' : 'landscape'}>
+                    <img src={`/images/cover/${m.cover}`} alt={m.title} width={m.coverPortrait ? 210 : 420} />
+                    <figcaption>
+                        <cite>{byText} <a href={m.coverLink} target="_blank">{m.coverAuthor}</a></cite>
+                    </figcaption>
+                </figure>
+            )}
+            {m.link ? (
+                <a href={m.link} target="_blank" class="title">{m.title}</a>
+            ) : (
+                <strong class="title">{m.title}</strong>
+            )}
+            {m.description && <p>{m.description}</p>}
+            {m.mapId && (
+                <a href={m.mapId} class="map-link">
+                    <span>
+                        { seeMapText }
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="80" y1="112" x2="144" y2="112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="112" y1="80" x2="112" y2="144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                </a>
+            )}
+        </div>
+    ))}
 </div>
 
 <script
@@ -219,54 +246,9 @@ for (let i = 0; i < markers.length; i++) {
 
     const marker = L.marker(coords, { icon: markerIconOverride }).addTo(map)
 
-    // Build popup content
-    let popupContent = ""
-
-    if (m.cover && m.coverAuthor && m.coverLink) {
-        const figureClass = m.coverPortrait ? 'portrait' : 'landscape';
-        const figureWidth = m.coverPortrait ? 210 : 420;
-
-        popupContent += `
-            <figure class="${figureClass}">
-                <img src="/images/cover/${m.cover}" alt="${m.title}" width="${figureWidth}" />
-
-                <figcaption>
-                    <cite>${byText} <a href="${m.coverLink}" target="_blank">${m.coverAuthor}</a></cite>
-                </figcaption>
-            </figure>
-        `
-    }
-
-    if (m.link) {
-        popupContent += `
-            <a href="${m.link}" target="_blank" class="title">
-                ${m.title}
-            </a>
-        `
-    } else {
-        popupContent += `
-            <strong class="title">
-                ${m.title}
-            </strong>
-        `
-    }
-
-    if (m.description) {
-        popupContent += `<p>${m.description}</p>`
-    }
-
-    if (m.mapId) {
-        popupContent += `
-            <a href="${m.mapId}" class="map-link">
-                <span>
-                    ${ seeMapText }
-                </span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="80" y1="112" x2="144" y2="112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="112" y1="80" x2="112" y2="144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
-            </a>
-        `
-    }
-
-    marker.bindPopup(popupContent).openPopup()
+    // Get popup content
+    const popupTemplate = document.querySelector(`#popup-template[data-id="marker-${i}"]`)
+    marker.bindPopup(popupTemplate)
 
     const displayTooltip = m.group === 'capitals'
 

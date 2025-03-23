@@ -1,4 +1,4 @@
-export const availableLangs = ['en', 'fr'] as const;
+export const availableLangs = ['fr', 'en'] as const;
 export type Language = typeof availableLangs[number];
 export type LanguageDict = Record<Language, any>;
 
