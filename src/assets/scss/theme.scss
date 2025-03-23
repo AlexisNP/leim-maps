@@ -4,8 +4,10 @@
 @use 'leaflet';
 
 @use 'forms';
+@use 'animations';
 @use 'buttons';
 @use 'card';
+@use 'map';
 
 :root {
     --white: #fff;

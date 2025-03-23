@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useStore } from '@nanostores/vue';
 import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
 import { computed, onMounted, onUpdated, ref, watch } from 'vue';
 
@@ -7,10 +6,14 @@ import type { MapMarker, MapMarkerGroup, PlayerMarker } from '@/types/Leaflet';
 import type { SearchConfig } from '@/types/Map';
 import type { SearchMode } from '@/types/Search';
 
-import { t } from '@/i18n/store';
+import { currentLang, t } from '@/i18n/store';
+import { useStore } from '@nanostores/vue';
 
 import SearchMapSwitch from './SearchMapSwitch.vue';
 import SearchMarkersTags from './SearchMarkersTags.vue';
+
+const $currentLang = useStore(currentLang)
+const navKey = computed(() => `search-${$currentLang.value}`)
 
 const props = defineProps<{
     markers: MapMarker[],
@@ -206,7 +209,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
 </script>
 
 <template>
-    <nav ref="searchBarWrapper" class="toolbar">
+    <nav ref="searchBarWrapper" class="toolbar appear-from-top" :key="navKey">
         <SearchMapSwitch />
 
         <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
@@ -604,24 +607,6 @@ function resetAllFields(actionAfter?: "focusAfter") {
                     padding-block-start: .2rem;
                 }
             }
-        }
-    }
-}
-
-// Animations on load
-@media screen and (prefers-reduced-motion: no-preference) {
-    .toolbar {
-        animation: fadeIn .2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-1rem);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
         }
     }
 }

@@ -3,6 +3,7 @@ import type { MapMarker, PlayerMarker } from "@/types/Leaflet";
 import type { MapOverlayProps } from "@/types/Map";
 
 import SearchMarkers from "./overlay/SearchMarkers.vue";
+import LangSwitcher from "./overlay/LangSwitcher.vue";
 import MapOverlayBreadcrumbs from "./MapOverlayBreadcrumbs.astro";
 
 interface Props extends MapOverlayProps {}
@@ -18,27 +19,38 @@ const {
     },
     breadcrumbs = [],
 } = Astro.props
+
+const currentUrl = Astro.url
 ---
 
 <div class="world-overlay">
-    <SearchMarkers client:only="vue" mapKey={mapKey} markers={markers} players={players} searchConfig={searchConfig} >
-        <div slot="fallback" style="height: 45px;"></div>
-    </SearchMarkers>
+    <div class="top-bar">
+        <SearchMarkers client:only="vue" mapKey={mapKey} markers={markers} players={players} searchConfig={searchConfig} >
+            <div slot="fallback" style="height: 45px;"></div>
+        </SearchMarkers>
+
+        <LangSwitcher currentUrl={currentUrl} client:only="vue" />
+    </div>
 
     <MapOverlayBreadcrumbs breadcrumbs={breadcrumbs} />
 </div>
 
 <style lang="scss">
 .world-overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
     z-index: 10;
-    padding: 10px;
+    padding: 1rem;
     pointer-events: none;
     display: grid;
     row-gap: .25rem;
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 </style>

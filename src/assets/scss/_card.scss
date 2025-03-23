@@ -3,9 +3,16 @@
     padding-inline: .75rem;
     border-radius: 8px;
     background-color: var(--white);
+    border: 1px solid var(--slate-100);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     min-width: 15rem;
 
     .card-arrow {
         fill: var(--white);
+    }
+
+    &.p-sm {
+        min-width: fit-content;
+        padding: .5rem .25rem;
     }
 }

@@ -6,6 +6,8 @@ export const defaultLang: Language = 'fr';
 
 export const translations: LanguageDict = {
     'fr': {
+        'lang.fr': 'Français',
+        'lang.en': 'English',
         'common.title': 'Titre',
         'common.create': 'Créer',
         'common.by': 'par',
@@ -29,6 +31,8 @@ export const translations: LanguageDict = {
         'maps.markers.newNotice': "Le marqueur sera sauvegardé mais n'apparaîtra que sur votre carte !"
     },
     'en': {
+        'lang.fr': 'Français',
+        'lang.en': 'English',
         'common.title': 'Title',
         'common.create': 'Create',
         'common.by': 'by',
