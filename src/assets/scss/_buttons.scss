@@ -79,3 +79,47 @@
         box-shadow: rgba(0, 0, 0, 0.15) 0 .2rem .3rem;
     }
 }
+
+.btn-round {
+    display: grid;
+    place-items: center;
+    height: 45px;
+    aspect-ratio: 1;
+    background-color: var(--white);
+    border: 1px solid var(--slate-400);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-radius: 100vmax;
+    pointer-events: all;
+    cursor: pointer;
+    outline: .2rem solid transparent;
+    transition-property: color, background-color, border-color, outline-color;
+    transition-duration: .15s;
+    transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+    svg {
+        width: 1.15em;
+        transition-property: fill;
+        transition-duration: .15s;
+        transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    }
+
+    &:hover,
+    &:focus-visible {
+        outline-color: color-mix(in srgb, var(--blue-500) 20%, transparent);
+        border-color: var(--blue-500);
+        
+        svg {
+            fill: var(--blue-500);
+        }
+    }
+
+    &.active {
+        color: var(--white);
+        background-color: var(--blue-500);
+        border-color: var(--blue-700);
+
+        svg {
+            fill: var(--white);
+        }
+    }
+}

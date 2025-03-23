@@ -1,17 +1,30 @@
 ---
+import { defaultLang } from '@/i18n/ui';
+import { getLangFromUrl } from '@/i18n/utils';
 import type { Head } from '@/types/Head';
 
 interface Props {
-	title: string;
+	title: string
     head?: Head
 }
 
 const { title, head } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url) || defaultLang;
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={lang}>
 	<head>
+        <script>
+            import { setLang } from "@/i18n/store";
+            import { defaultLang, type Language } from "@/i18n/ui";
+            import { getLangFromUrl } from "@/i18n/utils";
+
+            const currentLang: Language = getLangFromUrl(new URL(window.location.href)) || defaultLang;
+            setLang(currentLang || defaultLang);
+        </script>
+
 		<meta charset="UTF-8" />
         <meta name="author" content="Alexis Pelé" />
 		{head?.description && <meta name="description" content={head.description} /> }
@@ -38,7 +51,7 @@ const { title, head } = Astro.props;
         {head?.image && <meta property="twitter:image" content={head.image} />}
 
         <link rel="stylesheet" href="/leaflet/leaflet.css" rel="preload" />
-        <script is:inline src="/leaflet/leaflet.js"></script>
+        <script is:inline src="/leaflet/leaflet.js" />
 
         <script is:inline type="text/javascript" src="/js/leaflet-zoomify.min.js"></script>
 

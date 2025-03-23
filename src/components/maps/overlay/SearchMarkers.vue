@@ -1,11 +1,19 @@
 <script setup lang="ts">
+import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
+import { computed, onMounted, onUpdated, ref, watch } from 'vue';
+
 import type { MapMarker, MapMarkerGroup, PlayerMarker } from '@/types/Leaflet';
 import type { SearchConfig } from '@/types/Map';
 import type { SearchMode } from '@/types/Search';
-import { onClickOutside, useFocus, useFocusWithin, useLocalStorage, useMagicKeys, whenever } from '@vueuse/core';
-import { computed, onMounted, onUpdated, ref, watch } from 'vue';
+
+import { currentLang, t } from '@/i18n/store';
+import { useStore } from '@nanostores/vue';
+
 import SearchMapSwitch from './SearchMapSwitch.vue';
 import SearchMarkersTags from './SearchMarkersTags.vue';
+
+const $currentLang = useStore(currentLang)
+const navKey = computed(() => `search-${$currentLang.value}`)
 
 const props = defineProps<{
     markers: MapMarker[],
@@ -201,20 +209,28 @@ function resetAllFields(actionAfter?: "focusAfter") {
 </script>
 
 <template>
-    <nav ref="searchBarWrapper" class="toolbar">
+    <nav ref="searchBarWrapper" class="toolbar appear-from-top" :key="navKey">
         <SearchMapSwitch />
 
         <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
             <div class="input-w">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="search-icon"><rect width="256" height="256" fill="none"/><path d="M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z"/></svg>
 
-                <input ref="qInput" class="" name="recherche" type="text" v-model="q" title="Rechercher le monde" placeholder="Ville, point d'intérêt…">
+                <input
+                    ref="qInput"
+                    class=""
+                    name="recherche"
+                    type="text"
+                    v-model="q"
+                    :title="t('maps.search')"
+                    :placeholder="t('maps.searchPlaceholder')"
+                >
 
-                <button v-if="hasGroupFilter || hasQuery" @click="onCloseQuery" class="close-btn" title="Enlever le filtre">
+                <button v-if="hasGroupFilter || hasQuery" @click="onCloseQuery" class="close-btn" :title="t('maps.closeSearch')">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"/><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg>
                 </button>
 
-                <button v-if="hasPlayers" data-to-players class="player-btn" :tabindex="shouldBeActive ? 1 : 0" title="Aller à la position actuelle des joueurs">
+                <button v-if="hasPlayers" data-to-players class="player-btn" :tabindex="shouldBeActive ? 1 : 0" :title="t('maps.go-to-player')">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"/><path d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></svg>
                 </button>
             </div>
@@ -226,9 +242,9 @@ function resetAllFields(actionAfter?: "focusAfter") {
                         :class="`group-${m.group}`"
                         :data-to-marker="m.title"
                         tabindex="0"
-                        :title="m.group === 'quests' ? 'Voir la quête' : 'Visiter ce lieu'"
+                        :title="m.group === 'quests' ? t('maps.seeQuest') : t('maps.seePlace')"
                     >
-                        <img v-if="m.cover && !m.coverPortrait" :src="`/images/cover/${m.cover}`" :alt="m.title" width="300" />
+                        <img v-if="m.cover && !m.coverPortrait" :src="`/images/cover/${m.cover}`" :alt="m.title" height="200" width="300" />
 
                         <div class="content-wrapper">
                             <span class="title">{{ m.title }}</span>
@@ -238,7 +254,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
                                 <a v-if="m.mapId" :href="m.mapId" class="map-link">
                                     <span>
-                                        Voir la carte détaillée
+                                        {{ t('maps.go-to-map') }}
                                     </span>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="80" y1="112" x2="144" y2="112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="112" y1="80" x2="112" y2="144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
                                 </a>
@@ -452,9 +468,9 @@ function resetAllFields(actionAfter?: "focusAfter") {
                     img {
                         display: block;
                         width: 100%;
+                        object-fit: cover;
                         max-height: 22.5dvh;
                         max-height: 22.5vh;
-                        object-fit: cover;
                     }
 
                     .content-wrapper {

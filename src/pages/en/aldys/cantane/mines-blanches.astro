@@ -1,0 +1,38 @@
+---
+import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
+
+import Layout from '@/layouts/Layout.astro';
+import Map from '@/components/maps/Map.astro'
+import MapOverlay from '@/components/maps/MapOverlay.astro'
+
+import markersData from '@/components/maps/data/en/aldys/cantane/les-mines-blanches/markers.json';
+
+const markers = markersData.data as MapMarker[]
+---
+
+<Layout title="White Hollow ~ Maps">
+    <MapOverlay
+        mapKey='aldys-cantane-mines'
+        markers={markers}
+        searchConfig={{
+            disableCapitals: true,
+            disableQuests: true,
+        }}
+        breadcrumbs={[
+            { name: 'Aldys', url: '/en/' },
+            { name: 'Cantane', url: '/en/aldys/cantane' },
+            { name: 'White Hollow', url: '/en/aldys/cantane/mines-blanches' },
+        ]}
+    />
+    <Map
+        mapKey='aldys-cantane-mines'
+        zoomifyKey='fr/mines-blanches'
+        mapHeight={6020}
+        mapWidth={10290}
+        markers={markers}
+        rulerDistanceRatio={0.1}
+        rulerMainUnit='Meters'
+        rulerHideWalkDistance={true}
+        backgroundColor="#101010"
+    />
+</Layout>

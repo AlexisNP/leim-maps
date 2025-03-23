@@ -1,0 +1,72 @@
+{
+    "data": [
+        {
+            "group": "landmarks",
+            "title": "Ikami's Pillar",
+            "description": "Local abbey dedicated to the worship of Ikami. A 30m high tower was erected at the back of the nave to serve as a bell tower.",
+            "markerCoords": {
+                "x": 142.6711747082816,
+                "y": -132.92203370330174
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Artisans' Fountain",
+            "description": "Sculpted from stone as white as snow, this fountain is a central meeting point of the city.",
+            "markerCoords": {
+                "x": 150.08213298215662,
+                "y": -97.3360353828876
+            }
+        },
+        {
+            "group": "landmarks",
+            "title": "Duke's Quarters",
+            "description": "Manor of the Duke of Cantane, Geil Brilâme. Many frogs wade in the moats and ponds surrounding his property.",
+            "markerCoords": {
+                "x": 171.29758708733308,
+                "y": -83.60967931316306
+            },
+            "icon": "house"
+        },
+        {
+            "group": "landmarks",
+            "title": "Aleksandr's Shop",
+            "description": "Shop and private residence of the saurid engineer Aleksandr. The back shop is notoriously messy and few people rush to buy the engineer's strange inventions.",
+            "markerCoords": {
+                "x": 138.48224706255075,
+                "y": -94.0338349848624
+            },
+            "icon": "house"
+        },
+        {
+            "group": "landmarks",
+            "title": "Bénédicte Vaht's Residence",
+            "description": "Small cottage where the First Monk of Ikami's Pillar resided.",
+            "markerCoords": {
+                "x": 139.2544022367009,
+                "y": -124.86416799656315
+            },
+            "icon": "house"
+        },
+        {
+            "group": "landmarks",
+            "title": "Mother Boulais' Den",
+            "description": "Remote shop specializing in precious stones and handmade jewelry. The shopkeeper, Mathilda Boulais, is a victim of the Farene 3209 disappearances.",
+            "markerCoords": {
+                "x": 133.04656674911243,
+                "y": -124.76568295117056
+            },
+            "icon": "house"
+        },
+        {
+            "group": "landmarks",
+            "title": "Donovane and Luanne's House",
+            "description": "Residence of Donovane, a missing Keturian miner, and his daughter Luanne, the district's baker.",
+            "markerCoords": {
+                "x": 190.68500978330886,
+                "y": -137.65681348524257
+            },
+            "icon": "house"
+        }
+    ]
+}

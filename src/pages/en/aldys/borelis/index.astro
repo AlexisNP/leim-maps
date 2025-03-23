@@ -1,0 +1,29 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Map from '@/components/maps/Map.astro'
+import MapOverlay from '@/components/maps/MapOverlay.astro'
+---
+
+<Layout title="Borélis ~ Maps">
+    <MapOverlay
+        mapKey='aldys-borelis'
+        searchConfig={{
+            disableCapitals: true,
+            disableQuests: true,
+        }}
+        breadcrumbs={[
+            { name: 'Aldys', url: '/en/' },
+            { name: 'Borélis', url: '/en/aldys/borelis' },
+        ]}
+    />
+    <Map
+        mapKey='aldys-borelis'
+        zoomifyKey='fr/borelis'
+        mapHeight={3710}
+        mapWidth={4521}
+        rulerDistanceRatio={1.8}
+        rulerMainUnit='Meters'
+        rulerHideWalkDistance={true}
+        backgroundColor="#C3CCD2"
+    />
+</Layout>

@@ -1,0 +1,38 @@
+---
+import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
+
+import Layout from '@/layouts/Layout.astro';
+import Map from '@/components/maps/Map.astro'
+import MapOverlay from '@/components/maps/MapOverlay.astro'
+
+import markersData from '@/components/maps/data/fr/aldys/cantane/les-mines-blanches/markers.json';
+
+const markers = markersData.data as MapMarker[]
+---
+
+<Layout title="Les Mines Blanches ~ Cartographie">
+    <MapOverlay
+        mapKey='aldys-cantane-mines'
+        markers={markers}
+        searchConfig={{
+            disableCapitals: true,
+            disableQuests: true,
+        }}
+        breadcrumbs={[
+            { name: 'Aldys', url: '/fr/' },
+            { name: 'Cantane', url: '/fr/aldys/cantane' },
+            { name: 'Mines Blanches', url: '/fr/aldys/cantane/mines-blanches' },
+        ]}
+    />
+    <Map
+        mapKey='aldys-cantane-mines'
+        zoomifyKey='fr/mines-blanches'
+        mapHeight={6020}
+        mapWidth={10290}
+        markers={markers}
+        rulerDistanceRatio={0.1}
+        rulerMainUnit='Mètres'
+        rulerHideWalkDistance={true}
+        backgroundColor="#101010"
+    />
+</Layout>

@@ -1,0 +1,34 @@
+---
+import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
+
+import Layout from '@/layouts/Layout.astro';
+import Map from '@/components/maps/Map.astro'
+import MapOverlay from '@/components/maps/MapOverlay.astro'
+
+import markersData from '@/components/maps/data/fr/bamast/markers.json'
+import playersData from '@/components/maps/data/fr/bamast/players.json'
+
+const markers = markersData.data as MapMarker[]
+const players = playersData as PlayerMarker
+---
+
+<Layout title="Bamast ~ Cartographie">
+    <MapOverlay
+        mapKey='bamast'
+        markers={markers}
+        players={players}
+        breadcrumbs={[
+            { name: 'Bamast', url: '/fr/bamast' },
+        ]}
+    />
+    <Map
+        mapKey='bamast'
+        zoomifyKey='fr/bamast'
+        mapHeight={18342}
+        mapWidth={15000}
+        markers={markers}
+        players={players}
+        rulerDistanceRatio={2}
+        backgroundColor="#98BDD0"
+    />
+</Layout>
