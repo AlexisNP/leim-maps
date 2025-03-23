@@ -130,6 +130,12 @@ const layerGroups = {
     quests: L.layerGroup(),
 }
 
+// Prepare initial fly to coords in case of ?p= query param
+let initialFlyToMarker = false;
+// Get ?p= query param
+const urlParams = new URLSearchParams(window.location.search)
+const initialPoint = urlParams.get('p')
+
 /**
  * Build all markers and their related info
  */
@@ -269,6 +275,18 @@ for (let i = 0; i < markers.length; i++) {
             marker.openPopup()
         }, flyToDuration * 1000)
     })
+
+    /**
+     * In case the initial point is set, prepare event name for fly to
+     */
+    // First we parse the marker title to :
+    // - Change special characters (not accentuated characters) and spaces to hyphens
+    // - Lowercase the string
+    const parsedMarkerTitle = m.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "-").toLowerCase()
+
+    if (initialPoint && parsedMarkerTitle === initialPoint) {
+        initialFlyToMarker = m.title
+    }
 }
 
 /**
@@ -571,7 +589,7 @@ function getCoordsSetupFromURL() {
 function hasInitialSetup() {
     const params = new URL(document.location).searchParams
 
-    return params.has('lat') && params.has('lon')
+    return params.has('lat') && params.has('lon') || params.has('p')
 }
 
 /**
@@ -592,16 +610,20 @@ function setupToURL() {
 /**
  * Uses the URL params to setup the leaflet map
  */
-function setupFromURL() {
+function setupFromURL(p) {
     const setup = getCoordsSetupFromURL()
 
-    map.setView({ lat: setup.get('lat'), lng: setup.get('lon') }, setup.get('zoom') | minZoom, { animate: false })
+    if (setup.has('p')) {
+        document.dispatchEvent(new CustomEvent(`fly-to-${p}`))
+    } else {
+        map.setView({ lat: setup.get('lat'), lng: setup.get('lon') }, setup.get('zoom') | minZoom, { animate: false })
+    }
 }
 
 // Check if the map has initial params in the URL
 // If not, just setup the default URL
 if (hasInitialSetup()) {
-    setupFromURL()
+    setupFromURL(initialFlyToMarker)
 } else {
     setupToURL()
 }
