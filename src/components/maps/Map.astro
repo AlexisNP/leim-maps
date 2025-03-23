@@ -50,6 +50,16 @@ const seeMapText = t('maps.go-to-map', lang)
     }}
     defer
 >
+/** UTILITIES */
+/**
+ * Normalize a string to be used as a key
+ * @param str
+ */
+function normalizeString(str) {
+    if (!str) return ''
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, '-').toLowerCase()
+}
+
 /**
  * LEAFLET MAP SETUP
  */
@@ -134,7 +144,7 @@ const layerGroups = {
 let initialFlyToMarker = false;
 // Get ?p= query param
 const urlParams = new URLSearchParams(window.location.search)
-const initialPoint = urlParams.get('p')
+const initialPoint = normalizeString(urlParams.get('p'))
 
 /**
  * Build all markers and their related info
@@ -282,7 +292,7 @@ for (let i = 0; i < markers.length; i++) {
     // First we parse the marker title to :
     // - Change special characters (not accentuated characters) and spaces to hyphens
     // - Lowercase the string
-    const parsedMarkerTitle = m.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "-").toLowerCase()
+    const parsedMarkerTitle = normalizeString(m.title)
 
     if (initialPoint && parsedMarkerTitle === initialPoint) {
         initialFlyToMarker = m.title
