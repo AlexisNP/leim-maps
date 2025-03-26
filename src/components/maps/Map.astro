@@ -35,7 +35,7 @@ const seeMapText = t('maps.go-to-map', lang)
         <MarkerCreator client:only="vue" mapKey={mapKey} />
     </div>
 
-    <div style="height: 0; width: 0; overflow: hidden;">
+    <div style="height: 0; width: 0; overflow: hidden; display: none;">
         {markers.map((m, index) => (
             <div id="popup-template" data-id={`marker-${index}`} class="tooltip-content">
                 {m.cover && m.coverAuthor && m.coverLink && (
