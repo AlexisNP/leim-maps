@@ -1,4 +1,4 @@
-export const availableLangs = ['en', 'fr'] as const;
+export const availableLangs = ['fr', 'en'] as const;
 export type Language = typeof availableLangs[number];
 export type LanguageDict = Record<Language, any>;
 
@@ -11,6 +11,8 @@ export const translations: LanguageDict = {
         'common.title': 'Titre',
         'common.create': 'Créer',
         'common.by': 'par',
+        'common.copyLink': 'Copier le lien',
+        'common.copiedLink': 'Lien copié !',
         'continents': 'Continents',
         'cities': 'Villes',
         'others': 'Autres',
@@ -36,6 +38,8 @@ export const translations: LanguageDict = {
         'common.title': 'Title',
         'common.create': 'Create',
         'common.by': 'by',
+        'common.copyLink': 'Copy link',
+        'common.copiedLink': 'Link copied!',
         'continents': 'Continents',
         'cities': 'Cities',
         'others': 'Others',
