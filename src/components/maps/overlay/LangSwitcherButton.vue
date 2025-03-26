@@ -42,24 +42,26 @@ a {
     color: inherit;
     line-height: 1;
     min-width: 14ch;
+    font-size: .9em;
 
     &:hover,
     &:focus-visible {
         background-color: var(--slate-200);
     }
 
-    small {
-        font-size: .9em;
+    &[aria-current="page"] {
+        pointer-events: none;
+        cursor: default;
+    }
+
+    .flag {
+        display: grid;
+        place-items: center;
     }
 
     .valid {
         fill: var(--green-500);
         color: var(--green-500);
-    }
-
-    &[aria-current="page"] {
-        pointer-events: none;
-        cursor: default;
     }
 }
 </style>
