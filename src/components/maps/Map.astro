@@ -11,6 +11,7 @@ import CopyText from '../global/CopyText.astro';
 interface Props extends MapProps {}
 
 const {
+    title,
     mapKey,
     zoomifyKey,
     mapHeight, //
@@ -30,11 +31,11 @@ const seeMapText = t('maps.go-to-map', lang)
 ---
 
 <div class="map-wrapper">
-    <div class="world-wrapper">
+    <main class="world-wrapper">
         <div id="world"></div>
     
         <MarkerCreator client:only="vue" mapKey={mapKey} />
-    </div>
+    </main>
 
     <div style="height: 0; width: 0; overflow: hidden; display: none;">
         {markers.map((m, index) => (

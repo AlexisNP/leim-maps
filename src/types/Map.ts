@@ -1,8 +1,8 @@
 import type { MapMarker, PlayerMarker } from "./Leaflet"
 
 export interface BreadcrumbItem {
-    name: string;
-    url: string;
+    name: string
+    url: string
 }
 
 export interface SearchConfig {
@@ -12,6 +12,7 @@ export interface SearchConfig {
 }
 
 export interface MapProps {
+    title: string
     mapKey: string
     zoomifyKey: string
     mapHeight: number
