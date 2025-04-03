@@ -13,7 +13,7 @@ const navModel = ref(false);
 
 const wrapper = ref<HTMLDivElement | null>(null)
 const buttonRef = ref<HTMLButtonElement | null>(null)
-const wrapperHovered = useElementHover(wrapper, { delayEnter: 500, delayLeave: 500 })
+const wrapperHovered = useElementHover(wrapper, { delayEnter: 100, delayLeave: 500 })
 const { focused: buttonFocused } = useFocus(buttonRef)
 
 const isNavOpened = computed(() => navModel.value || wrapperHovered.value)
