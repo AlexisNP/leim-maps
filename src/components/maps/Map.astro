@@ -5,8 +5,7 @@ import MarkerCreator from './overlay/MarkerCreator.vue';
 import { t } from '@/i18n/store';
 import { getLangFromUrl } from '@/i18n/utils';
 import { normalizeString } from '@/utils/Strings';
-
-import CopyText from '../global/CopyText.astro';
+import MarkerContent from './MarkerContent.astro';
 
 interface Props extends MapProps {}
 
@@ -23,11 +22,6 @@ const {
     rulerHideWalkDistance = false,
     backgroundColor = 'transparent',
 } = Astro.props
-
-const lang = getLangFromUrl(Astro.url);
-
-const byText = t('common.by', lang)
-const seeMapText = t('maps.go-to-map', lang)
 ---
 
 <div class="map-wrapper">
@@ -39,39 +33,8 @@ const seeMapText = t('maps.go-to-map', lang)
 
     <div style="height: 0; width: 0; overflow: hidden; display: none;">
         {markers.map((m, index) => (
-            <div id="popup-template" data-id={`marker-${index}`} class="tooltip-content">
-                {m.cover && m.coverAuthor && m.coverLink && (
-                    <figure class={m.coverPortrait ? 'portrait' : 'landscape'}>
-                        <img src={`/images/cover/${m.cover}`} alt={m.title} width={m.coverPortrait ? 210 : 420} />
-                        <figcaption>
-                            <cite>{byText} <a href={m.coverLink} target="_blank">{m.coverAuthor}</a></cite>
-                        </figcaption>
-                    </figure>
-                )}
-                {m.link ? (
-                    <a href={m.link} target="_blank" class="title">{m.title}</a>
-                ) : (
-                    <strong class="title">{m.title}</strong>
-                )}
-                {m.description && <p>{m.description}</p>}
-
-                <div class="tooltip-footer">
-                    {m.mapId && (
-                        <div>
-                            <a href={m.mapId} class="map-link">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="80" y1="112" x2="144" y2="112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="112" y1="80" x2="112" y2="144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
-
-                                <span>
-                                    { seeMapText }
-                                </span>
-                            </a>
-                        </div>
-                    )}
-
-                    <div>
-                        <CopyText text={`${Astro.url}?p=${normalizeString(m.title)}`} />
-                    </div>
-                </div>
+            <div id="popup-template" data-id={`marker-${index}`}>
+                <MarkerContent marker={m} />
             </div>
         ))}
     </div>
@@ -87,9 +50,7 @@ const seeMapText = t('maps.go-to-map', lang)
         mapWidth,
         rulerDistanceRatio,
         rulerMainUnit,
-        rulerHideWalkDistance,
-        byText,
-        seeMapText
+        rulerHideWalkDistance
     }}
     defer
 >
