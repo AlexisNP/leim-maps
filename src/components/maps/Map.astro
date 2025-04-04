@@ -2,15 +2,11 @@
 import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
 import type { MapProps } from '@/types/Map';
 import MarkerCreator from './overlay/MarkerCreator.vue';
-import { t } from '@/i18n/store';
-import { getLangFromUrl } from '@/i18n/utils';
-import { normalizeString } from '@/utils/Strings';
 import MarkerContent from './MarkerContent.astro';
 
 interface Props extends MapProps {}
 
 const {
-    title,
     mapKey,
     zoomifyKey,
     mapHeight, //
