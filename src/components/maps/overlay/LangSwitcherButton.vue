@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import type { Language } from '@/i18n/ui';
+import { useUrlSearchParams } from '@vueuse/core';
 
+import type { Language } from '@/i18n/ui';
 import { t } from '@/i18n/store';
 import { switchLang } from '@/i18n/utils';
 
@@ -12,10 +13,12 @@ defineProps<{
 
 const flagWidth = 18;
 const flagHeight = 18;
+
+const { lat, lon, zoom } = useUrlSearchParams<{ lat: number; lon: number; zoom: number }>();
 </script>
 
 <template>
-    <a :href="switchLang(currentUrl, lang).pathname" :aria-disabled="disabled" :aria-current="disabled ? 'page' : 'false'" :tabindex="disabled ? -1 : 0">
+    <a :href="`${switchLang(currentUrl, lang).pathname}?lat=${lat}&lon=${lon}&zoom=${zoom}`" :aria-disabled="disabled" :aria-current="disabled ? 'page' : 'false'" :tabindex="disabled ? -1 : 0">
         <div class="flag">
             <svg v-if="disabled" xmlns="http://www.w3.org/2000/svg" :height="flagHeight" :width="flagWidth" class="valid" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
 

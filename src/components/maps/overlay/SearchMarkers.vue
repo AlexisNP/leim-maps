@@ -209,7 +209,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
 </script>
 
 <template>
-    <nav ref="searchBarWrapper" class="toolbar appear-from-top" :key="navKey">
+    <nav ref="searchBarWrapper" :aria-label="t('nav.aria-label')" class="toolbar appear-from-top" :key="navKey">
         <SearchMapSwitch />
 
         <div ref="searchBar" class="search-w" :data-focused="shouldBeActive">
