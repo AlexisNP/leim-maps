@@ -20,6 +20,7 @@ const props = defineProps<{
     players: PlayerMarker,
     mapKey?: string,
     searchConfig?: SearchConfig
+    disableTags?: boolean
 }>()
 
 const customMarkersKey = props.mapKey ? `custom-markers-${props.mapKey}` : 'custom-markers'
@@ -286,6 +287,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
         </div>
 
         <SearchMarkersTags
+            v-if="!props.disableTags"
             :current-search-mode="currentSearchMode"
             :custom-markers="customMarkersData"
             :search-config="props.searchConfig"

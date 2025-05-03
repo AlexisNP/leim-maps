@@ -1,4 +1,6 @@
 ---
+import { ENABLE_CUSTOM_MARKERS } from "astro:env/server";
+
 import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
 import type { MapProps } from '@/types/Map';
 import MarkerCreator from './overlay/MarkerCreator.vue';
@@ -23,8 +25,10 @@ const {
 <div class="map-wrapper">
     <main class="world-wrapper">
         <div id="world"></div>
-    
-        <MarkerCreator client:only="vue" mapKey={mapKey} />
+
+        {ENABLE_CUSTOM_MARKERS &&
+            <MarkerCreator client:only="vue" mapKey={mapKey} />
+        }
     </main>
 
     <div style="height: 0; width: 0; overflow: hidden; display: none;">

@@ -1,4 +1,6 @@
 ---
+import { ENABLE_BREADCRUMB, ENABLE_I18N, ENABLE_TOOLBAR, ENABLE_TOOLBAR_TAGS } from "astro:env/server";
+
 import type { MapMarker, PlayerMarker } from "@/types/Leaflet";
 import type { MapOverlayProps } from "@/types/Map";
 
@@ -25,14 +27,27 @@ const currentUrl = Astro.url
 
 <div class="world-overlay">
     <div class="top-bar">
-        <SearchMarkers client:only="vue" mapKey={mapKey} markers={markers} players={players} searchConfig={searchConfig} >
-            <div slot="fallback" style="height: 45px;"></div>
-        </SearchMarkers>
+        {ENABLE_TOOLBAR &&
+            <SearchMarkers
+                client:only="vue"
+                mapKey={mapKey}
+                markers={markers}
+                players={players}
+                searchConfig={searchConfig}
+                disableTags={!ENABLE_TOOLBAR_TAGS}
+            >
+                <div slot="fallback" style="height: 45px;"></div>
+            </SearchMarkers>
+        }
 
-        <LangSwitcher currentUrl={currentUrl} client:only="vue" />
+        {ENABLE_I18N &&
+            <LangSwitcher currentUrl={currentUrl} client:only="vue" />
+        }
     </div>
 
-    <MapOverlayBreadcrumbs breadcrumbs={breadcrumbs} />
+    {ENABLE_BREADCRUMB &&
+        <MapOverlayBreadcrumbs breadcrumbs={breadcrumbs} />
+    }
 </div>
 
 <style lang="scss">
