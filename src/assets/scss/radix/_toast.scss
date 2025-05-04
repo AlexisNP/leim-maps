@@ -16,6 +16,7 @@
 }
 
 .toast-root {
+    position: relative;
     padding: 15px;
     display: grid;
     grid-template-areas: 'title action' 'description action';
@@ -32,6 +33,21 @@
         color: var(--green-700);
         border: 1px solid var(--green-700);
         background-color: color-mix(in srgb, var(--green-500) 17.5%, var(--white));
+
+        .toast-icon svg {
+            fill: var(--green-700);
+        }
+    }
+
+    &:has(.toast-icon) {
+        padding-left: 2.2rem;
+    }
+
+    .toast-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: .66rem;
     }
 }
 .toast-root[data-state='open'] {

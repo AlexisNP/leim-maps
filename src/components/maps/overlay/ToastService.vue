@@ -35,10 +35,6 @@ function handleUpdate(id: string) {
     toasts.value.forEach((t, i) => {
         if (t.id === id) {
             t.open = false
-
-            setTimeout(() => {
-                toasts.value.splice(i, 1)
-            }, 5000)
         }
     })
 }
@@ -54,6 +50,10 @@ function handleUpdate(id: string) {
             v-bind="toast"
             @update:open="handleUpdate(toast.id)"
         >
+            <div v-if="toast.variant === 'success'" class="toast-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"></path></svg>
+            </div>
+
             <ToastTitle class="toast-title" v-if="toast.title">
                 {{ toast.title }}
             </ToastTitle>
