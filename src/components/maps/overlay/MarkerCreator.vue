@@ -36,6 +36,7 @@ function switchMenuMode(newMode: MenuMode) {
 
 onMounted(() => {
     const mapRef = document.getElementById('world')
+
     if (mapRef) {
         mapRef.addEventListener('contextmenu', handleContextMenu)
         mapRef.addEventListener('mousedown', hideMenu)
@@ -188,6 +189,11 @@ function hideMarkerModal() {
 function setTitleError(error: Error | null) {
     markerTitleInputError.value = error
 }
+
+function handleCoordsCopy() {
+    markerMenu.value?.dispatchEvent(new CustomEvent('on-copy-coords', { bubbles: true }))
+    hideMenu()
+}
 </script>
 
 <template>
@@ -196,7 +202,16 @@ function setTitleError(error: Error | null) {
             <menu v-show="shouldBeShown" ref="markerMenu">
                 <li>
                     <button @click="switchMenuMode('editing-marker')">
-                        {{ t('maps.markers.new') }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M128,16a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm32,96H136v24a8,8,0,0,1-16,0V112H96a8,8,0,0,1,0-16h24V72a8,8,0,0,1,16,0V96h24a8,8,0,0,1,0,16Z"></path></svg>
+
+                        <span>{{ t('maps.markers.new') }}</span>
+                    </button>
+                </li>
+                <li>
+                    <button @click="handleCoordsCopy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32Zm-8,128H176V88a8,8,0,0,0-8-8H96V48H208Z"></path></svg>
+                        
+                        <span>{{ t('maps.copyCoords') }}</span>
                     </button>
                 </li>
             </menu>
@@ -271,14 +286,23 @@ menu {
 
     li {
         a, button {
-            display: block;
+            display: flex;
+            gap: .75ch;
+            align-items: center;
             padding: .33rem 1rem;
+            padding-left: .66rem;
             font-size: .77em;
             cursor: pointer;
+            width: 100%;
 
             &:hover,
             &:focus-within {
+                color: var(--blue-700);
                 background-color: var(--slate-100);
+
+                svg {
+                    fill: var(--blue-700);
+                }
             }
         }
     }

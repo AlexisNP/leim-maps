@@ -603,13 +603,26 @@ map.on('moveend', () => {
 })
 
 /**
+ * Listener for querying a copy of the current coordinates
+ */
+window.addEventListener('on-copy-coords', () => {
+    const lon = convertScaleToX(Number(localStorage.getItem('lastHeldXPosition')))
+    const lat = convertScaleToY(Number(localStorage.getItem('lastHeldYPosition')))
+    const coordsText = JSON.stringify({ x: lon, y: lat })
+
+    navigator.clipboard.writeText(coordsText)
+    
+    window.dispatchEvent(new CustomEvent('on-toast-push', { bubbles: true, detail: { preset: 'copied-coords' }}))
+})
+
+/**
  * UTILITIES
  */
 /**
  * Convert x coords to scale with ratio, zoom and offset
  * @param {number} x
  */
- function convertXToScale(x) {
+function convertXToScale(x) {
     return (x * xRatio * zoomRatio) + xOffset
 }
 /**
