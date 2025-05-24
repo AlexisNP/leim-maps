@@ -31,9 +31,11 @@ export const translations: LanguageDict = {
         'maps.search': 'Rechercher la carte',
         'maps.searchPlaceholder': "Ville, point d'intérêt…",
         'maps.closeSearch': 'Enlever le filtre',
+        'maps.copyCoords': 'Copier les coordonnées',
         'maps.markers.new': 'Nouveau marqueur',
         'maps.markers.addPersonal': 'Ajouter un marqueur personnel',
-        'maps.markers.newNotice': "Le marqueur sera sauvegardé mais n'apparaîtra que sur votre carte !"
+        'maps.markers.newNotice': "Le marqueur sera sauvegardé mais n'apparaîtra que sur votre carte !",
+        'toast.copyCoords.description': 'Les coordonnées ont été copiées dans le presse-papiers !'
     },
     'en': {
         'lang.fr': 'Français',
@@ -61,8 +63,10 @@ export const translations: LanguageDict = {
         'maps.search': 'Search the map',
         'maps.searchPlaceholder': "City, point of interest…",
         'maps.closeSearch': 'Remove filter',
+        'maps.copyCoords': 'Copy coordinates',
         'maps.markers.new': 'New marker',
         'maps.markers.addPersonal': 'Add a personal marker',
-        'maps.markers.newNotice': "The marker will be saved but will only appear on your map!"
+        'maps.markers.newNotice': "The marker will be saved but will only appear on your map!",
+        'toast.copyCoords.description': 'Coordinates have been copied to your clipboard !'
     }
 } as const;

@@ -7,6 +7,7 @@ import type { MapOverlayProps } from "@/types/Map";
 import SearchMarkers from "./overlay/SearchMarkers.vue";
 import LangSwitcher from "./overlay/LangSwitcher.vue";
 import MapOverlayBreadcrumbs from "./MapOverlayBreadcrumbs.astro";
+import ToastService from "./overlay/ToastService.vue";
 
 interface Props extends MapOverlayProps {}
 
@@ -49,6 +50,8 @@ const currentUrl = Astro.url
         <MapOverlayBreadcrumbs breadcrumbs={breadcrumbs} />
     }
 </div>
+
+<ToastService client:only="vue" />
 
 <style lang="scss">
 .world-overlay {

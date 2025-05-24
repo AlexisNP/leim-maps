@@ -9,6 +9,8 @@
 @use 'card';
 @use 'map';
 
+@use 'radix/toast';
+
 :root {
     --white: #fff;
     --black: #111;
