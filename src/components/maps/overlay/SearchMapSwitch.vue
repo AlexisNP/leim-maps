@@ -130,6 +130,12 @@ const menus: Menu[] = [
                         </li>
                     </menu>
                 </template>
+
+                <div class="legal">
+                    <a :href="`/${$currentLang}/legal`">
+                        {{ t('legal.cta') }}
+                    </a>
+                </div>
             </PopoverContent>
         </PopoverRoot>
     </div>
@@ -149,6 +155,30 @@ const menus: Menu[] = [
     font-weight: 600;
     margin-bottom: .25rem;
     margin-left: .25rem;
+}
+
+.legal {
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    font-size: .8em;
+    text-underline-offset: 2px;
+    text-decoration: underline;
+    gap: .5ch;
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: none;
+        color: var(--green-500);
+    }
+
+    &::before {
+        content: url('/icon/question-mark.svg');
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+    }
 }
 
 .map-menu {

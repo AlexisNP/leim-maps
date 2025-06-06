@@ -35,7 +35,8 @@ export const translations: LanguageDict = {
         'maps.markers.new': 'Nouveau marqueur',
         'maps.markers.addPersonal': 'Ajouter un marqueur personnel',
         'maps.markers.newNotice': "Le marqueur sera sauvegardé mais n'apparaîtra que sur votre carte !",
-        'toast.copyCoords.description': 'Les coordonnées ont été copiées dans le presse-papiers !'
+        'toast.copyCoords.description': 'Les coordonnées ont été copiées dans le presse-papiers !',
+        'legal.cta': 'Mentions légales',
     },
     'en': {
         'lang.fr': 'Français',
@@ -67,6 +68,7 @@ export const translations: LanguageDict = {
         'maps.markers.new': 'New marker',
         'maps.markers.addPersonal': 'Add a personal marker',
         'maps.markers.newNotice': "The marker will be saved but will only appear on your map!",
-        'toast.copyCoords.description': 'Coordinates have been copied to your clipboard !'
+        'toast.copyCoords.description': 'Coordinates have been copied to your clipboard !',
+        'legal.cta': 'Legal notice',
     }
 } as const;
