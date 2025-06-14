@@ -1,22 +1,36 @@
 <script lang="ts" setup>
-import { computed, onUpdated, ref, watch } from 'vue';
+import { computed, onUpdated, ref, watch } from 'vue'
 import { useElementHover, useFocus } from '@vueuse/core'
-import { PopoverArrow, PopoverContent, PopoverRoot, PopoverTrigger } from 'radix-vue'
-import { useStore } from '@nanostores/vue';
+import {
+    PopoverArrow,
+    PopoverContent,
+    PopoverRoot,
+    PopoverTrigger,
+    DialogContent,
+    DialogDescription,
+    DialogOverlay,
+    DialogPortal,
+    DialogRoot,
+    DialogTitle,
+    DialogTrigger
+} from 'radix-vue'
 
-import { currentLang } from '@/i18n/store';
-import { t } from '@/i18n/store';
+import { useStore } from '@nanostores/vue'
 
-const $currentLang = useStore(currentLang);
+import { currentLang } from '@/i18n/store'
+import { t } from '@/i18n/store'
 
-const navModel = ref(false);
+const $currentLang = useStore(currentLang)
+
+const navModel = ref(false)
+const legalModelOpened = ref(false)
 
 const wrapper = ref<HTMLDivElement | null>(null)
 const buttonRef = ref<HTMLButtonElement | null>(null)
 const wrapperHovered = useElementHover(wrapper, { delayEnter: 100, delayLeave: 500 })
 const { focused: buttonFocused } = useFocus(buttonRef)
 
-const isNavOpened = computed(() => navModel.value || wrapperHovered.value)
+const isNavOpened = computed(() => navModel.value || wrapperHovered.value || legalModelOpened.value )
 
 watch([wrapperHovered, buttonFocused], (value) => {
     // Check if all values from array are false
@@ -25,7 +39,7 @@ watch([wrapperHovered, buttonFocused], (value) => {
     }
 })
 
-let url: URL | null = null;
+let url: URL | null = null
 
 onUpdated(() => {
     url = new URL(window.location.href)
@@ -130,6 +144,26 @@ const menus: Menu[] = [
                         </li>
                     </menu>
                 </template>
+
+                <div class="legal">
+                    <DialogRoot v-model:open="legalModelOpened">
+                        <DialogTrigger as-child>
+                            <button :href="`/${$currentLang}/legal`">
+                                {{ t('legal.cta') }}
+                            </button>
+                        </DialogTrigger>
+                        <DialogPortal>
+                            <DialogOverlay class="dialog-overlay" />
+
+                            <DialogContent class="dialog-content">
+                                <DialogTitle class="dialog-title">
+                                    {{ t('legal.cta') }}
+                                </DialogTitle>
+                                <DialogDescription class="dialog-description" v-html="t('legal.text')" />
+                            </DialogContent>
+                        </DialogPortal>
+                    </DialogRoot>
+                </div>
             </PopoverContent>
         </PopoverRoot>
     </div>
@@ -149,6 +183,34 @@ const menus: Menu[] = [
     font-weight: 600;
     margin-bottom: .25rem;
     margin-left: .25rem;
+}
+
+.legal {
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    font-size: .8em;
+    text-underline-offset: 2px;
+    text-decoration: underline;
+    gap: .5ch;
+
+    button {
+        cursor: pointer;
+    }
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: none;
+        color: var(--green-500);
+    }
+
+    &::before {
+        content: url('/icon/question-mark.svg');
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+    }
 }
 
 .map-menu {

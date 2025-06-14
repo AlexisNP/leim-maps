@@ -76,7 +76,7 @@
     }
 
     &.btn-shadow {
-        box-shadow: rgba(0, 0, 0, 0.15) 0 .2rem .3rem;
+        box-shadow: color-mix(in srgb, var(--black) 10%, transparent) 0 .2rem .3rem;
     }
 }
 
@@ -87,7 +87,7 @@
     aspect-ratio: 1;
     background-color: var(--white);
     border: 1px solid var(--slate-400);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    box-shadow: color-mix(in srgb, var(--black) 10%, transparent) 0px 4px 12px;
     border-radius: 100vmax;
     pointer-events: all;
     cursor: pointer;

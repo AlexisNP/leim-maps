@@ -35,7 +35,19 @@ export const translations: LanguageDict = {
         'maps.markers.new': 'Nouveau marqueur',
         'maps.markers.addPersonal': 'Ajouter un marqueur personnel',
         'maps.markers.newNotice': "Le marqueur sera sauvegardé mais n'apparaîtra que sur votre carte !",
-        'toast.copyCoords.description': 'Les coordonnées ont été copiées dans le presse-papiers !'
+        'toast.copyCoords.description': 'Les coordonnées ont été copiées dans le presse-papiers !',
+        'legal.cta': 'Mentions légales',
+        'legal.text': `
+            <p>Cette application est construite avec <a href="https://astro.build/" target="_blank">astro</a>, <a href="https://leafletjs.com/" target="_blank">leaflet</a> et <a href="https://vuejs.org/" target="_blank">vue</a>. J'utilise également des icônes de <a href="https://phosphoricons.com/" target="_blank">phosphor</a> et elle est actuellement hébergée sur <a href="https://www.ovhcloud.com" target="_blank">OVH</a>.</p>
+            <p>En ce qui concerne les œuvres d'art que j'utilise sur les marqueurs, j'essaie de les trouver du mon mieux sur internet. Si vous connaissez la source originale d'une œuvre d'art, veuillez me contacter par mail.</p>
+            <p>Je n'inclus pas d'images d'IA car <strong>je suis farouchement opposé à l'IA générative</strong> pour la création de contenu. Si vous voyez une image qui semble être de l'IA sur ce site, faites-le moi savoir immédiatement.</p>
+            <h3>Données personelles</h3>
+            <p>Je ne collecte aucune donnée sur votre activité dans cette application. Les marqueurs personnalisés que vous pouvez placer n'existent que sur votre navigateur en tant que données de <a href="https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage" target="_blank">local storage</a>.</p>
+            <p>Mon hébergeur collecte des données de trafic pour des raisons de sécurité ; comme les adresses IP et leur emplacement approximatif, les types de navigateurs, les agents utilisateurs (si vous êtes un robot ou un humain) et l'état de la demande. </p>
+            <p>Ce site n'utilise pas de pixels de suivi ou d'analyse, et je n'utilise aucune autre application tierce qui pourrait collecter des données sur vous (comme Youtube ou autre)</p>
+            <p>Malgré cela, <strong>aucune de vos données n'est vendue ou transmise à un tiers quel qu'il soit</strong>.</p>
+            <p>Si vous avez des questions, vous pouvez me contacter à <a href="mailto:contact@alexcreates.fr">contact@alexcreates.fr</a>.</p>
+        `
     },
     'en': {
         'lang.fr': 'Français',
@@ -67,6 +79,18 @@ export const translations: LanguageDict = {
         'maps.markers.new': 'New marker',
         'maps.markers.addPersonal': 'Add a personal marker',
         'maps.markers.newNotice': "The marker will be saved but will only appear on your map!",
-        'toast.copyCoords.description': 'Coordinates have been copied to your clipboard !'
+        'toast.copyCoords.description': 'Coordinates have been copied to your clipboard !',
+        'legal.cta': 'Legal notice',
+        'legal.text': `
+            <p>This app is built with <a href="https://astro.build/" target="_blank">astro</a>, <a href="https://leafletjs.com/" target="_blank">leaflet</a> and <a href="https://vuejs.org/" target="_blank">vue</a>. I also use icons from <a href="https://phosphoricons.com/" target="_blank">phosphor</a> and it's currently hosted on <a href="https://www.ovhcloud.com" target="_blank">OVH</a>.</p>
+            <p>For the artworks I use on the markers, I try to source them to the best of my knowledge, from what I can scrap off the internet. If you know the original source of an artwork, please contact me by email.</p>
+            <p>I don't include AI images as <strong>I'm vehemently opposed to generative AI</strong> for content creation. If you see an image that looks like it might be AI on this site, let me know immediately.</p>
+            <h3>Privacy</h3>
+            <p>I don't collect any data of your activity with this app. The custom markers that you may place only exist on your browser as <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">local storage</a> data.</p>
+            <p>My hosting provider collects traffic data for security reasons ; like IP addresses and their approximate location, browsers types, user agents (if you're a robot or a human) and the request status.</p>
+            <p>This website doesn't use any tracking pixels or analytics, and I don't use any other third-party app that might collect stuff from you (like Youtube or anything else)</p>
+            <p>Regardless, <strong>none of your data is sold or passed to any third-party whatsoever</strong>.</p>
+            <p>If you have any questions, you can contact me at <a href="mailto:contact@alexcreates.fr">contact@alexcreates.fr</a>.</p>
+        `
     }
 } as const;
