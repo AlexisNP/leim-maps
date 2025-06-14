@@ -10,6 +10,7 @@
 @use 'map';
 
 @use 'radix/toast';
+@use 'radix/dialog';
 
 :root {
     --white: #fff;
@@ -54,6 +55,10 @@ a[href^='http']::after {
     width: 1em;
     height: 1em;
     margin-left: .25em;
+}
+
+strong {
+    font-weight: 600;
 }
 
 .icon {

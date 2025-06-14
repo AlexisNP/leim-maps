@@ -28,6 +28,7 @@ export interface SearchConfig {
 }
 
 export interface MapProps {
+    title?: string
     /**
      * The ID of the map.
      * This is used to identify the map and store custom markers in the local storage.
