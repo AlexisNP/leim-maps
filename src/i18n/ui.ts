@@ -38,13 +38,13 @@ export const translations: LanguageDict = {
         'toast.copyCoords.description': 'Les coordonnées ont été copiées dans le presse-papiers !',
         'legal.cta': 'Mentions légales',
         'legal.text': `
-            <p>Cette application est construite avec <a href="https://astro.build/" target="_blank">astro</a>, <a href="https://leafletjs.com/" target="_blank">leaflet</a> et <a href="https://vuejs.org/" target="_blank">vue</a>. J'utilise également des icônes de <a href="https://phosphoricons.com/" target="_blank">phosphor</a> et elle est actuellement hébergée sur <a href="https://www.ovhcloud.com" target="_blank">OVH</a>.</p>
-            <p>En ce qui concerne les œuvres d'art que j'utilise sur les marqueurs, j'essaie de les trouver du mon mieux sur internet. Si vous connaissez la source originale d'une œuvre d'art, veuillez me contacter par mail.</p>
-            <p>Je n'inclus pas d'images d'IA car <strong>je suis farouchement opposé à l'IA générative</strong> pour la création de contenu. Si vous voyez une image qui semble être de l'IA sur ce site, faites-le moi savoir immédiatement.</p>
-            <h3>Données personelles</h3>
+            <p>Cette application est construite avec <a href="https://astro.build/" target="_blank">Astro</a>, <a href="https://leafletjs.com/" target="_blank">Leaflet</a> et <a href="https://vuejs.org/" target="_blank">Vue</a>. J'utilise également des icônes de <a href="https://phosphoricons.com/" target="_blank">Phosphor</a> et elle est actuellement hébergée sur <a href="https://www.ovhcloud.com" target="_blank">OVH</a>.</p>
+            <p>En ce qui concerne les œuvres d'art que j'utilise sur les marqueurs, j'essaie de les sourcer du mieux que je peux. Si vous connaissez la source originale d'une œuvre d'art que je n'indique pas, veuillez me contacter par mail.</p>
+            <p>Je n'inclus pas d'images d'IA, car <strong>je suis farouchement opposé à l'IA générative</strong> pour la création de contenu. Si vous voyez une image qui semble être de l'IA sur ce site, faites-le-moi savoir immédiatement.</p>
+            <h3>Données personnelles</h3>
             <p>Je ne collecte aucune donnée sur votre activité dans cette application. Les marqueurs personnalisés que vous pouvez placer n'existent que sur votre navigateur en tant que données de <a href="https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage" target="_blank">local storage</a>.</p>
             <p>Mon hébergeur collecte des données de trafic pour des raisons de sécurité ; comme les adresses IP et leur emplacement approximatif, les types de navigateurs, les agents utilisateurs (si vous êtes un robot ou un humain) et l'état de la demande. </p>
-            <p>Ce site n'utilise pas de pixels de suivi ou d'analyse, et je n'utilise aucune autre application tierce qui pourrait collecter des données sur vous (comme Youtube ou autre)</p>
+            <p>Ce site n'utilise pas de pixels de suivi ou d'analyse, et je n'utilise aucune autre application tierce qui pourrait collecter des données sur vous (comme Youtube ou autre).</p>
             <p>Malgré cela, <strong>aucune de vos données n'est vendue ou transmise à un tiers quel qu'il soit</strong>.</p>
             <p>Si vous avez des questions, vous pouvez me contacter à <a href="mailto:contact@alexcreates.fr">contact@alexcreates.fr</a>.</p>
         `
