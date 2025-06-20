@@ -251,7 +251,7 @@ const menus: Menu[] = [
             img {
                 display: block;
                 border-radius: .3rem;
-                border: .1rem solid var(--white);
+                border: .1rem solid var(--background);
                 outline: .15rem solid transparent;
             }
 
@@ -264,7 +264,7 @@ const menus: Menu[] = [
                 pointer-events: none;
 
                 .fill { fill: var(--orange-500); }
-                .stroke { fill: var(--white); }
+                .stroke { fill: var(--background); }
             }
         }
 

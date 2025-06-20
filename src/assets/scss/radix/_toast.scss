@@ -23,16 +23,16 @@
     grid-template-columns: auto max-content;
     column-gap: 15px;
     align-items: center;
-    color: var(--slate-800);
-    border: 1px solid var(--slate-400);
-    background-color: var(--white);
-    border-radius: 6px;
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    background-color: var(--background);
+    border-radius: var(--border-radius);
     box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
 
     &.toast-success {
         color: var(--green-700);
         border: 1px solid var(--green-700);
-        background-color: color-mix(in srgb, var(--green-500) 17.5%, var(--white));
+        background-color: color-mix(in srgb, var(--green-500) 17.5%, var(--background));
 
         .toast-icon svg {
             fill: var(--green-700);

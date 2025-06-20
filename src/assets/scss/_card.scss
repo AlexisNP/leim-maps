@@ -2,13 +2,13 @@
     padding-block: 0.75rem;
     padding-inline: .75rem;
     border-radius: 8px;
-    background-color: var(--white);
-    border: 1px solid var(--slate-100);
-    box-shadow: color-mix(in srgb, var(--black) 10%, transparent) 0px 4px 12px;
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
     min-width: 15rem;
 
     .card-arrow {
-        fill: var(--white);
+        fill: var(--background);
     }
 
     &.p-sm {

@@ -10,7 +10,7 @@
     .leaflet-map-pane {
         .leaflet-popup-pane {
             .leaflet-popup-content-wrapper {
-                border-radius: .25rem;
+                border-radius: var(--border-radius);
                 overflow: clip;
 
                 .leaflet-popup-content {

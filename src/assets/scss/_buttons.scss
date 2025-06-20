@@ -22,7 +22,7 @@
 
             &:hover,
             &:focus-visible {
-                color: var(--white);
+                color: var(--background);
                 background-color: var(--blue-500);
             }
         }
@@ -39,7 +39,7 @@
 
             &:hover,
             &:focus-visible {
-                color: var(--white);
+                color: var(--background);
                 background-color: var(--blue-500);
             }
         }
@@ -51,7 +51,7 @@
 
             &:hover,
             &:focus-visible {
-                color: var(--white);
+                color: var(--background);
                 background-color: var(--red-500);
             }
         }
@@ -76,7 +76,7 @@
     }
 
     &.btn-shadow {
-        box-shadow: color-mix(in srgb, var(--black) 10%, transparent) 0 .2rem .3rem;
+        box-shadow: var(--shadow);
     }
 }
 
@@ -85,9 +85,9 @@
     place-items: center;
     height: 45px;
     aspect-ratio: 1;
-    background-color: var(--white);
-    border: 1px solid var(--slate-400);
-    box-shadow: color-mix(in srgb, var(--black) 10%, transparent) 0px 4px 12px;
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
     border-radius: 100vmax;
     pointer-events: all;
     cursor: pointer;
@@ -114,12 +114,12 @@
     }
 
     &.active {
-        color: var(--white);
+        color: var(--background);
         background-color: var(--blue-500);
         border-color: var(--blue-700);
 
         svg {
-            fill: var(--white);
+            fill: var(--background);
         }
     }
 }

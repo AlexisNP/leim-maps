@@ -275,10 +275,10 @@ menu {
     padding-block: .25rem;
     top: calc(var(--mouse-y) - .5rem);
     left: calc(var(--mouse-x) + .75rem);
-    background-color: var(--white);
-    border: 1px solid var(--slate-400);
+    background-color: var(--background);
+    border: 1px solid var(--border);
     border-radius: .3rem;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    box-shadow: var(--shadow);
     z-index: 1000;
     transition-property: top, left;
     transition-duration: .16s;
@@ -313,10 +313,10 @@ dialog {
     max-width: calc(100% - 6rem);
     padding: 1.5rem 2rem;
     z-index: 9999;
-    background-color: var(--white);
-    border: 1px solid var(--slate-400);
+    background-color: var(--background);
+    border: 1px solid var(--border);
     border-radius: .75rem;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    box-shadow: var(--shadow);
     overflow: visible;
     transform: translateY(1rem);
     transition: visibility 0s ease-out .3s, opacity .3s ease-out, transform .3s ease-out;

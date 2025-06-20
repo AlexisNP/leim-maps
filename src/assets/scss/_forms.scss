@@ -16,7 +16,7 @@
             padding: .4rem .5rem;
             border: 1px solid var(--slate-300);
             font-size: .8em;
-            border-radius: .2rem;
+            border-radius: var(--border-radius);
             transition-property: box-shadow;
             transition-duration: .2s;
             transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);

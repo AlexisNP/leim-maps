@@ -308,10 +308,10 @@ function resetAllFields(actionAfter?: "focusAfter") {
         margin-left: calc(45px + .5rem);
         padding: .5rem 1.2rem;
         width: calc(100% - 3rem);
-        background: var(--white);
-        border: 1px solid var(--slate-400);
+        background: var(--background);
+        border: 1px solid var(--border);
         border-radius: 25px;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        box-shadow: var(--shadow);
         pointer-events: all;
 
         @media screen and (width >= 900px) {
