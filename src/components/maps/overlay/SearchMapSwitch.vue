@@ -213,6 +213,10 @@ const menus: Menu[] = [
     }
 }
 
+.dark .legal::before {
+    filter: invert(1);
+}
+
 .map-menu {
     margin-top: .25rem;
     margin-bottom: .5rem;
@@ -271,7 +275,7 @@ const menus: Menu[] = [
         figcaption {
             font-size: .75em;
             text-align: center;
-            color: var(--slate-500);
+            color: color-mix(in srgb, var(--foreground) 80%, var(--background));
         }
     }
 }

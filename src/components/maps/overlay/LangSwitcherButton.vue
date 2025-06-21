@@ -49,7 +49,7 @@ a {
 
     &:hover,
     &:focus-visible {
-        background-color: var(--slate-200);
+        background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
     }
 
     &[aria-current="page"] {

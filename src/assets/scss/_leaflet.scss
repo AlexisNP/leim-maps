@@ -10,6 +10,8 @@
     .leaflet-map-pane {
         .leaflet-popup-pane {
             .leaflet-popup-content-wrapper {
+                color: var(--foreground);
+                background-color: var(--background);
                 border-radius: var(--border-radius);
                 overflow: clip;
 
@@ -22,6 +24,7 @@
             .leaflet-popup-tip {
                 width: .8rem;
                 height: .8rem;
+                background-color: var(--background);
             }
         }
 
@@ -29,7 +32,7 @@
             .leaflet-tooltip {
                 &.capital-name {
                     padding: .2rem .4rem;
-                    color: #EEE;
+                    color: var(--foreground);
                     font-weight: bold;
                     background: none;
                     border: none;
@@ -37,7 +40,7 @@
                     border-bottom-left-radius: 0;
                     border-bottom-right-radius: 0;
 
-                    @include text.stroke(2, #18181b);
+                    @include text.stroke(2, color-mix(in srgb, var(--foreground) 10%, var(--background)));
 
                     &::before {
                         display: none;

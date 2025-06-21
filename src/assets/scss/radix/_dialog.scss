@@ -1,5 +1,5 @@
 .dialog-overlay {
-    background-color: color-mix(in srgb, var(--black) 40%, transparent);
+    background-color: color-mix(in srgb, var(--black) 50%, transparent);
     position: fixed;
     inset: 0;
     animation: show-overlay 150ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -19,6 +19,7 @@
     padding: 25px;
     display: grid;
     grid-template-rows: auto 1fr;
+    color: var(--foreground);
     border-radius: var(--border-radius);
     background-color: var(--background);
     border: 1px solid var(--border);
@@ -46,7 +47,7 @@
     }
 
     font-size: 1em;
-    color: var(--slate-800);
+    color: color-mix(in srgb, var(--foreground) 80%, var(--background));
     line-height: 1.5;
 
     > * + * {
@@ -69,6 +70,10 @@
             transform: translateY(-70%);
         }
     }
+}
+
+.dark .dialog-description a::after {
+    filter: invert(1);
 }
 
 @keyframes show-overlay {

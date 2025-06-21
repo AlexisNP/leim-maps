@@ -19,7 +19,7 @@
 
     &.btn-secondary {
         &:not(:disabled) {
-            background-color: var(--slate-200);
+            background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
 
             &:hover,
             &:focus-visible {
@@ -29,14 +29,14 @@
         }
 
         &:disabled {
-            color: var(--slate-500);
-            background-color: var(--slate-100);
+            color: color-mix(in srgb, var(--foreground) 50%, var(--background));
+            background-color: color-mix(in srgb, var(--foreground) 10%, var(--background));
         }
     }
 
     &.btn-info {
         &:not(:disabled) {
-            background-color: var(--slate-200);
+            background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
 
             &:hover,
             &:focus-visible {
@@ -48,7 +48,7 @@
 
     &.btn-danger {
         &:not(:disabled) {
-            background-color: var(--slate-200);
+            background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
 
             &:hover,
             &:focus-visible {

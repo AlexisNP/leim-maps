@@ -441,7 +441,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
             }
 
             &::-webkit-scrollbar-thumb {
-                background-color: var(--slate-300);
+                background-color: color-mix(in srgb, var(--foreground) 30%, var(--background));
             }
 
             > * + * {

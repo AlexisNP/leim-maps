@@ -14,7 +14,7 @@
             display: block;
             width: 100%;
             padding: .4rem .5rem;
-            border: 1px solid var(--slate-300);
+            border: 1px solid color-mix(in srgb, var(--foreground) 30%, var(--background));
             font-size: .8em;
             border-radius: var(--border-radius);
             transition-property: box-shadow;
@@ -22,7 +22,7 @@
             transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
 
             &:focus-visible {
-                box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--slate-300) 20%, transparent);
+                box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--accent) 20%, transparent);
             }
         }
     }

@@ -318,6 +318,7 @@ dialog {
     max-width: calc(100% - 6rem);
     padding: 1.5rem 2rem;
     z-index: 9999;
+    color: var(--foreground);
     background-color: var(--background);
     border: 1px solid var(--border);
     border-radius: .75rem;
