@@ -64,16 +64,7 @@
             text-decoration: none;
             color: var(--green-500);
         }
-
-        &::after {
-            top: 50%;
-            transform: translateY(-70%);
-        }
     }
-}
-
-.dark .dialog-description a::after {
-    filter: invert(1);
 }
 
 @keyframes show-overlay {

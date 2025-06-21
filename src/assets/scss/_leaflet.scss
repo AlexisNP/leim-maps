@@ -50,3 +50,47 @@
         }
     }
 }
+
+.leaflet-touch .leaflet-bar {
+    border-color: var(--border);
+
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+        color: var(--foreground);
+        background-color: var(--background);
+        border-color: var(--border);
+
+        &:hover,
+        &:focus-visible {
+            color: var(--background);
+            background-color: var(--accent);
+        }
+    }
+}
+
+.leaflet-touch .leaflet-control-measure {
+    color: var(--foreground);
+    background-color: var(--background);
+
+    .leaflet-control-measure-toggle {
+        color: var(--foreground);
+        background-color: var(--background);
+        border-color: var(--border);
+        background-image: url('/icon/ruler.svg');
+        background-size: 66%;
+
+        &:hover,
+        &:focus-visible {
+            color: var(--background);
+            background-color: var(--accent);
+        }
+    }
+}
+
+.dark {
+    .leaflet-touch .leaflet-control-measure {
+        .leaflet-control-measure-toggle {
+            background-image: url('/icon/ruler-dark.svg');
+        }
+    }
+}

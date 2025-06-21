@@ -214,7 +214,7 @@ const menus: Menu[] = [
 }
 
 .dark .legal::before {
-    filter: invert(1);
+    content: url('/icon/question-mark-dark.svg');
 }
 
 .map-menu {

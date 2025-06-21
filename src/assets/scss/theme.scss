@@ -59,16 +59,22 @@ html {
 }
 
 a[href^='http'] {
-    padding-right: 1.25em;
+    white-space: nowrap;
+    orphans: 2;
 }
 
 a[href^='http']::after {
-    position: absolute;
     content: url('/icon/square-arrow-out.svg');
     display: inline-block;
     width: 1em;
     height: 1em;
     margin-left: .25em;
+}
+
+.dark {
+    a[href^='http']::after {
+        content: url('/icon/square-arrow-out-dark.svg');
+    }
 }
 
 strong {
