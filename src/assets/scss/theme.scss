@@ -41,8 +41,16 @@
     --foreground: var(--black);
     --background: var(--white);
     --border: var(--slate-400);
+    --accent: var(--blue-500);
+
     --border-radius: .25rem;
     --shadow: color-mix(in srgb, var(--foreground) 10%, transparent) 0px 4px 12px;
+}
+
+.dark {
+    --foreground: var(--slate-300);
+    --background: var(--slate-950);
+    --border: var(--slate-600);
 }
 
 html {

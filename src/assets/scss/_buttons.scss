@@ -5,8 +5,9 @@
     gap: .5rem;
     font-size: .9em;
     font-weight: 500;
+    color: var(--foreground);
     border: 1px solid transparent;
-    border-radius: .2rem;
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition-property: color, background-color, border-color;
     transition-duration: .2s;
@@ -23,7 +24,7 @@
             &:hover,
             &:focus-visible {
                 color: var(--background);
-                background-color: var(--blue-500);
+                background-color: var(--accent);
             }
         }
 
@@ -40,7 +41,7 @@
             &:hover,
             &:focus-visible {
                 color: var(--background);
-                background-color: var(--blue-500);
+                background-color: var(--accent);
             }
         }
     }
@@ -97,6 +98,7 @@
     transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
     svg {
+        fill: var(--foreground);
         width: 1.15em;
         transition-property: fill;
         transition-duration: .15s;
@@ -105,18 +107,18 @@
 
     &:hover,
     &:focus-visible {
-        outline-color: color-mix(in srgb, var(--blue-500) 20%, transparent);
-        border-color: var(--blue-500);
+        outline-color: color-mix(in srgb, var(--accent) 20%, transparent);
+        border-color: var(--accent);
         
         svg {
-            fill: var(--blue-500);
+            fill: var(--accent);
         }
     }
 
     &.active {
         color: var(--background);
-        background-color: var(--blue-500);
-        border-color: var(--blue-700);
+        background-color: var(--accent);
+        border-color: color-mix(in srgb, var(--accent) 75%, var(--background));
 
         svg {
             fill: var(--background);

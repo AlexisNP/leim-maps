@@ -125,6 +125,7 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
         padding-inline: .8rem;
         font-weight: 600;
         font-size: .85em;
+        color: var(--foreground);
         background: var(--background);
         border: 1px solid var(--border);
         border-radius: 100vmax;
@@ -143,6 +144,10 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
 
         .icon {
             width: 1.1em;
+        }
+
+        svg {
+            fill: var(--foreground);
         }
 
         .label {

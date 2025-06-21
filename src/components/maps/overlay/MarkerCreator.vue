@@ -275,6 +275,7 @@ menu {
     padding-block: .25rem;
     top: calc(var(--mouse-y) - .5rem);
     left: calc(var(--mouse-x) + .75rem);
+    color: var(--foreground);
     background-color: var(--background);
     border: 1px solid var(--border);
     border-radius: .3rem;
@@ -295,13 +296,17 @@ menu {
             cursor: pointer;
             width: 100%;
 
+            svg {
+                fill: var(--foreground);
+            }
+
             &:hover,
             &:focus-within {
-                color: var(--blue-700);
-                background-color: var(--slate-100);
+                color: color-mix(in srgb, var(--accent) 90%, var(--background));
+                background-color: color-mix(in srgb, var(--accent) 10%, var(--background));
 
                 svg {
-                    fill: var(--blue-700);
+                    fill: color-mix(in srgb, var(--accent) 75%, var(--background));
                 }
             }
         }
