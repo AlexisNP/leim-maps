@@ -11,7 +11,7 @@
     cursor: pointer;
     transition-property: color, background-color, border-color;
     transition-duration: .2s;
-    transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition-timing-function: var(--timing-function);
 
     &:disabled {
         cursor: not-allowed;
@@ -95,14 +95,14 @@
     outline: .2rem solid transparent;
     transition-property: color, background-color, border-color, outline-color;
     transition-duration: .15s;
-    transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    transition-timing-function: var(--timing-function);
 
     svg {
         fill: var(--foreground);
         width: 1.15em;
         transition-property: fill;
         transition-duration: .15s;
-        transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        transition-timing-function: var(--timing-function);
     }
 
     &:hover,

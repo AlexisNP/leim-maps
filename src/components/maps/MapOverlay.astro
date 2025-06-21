@@ -8,6 +8,7 @@ import SearchMarkers from "./overlay/SearchMarkers.vue";
 import LangSwitcher from "./overlay/LangSwitcher.vue";
 import MapOverlayBreadcrumbs from "./MapOverlayBreadcrumbs.astro";
 import ToastService from "./overlay/ToastService.vue";
+import ThemeSwitch from "../global/ThemeSwitch.vue";
 
 interface Props extends MapOverlayProps {}
 
@@ -41,9 +42,14 @@ const currentUrl = Astro.url
             </SearchMarkers>
         }
 
-        {ENABLE_I18N &&
-            <LangSwitcher currentUrl={currentUrl} client:only="vue" />
-        }
+        
+        <div class="right-menu">
+            {ENABLE_I18N &&
+                <LangSwitcher currentUrl={currentUrl} client:only="vue" />
+            }
+
+            <ThemeSwitch client:only="vue" />
+        </div>
     </div>
 
     {ENABLE_BREADCRUMB &&
@@ -70,6 +76,16 @@ const currentUrl = Astro.url
         justify-content: space-between;
         align-items: top;
         gap: 1rem;
+    }
+
+    .right-menu {
+        display: grid;
+        gap: .5rem;
+        align-content: flex-start;
+
+        @media screen and (width >= 900px) {
+            display: flex;
+        }
     }
 }
 </style>

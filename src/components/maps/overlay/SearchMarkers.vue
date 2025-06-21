@@ -314,6 +314,9 @@ function resetAllFields(actionAfter?: "focusAfter") {
         border-radius: 25px;
         box-shadow: var(--shadow);
         pointer-events: all;
+        transition-property: color, background-color, border-color, outline-color;
+        transition-duration: .15s;
+        transition-timing-function: var(--timing-function);
 
         @media screen and (width >= 900px) {
             width: clamp(25rem, 35dvw, 30rem);

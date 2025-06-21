@@ -1,7 +1,7 @@
 // Animations on load
 @media screen and (prefers-reduced-motion: no-preference) {
     .appear-from-top {
-        animation: fadeIn .2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        animation: fadeIn .2s var(--timing-function);
     }
 
     @keyframes fadeIn {

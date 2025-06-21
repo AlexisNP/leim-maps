@@ -2,7 +2,7 @@
     background-color: color-mix(in srgb, var(--black) 50%, transparent);
     position: fixed;
     inset: 0;
-    animation: show-overlay 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: show-overlay 150ms var(--timing-function);
     z-index: 100;
 }
 
@@ -24,7 +24,7 @@
     background-color: var(--background);
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
-    animation: show-content 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: show-content 150ms var(--timing-function);
 
     &:focus {
         outline: none;
