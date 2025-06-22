@@ -94,8 +94,7 @@ const menus: Menu[] = [
             {
                 name: 'Mines Blanches',
                 img: '/images/aldys-cantane-mines-blanches-cover.png',
-                url: `/${$currentLang.value}/aldys/cantane/mines-blanches`,
-                newItem: true
+                url: `/${$currentLang.value}/aldys/cantane/mines-blanches`
             },
         ]
     }
