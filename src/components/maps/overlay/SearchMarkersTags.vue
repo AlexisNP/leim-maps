@@ -125,10 +125,11 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
         padding-inline: .8rem;
         font-weight: 600;
         font-size: .85em;
-        background: var(--white);
-        border: 1px solid var(--slate-400);
+        color: var(--foreground);
+        background: var(--background);
+        border: 1px solid var(--border);
         border-radius: 100vmax;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        box-shadow: var(--shadow);
         white-space: nowrap;
         pointer-events: all;
         cursor: pointer;
@@ -145,6 +146,10 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
             width: 1.1em;
         }
 
+        svg {
+            fill: var(--foreground);
+        }
+
         .label {
             text-underline-offset: .15rem;
         }
@@ -154,12 +159,12 @@ function emitCategorySwitch(newCategory: MapMarkerGroup) {
         @each $c in $colors {
             &.#{$c} {
                 &.active {
-                    color: var(--white);
+                    color: var(--background);
                     background-color: var(--#{$c}-500);
                     border-color: var(--#{$c}-700);
 
                     .icon {
-                        fill: var(--white);
+                        fill: var(--background);
                     }
                 }
 

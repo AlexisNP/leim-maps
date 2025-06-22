@@ -37,24 +37,45 @@
     --orange-700: #c2410c;
     --purple-500: #8b5cf6;
     --purple-700: #6d28d9;
+
+    --foreground: var(--black);
+    --background: var(--white);
+    --border: var(--slate-400);
+    --accent: var(--blue-500);
+
+    --border-radius: .25rem;
+    --shadow: color-mix(in srgb, var(--foreground) 10%, transparent) 0px 4px 12px;
+    --timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.dark {
+    --foreground: var(--slate-300);
+    --background: var(--slate-950);
+    --border: var(--slate-600);
 }
 
 html {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: var(--slate-900);
+    color: var(--foreground);
 }
 
 a[href^='http'] {
-    padding-right: 1.25em;
+    white-space: nowrap;
+    orphans: 2;
 }
 
 a[href^='http']::after {
-    position: absolute;
     content: url('/icon/square-arrow-out.svg');
     display: inline-block;
     width: 1em;
     height: 1em;
     margin-left: .25em;
+}
+
+.dark {
+    a[href^='http']::after {
+        content: url('/icon/square-arrow-out-dark.svg');
+    }
 }
 
 strong {

@@ -5,12 +5,13 @@
     gap: .5rem;
     font-size: .9em;
     font-weight: 500;
+    color: var(--foreground);
     border: 1px solid transparent;
-    border-radius: .2rem;
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition-property: color, background-color, border-color;
     transition-duration: .2s;
-    transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition-timing-function: var(--timing-function);
 
     &:disabled {
         cursor: not-allowed;
@@ -18,40 +19,40 @@
 
     &.btn-secondary {
         &:not(:disabled) {
-            background-color: var(--slate-200);
+            background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
 
             &:hover,
             &:focus-visible {
-                color: var(--white);
-                background-color: var(--blue-500);
+                color: var(--background);
+                background-color: var(--accent);
             }
         }
 
         &:disabled {
-            color: var(--slate-500);
-            background-color: var(--slate-100);
+            color: color-mix(in srgb, var(--foreground) 50%, var(--background));
+            background-color: color-mix(in srgb, var(--foreground) 10%, var(--background));
         }
     }
 
     &.btn-info {
         &:not(:disabled) {
-            background-color: var(--slate-200);
+            background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
 
             &:hover,
             &:focus-visible {
-                color: var(--white);
-                background-color: var(--blue-500);
+                color: var(--background);
+                background-color: var(--accent);
             }
         }
     }
 
     &.btn-danger {
         &:not(:disabled) {
-            background-color: var(--slate-200);
+            background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
 
             &:hover,
             &:focus-visible {
-                color: var(--white);
+                color: var(--background);
                 background-color: var(--red-500);
             }
         }
@@ -76,7 +77,7 @@
     }
 
     &.btn-shadow {
-        box-shadow: color-mix(in srgb, var(--black) 10%, transparent) 0 .2rem .3rem;
+        box-shadow: var(--shadow);
     }
 }
 
@@ -85,41 +86,42 @@
     place-items: center;
     height: 45px;
     aspect-ratio: 1;
-    background-color: var(--white);
-    border: 1px solid var(--slate-400);
-    box-shadow: color-mix(in srgb, var(--black) 10%, transparent) 0px 4px 12px;
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
     border-radius: 100vmax;
     pointer-events: all;
     cursor: pointer;
     outline: .2rem solid transparent;
     transition-property: color, background-color, border-color, outline-color;
     transition-duration: .15s;
-    transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    transition-timing-function: var(--timing-function);
 
     svg {
+        fill: var(--foreground);
         width: 1.15em;
         transition-property: fill;
         transition-duration: .15s;
-        transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        transition-timing-function: var(--timing-function);
     }
 
     &:hover,
     &:focus-visible {
-        outline-color: color-mix(in srgb, var(--blue-500) 20%, transparent);
-        border-color: var(--blue-500);
+        outline-color: color-mix(in srgb, var(--accent) 20%, transparent);
+        border-color: var(--accent);
         
         svg {
-            fill: var(--blue-500);
+            fill: var(--accent);
         }
     }
 
     &.active {
-        color: var(--white);
-        background-color: var(--blue-500);
-        border-color: var(--blue-700);
+        color: var(--background);
+        background-color: var(--accent);
+        border-color: color-mix(in srgb, var(--accent) 75%, var(--background));
 
         svg {
-            fill: var(--white);
+            fill: var(--background);
         }
     }
 }

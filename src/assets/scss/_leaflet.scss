@@ -10,7 +10,9 @@
     .leaflet-map-pane {
         .leaflet-popup-pane {
             .leaflet-popup-content-wrapper {
-                border-radius: .25rem;
+                color: var(--foreground);
+                background-color: var(--background);
+                border-radius: var(--border-radius);
                 overflow: clip;
 
                 .leaflet-popup-content {
@@ -22,6 +24,7 @@
             .leaflet-popup-tip {
                 width: .8rem;
                 height: .8rem;
+                background-color: var(--background);
             }
         }
 
@@ -29,21 +32,77 @@
             .leaflet-tooltip {
                 &.capital-name {
                     padding: .2rem .4rem;
-                    color: #EEE;
+                    color: var(--foreground);
                     font-weight: bold;
                     background: none;
                     border: none;
                     box-shadow: none;
                     border-bottom-left-radius: 0;
                     border-bottom-right-radius: 0;
+                    transition-property: color, text-shadow;
+                    transition-duration: .15s;
+                    transition-timing-function: var(--timing-function);
 
-                    @include text.stroke(2, #18181b);
+                    @include text.stroke(2, var(--background));
 
                     &::before {
                         display: none;
                     }
                 }
             }
+        }
+    }
+}
+
+.leaflet-touch .leaflet-bar {
+    border-color: var(--border);
+
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+        color: var(--foreground);
+        background-color: var(--background);
+        border-color: var(--border);
+        transition-property: color, background-color, border-color, outline-color;
+        transition-duration: .15s;
+        transition-timing-function: var(--timing-function);
+
+        &:hover,
+        &:focus-visible {
+            color: var(--background);
+            background-color: var(--accent);
+        }
+    }
+}
+
+.leaflet-touch .leaflet-control-measure {
+    color: var(--foreground);
+    background-color: var(--background);
+    transition-property: color, background-color, border-color, outline-color;
+    transition-duration: .15s;
+    transition-timing-function: var(--timing-function);
+
+    .leaflet-control-measure-toggle {
+        color: var(--foreground);
+        background-color: var(--background);
+        border-color: var(--border);
+        background-image: url('/icon/ruler.svg');
+        background-size: 66%;
+        transition-property: color, background-color, border-color, outline-color;
+        transition-duration: .15s;
+        transition-timing-function: var(--timing-function);
+
+        &:hover,
+        &:focus-visible {
+            color: var(--background);
+            background-color: var(--accent);
+        }
+    }
+}
+
+.dark {
+    .leaflet-touch .leaflet-control-measure {
+        .leaflet-control-measure-toggle {
+            background-image: url('/icon/ruler-dark.svg');
         }
     }
 }

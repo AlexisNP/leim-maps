@@ -94,8 +94,7 @@ const menus: Menu[] = [
             {
                 name: 'Mines Blanches',
                 img: '/images/aldys-cantane-mines-blanches-cover.png',
-                url: `/${$currentLang.value}/aldys/cantane/mines-blanches`,
-                newItem: true
+                url: `/${$currentLang.value}/aldys/cantane/mines-blanches`
             },
         ]
     }
@@ -213,6 +212,10 @@ const menus: Menu[] = [
     }
 }
 
+.dark .legal::before {
+    content: url('/icon/question-mark-dark.svg');
+}
+
 .map-menu {
     margin-top: .25rem;
     margin-bottom: .5rem;
@@ -251,7 +254,7 @@ const menus: Menu[] = [
             img {
                 display: block;
                 border-radius: .3rem;
-                border: .1rem solid var(--white);
+                border: .1rem solid var(--background);
                 outline: .15rem solid transparent;
             }
 
@@ -264,14 +267,14 @@ const menus: Menu[] = [
                 pointer-events: none;
 
                 .fill { fill: var(--orange-500); }
-                .stroke { fill: var(--white); }
+                .stroke { fill: var(--background); }
             }
         }
 
         figcaption {
             font-size: .75em;
             text-align: center;
-            color: var(--slate-500);
+            color: color-mix(in srgb, var(--foreground) 80%, var(--background));
         }
     }
 }

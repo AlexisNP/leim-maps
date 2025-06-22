@@ -59,6 +59,54 @@ const lang = getLangFromUrl(Astro.url) || defaultLang;
         <script is:inline type="text/javascript" src="/js/leaflet-measure.min.js"></script>
 	</head>
 	<body>
+        <script is:inline>
+            let initialTheme = localStorage.getItem("theme");
+            const darkModeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    
+            // Initial paint from localstorage
+            switch (initialTheme) {
+                case "light":
+                    enableLightTheme();
+                break;
+                case "system":
+                    resetTheme();
+                break;
+                case "dark":
+                default:
+                    enableDarkTheme();
+                break;
+            }
+    
+            // Enables dark theme and updates preferences
+            function enableDarkTheme() {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+                localStorage.setItem("theme", "dark");
+            }
+    
+            // Enables light theme and updates preferences
+            function enableLightTheme() {
+                document.documentElement.classList.add('light');
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem("theme", "light");
+            }
+    
+            // Reset theme to OS values
+            function resetTheme() {
+                const prefersDark = darkModeMq.matches;
+    
+                if (prefersDark) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                } else {
+                    document.documentElement.classList.add('light');
+                    document.documentElement.classList.remove('dark');
+                }
+    
+                localStorage.setItem("theme", "system");
+            }
+        </script>
+
 		<slot />
 	</body>
 </html>

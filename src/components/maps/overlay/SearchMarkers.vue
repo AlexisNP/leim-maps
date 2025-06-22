@@ -308,11 +308,15 @@ function resetAllFields(actionAfter?: "focusAfter") {
         margin-left: calc(45px + .5rem);
         padding: .5rem 1.2rem;
         width: calc(100% - 3rem);
-        background: var(--white);
-        border: 1px solid var(--slate-400);
+        color: var(--foreground);
+        background: var(--background);
+        border: 1px solid var(--border);
         border-radius: 25px;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        box-shadow: var(--shadow);
         pointer-events: all;
+        transition-property: color, background-color, border-color, outline-color;
+        transition-duration: .15s;
+        transition-timing-function: var(--timing-function);
 
         @media screen and (width >= 900px) {
             width: clamp(25rem, 35dvw, 30rem);
@@ -338,7 +342,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
                 flex-grow: 1;
 
                 &::placeholder {
-                    color: var(--slate-400);
+                    color: color-mix(in srgb, var(--foreground) 75%, var(--background));
                 }
             }
 
@@ -348,7 +352,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
                 transform: translateY(-50%);
                 left: 0;
                 width: $search-icon-size;
-                fill: var(--slate-400);
+                fill: color-mix(in srgb, var(--foreground) 75%, var(--background));
                 pointer-events: none;
             }
 
@@ -375,16 +379,20 @@ function resetAllFields(actionAfter?: "focusAfter") {
                 }
 
                 &:hover {
+                    .icon {
+                        color: var(--foreground);
+                    }
+
                     &::before {
-                        background-color: var(--slate-300);
+                        background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
                     }
                 }
 
                 &:focus-visible {
                     &::before {
-                        background-color: var(--slate-200);
-                        outline: 1px dotted var(--slate-500);
-                        outline: 4px auto var(--slate-900);
+                        background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
+                        outline: 1px dotted color-mix(in srgb, var(--foreground) 50%, var(--background));
+                        outline: 4px auto color-mix(in srgb, var(--foreground) 90%, var(--background));
                     }
                 }
             }
@@ -399,22 +407,22 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
                 &:hover {
                     &::before {
-                        background-color: var(--slate-300);
+                        background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
                     }
                 }
 
                 &:focus-visible {
                     &::before {
-                        background-color: var(--slate-200);
-                        outline: 1px dotted var(--slate-500);
-                        outline: 4px auto var(--slate-900);
+                        background-color: color-mix(in srgb, var(--foreground) 20%, var(--background));
+                        outline: 1px dotted color-mix(in srgb, var(--foreground) 50%, var(--background));
+                        outline: 4px auto color-mix(in srgb, var(--foreground) 90%, var(--background));
                     }
                 }
             }
 
             .close-btn {
                 font-size: 1.1em;
-                color: var(--slate-500);
+                color: color-mix(in srgb, var(--foreground) 75%, var(--background));
             }
         }
 
@@ -436,7 +444,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
             }
 
             &::-webkit-scrollbar-thumb {
-                background-color: var(--slate-300);
+                background-color: color-mix(in srgb, var(--foreground) 30%, var(--background));
             }
 
             > * + * {
@@ -453,7 +461,7 @@ function resetAllFields(actionAfter?: "focusAfter") {
                 }
 
                 &:hover:not(:has(a:hover)) {
-                    background-color: var(--slate-100);
+                    background-color: color-mix(in srgb, var(--foreground) 10%, var(--background));
 
                     .title {
                         text-decoration: underline;
@@ -490,9 +498,14 @@ function resetAllFields(actionAfter?: "focusAfter") {
                     .title {
                         font-weight: 500;
                         text-underline-offset: 2px;
+
+                        & + .desc {
+                            margin-top: .25rem;
+                        }
                     }
+
                     .desc {
-                        color: var(--slate-500);
+                        color: color-mix(in srgb, var(--foreground) 50%, var(--background));
 
                         .map-link {
                             margin-top: .5rem;
@@ -528,12 +541,12 @@ function resetAllFields(actionAfter?: "focusAfter") {
                         top: 50%;
                         transform: translateY(-50%);
                         right: .75rem;
-                        fill: var(--slate-400);
+                        fill: color-mix(in srgb, var(--foreground) 70%, var(--background));
                     }
 
                     &:focus-visible {
-                        outline: 1px dotted var(--slate-500);
-                        outline: 4px auto var(--slate-900);
+                        outline: 1px dotted color-mix(in srgb, var(--foreground) 50%, var(--background));
+                        outline: 4px auto color-mix(in srgb, var(--foreground) 90%, var(--background));
 
                         .title {
                             text-decoration: underline;
@@ -600,8 +613,9 @@ function resetAllFields(actionAfter?: "focusAfter") {
 
         &[data-focused="true"] {
             margin-bottom: 1em;
+
             .input-w {
-                border-bottom: 1px solid var(--slate-200);
+                border-bottom: 1px solid color-mix(in srgb, var(--foreground) 20%, var(--background));
                 margin-bottom: .5rem;
                 padding-bottom: .5rem;
 

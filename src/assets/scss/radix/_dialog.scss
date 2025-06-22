@@ -1,8 +1,8 @@
 .dialog-overlay {
-    background-color: color-mix(in srgb, var(--black) 40%, transparent);
+    background-color: color-mix(in srgb, var(--black) 50%, transparent);
     position: fixed;
     inset: 0;
-    animation: show-overlay 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: show-overlay 150ms var(--timing-function);
     z-index: 100;
 }
 
@@ -19,11 +19,12 @@
     padding: 25px;
     display: grid;
     grid-template-rows: auto 1fr;
-    border-radius: 8px;
-    background-color: var(--white);
-    border: 1px solid var(--slate-100);
-    box-shadow: color-mix(in srgb, var(--black) 10%, transparent) 0px 4px 12px;
-    animation: show-content 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--foreground);
+    border-radius: var(--border-radius);
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    animation: show-content 150ms var(--timing-function);
 
     &:focus {
         outline: none;
@@ -46,7 +47,7 @@
     }
 
     font-size: 1em;
-    color: var(--slate-800);
+    color: color-mix(in srgb, var(--foreground) 80%, var(--background));
     line-height: 1.5;
 
     > * + * {
@@ -62,11 +63,6 @@
         &:focus-visible {
             text-decoration: none;
             color: var(--green-500);
-        }
-
-        &::after {
-            top: 50%;
-            transform: translateY(-70%);
         }
     }
 }

@@ -62,7 +62,7 @@ button {
     display: inline-flex;
     align-items: center;
     gap: .5ch;
-    color: var(--slate-700);
+    color: color-mix(in srgb, var(--foreground) 70%, var(--background));
     cursor: pointer;
     text-underline-offset: 2px;
     text-decoration: none;
@@ -75,7 +75,7 @@ button {
     svg {
         width: 1rem;
         height: 1rem;
-        fill: var(--slate-700);
+        fill: color-mix(in srgb, var(--foreground) 70%, var(--background));
     }
 }
 </style>
