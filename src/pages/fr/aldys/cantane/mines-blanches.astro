@@ -10,7 +10,12 @@ import markersData from '@/components/maps/data/fr/aldys/cantane/les-mines-blanc
 const markers = markersData.data as MapMarker[]
 ---
 
-<Layout title="Les Mines Blanches ~ Cartographie">
+<Layout
+    title="Les Mines Blanches ~ Cartographie"
+    head={{
+        description: "Cartographie du complexe des Mines Blanches, laissé à l'abandon à l'est de Cantane."
+    }}
+>
     <MapOverlay
         mapKey='aldys-cantane-mines'
         markers={markers}

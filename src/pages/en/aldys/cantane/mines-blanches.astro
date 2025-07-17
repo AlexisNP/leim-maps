@@ -10,7 +10,12 @@ import markersData from '@/components/maps/data/en/aldys/cantane/les-mines-blanc
 const markers = markersData.data as MapMarker[]
 ---
 
-<Layout title="White Hollow ~ Maps">
+<Layout
+    title="White Hollow ~ Maps"
+    head={{
+        description: "Map of the White Hollow mining complex, left abandonned east of Cantane."
+    }}
+>
     <MapOverlay
         mapKey='aldys-cantane-mines'
         markers={markers}
