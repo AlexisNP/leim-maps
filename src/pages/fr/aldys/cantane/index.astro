@@ -10,7 +10,12 @@ import markersData from '@/components/maps/data/fr/aldys/cantane/markers.json'
 const markers = markersData.data as MapMarker[]
 ---
 
-<Layout title="Cantane ~ Cartographie">
+<Layout
+    title="Cantane ~ Cartographie"
+    head={{
+        description: "Carte de la ville de Cantane, au sud de l'Alliance Kaldélienne."
+    }}
+>
     <MapOverlay
         mapKey='aldys-cantane'
         markers={markers}

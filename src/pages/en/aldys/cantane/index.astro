@@ -1,5 +1,5 @@
 ---
-import type { MapMarker, PlayerMarker } from '@/types/Leaflet';
+import type { MapMarker } from '@/types/Leaflet';
 
 import Layout from '@/layouts/Layout.astro';
 import Map from '@/components/maps/Map.astro'
@@ -10,7 +10,12 @@ import markersData from '@/components/maps/data/en/aldys/cantane/markers.json'
 const markers = markersData.data as MapMarker[]
 ---
 
-<Layout title="Cantane ~ Maps">
+<Layout
+    title="Cantane ~ Maps"
+    head={{
+        description: "Map of the old city of Cantane, south of the Kaldelium Accord."
+    }}
+>
     <MapOverlay
         mapKey='aldys-cantane'
         markers={markers}

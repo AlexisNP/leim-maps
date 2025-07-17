@@ -4,7 +4,12 @@ import Map from '@/components/maps/Map.astro'
 import MapOverlay from '@/components/maps/MapOverlay.astro'
 ---
 
-<Layout title="Borélis ~ Cartographie">
+<Layout
+    title="Borélis ~ Cartographie"
+    head={{
+        description: "Carte de la ville côtière de Borélis, sur les côtes gelées au nord de l'Alliance Kaldélienne."
+    }}
+>
     <MapOverlay
         mapKey='aldys-borelis'
         searchConfig={{

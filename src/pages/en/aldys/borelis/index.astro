@@ -4,7 +4,12 @@ import Map from '@/components/maps/Map.astro'
 import MapOverlay from '@/components/maps/MapOverlay.astro'
 ---
 
-<Layout title="Borélis ~ Maps">
+<Layout
+    title="Borélis ~ Maps"
+    head={{
+        description: "Map of Borélis, a harbour city on the northern shores of the Kaldelium Accord."
+    }}
+>
     <MapOverlay
         mapKey='aldys-borelis'
         searchConfig={{

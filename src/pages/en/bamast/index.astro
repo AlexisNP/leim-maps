@@ -12,7 +12,12 @@ const markers = markersData.data as MapMarker[]
 const players = playersData as PlayerMarker
 ---
 
-<Layout title="Bamast ~ Maps">
+<Layout
+    title="Bamast ~ Maps"
+    head={{
+        description: "Map of the archipelago of Bamast and its many islands in the Balamian Ocean."
+    }}
+>
     <MapOverlay
         mapKey='bamast'
         markers={markers}
